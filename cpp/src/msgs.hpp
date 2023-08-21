@@ -22,7 +22,7 @@
 // SOFTWARE.
 //////////////////////////////////////////////////////////////////////////////////
 #pragma once
-
+#include <stdint.h>
 
 struct __attribute__((packed)) date_t {
   uint8_t year, month, day;
