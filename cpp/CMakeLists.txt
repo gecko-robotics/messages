@@ -33,97 +33,9 @@ else()
     set(BUILD_GTESTS OFF)
 endif()
 
-# Threads -----------------
-# find_package(Threads REQUIRED)
-# if(Threads_FOUND)
-#     message(STATUS ">> Threads found")
-#     if(CMAKE_USE_PTHREADS_INIT)
-#         message(STATUS " -> Using pthreads")
-#     endif()
-# else()
-#     message(WARNING "*** Could not find Threads ***")
-# endif()
-
-# include(FetchContent)
-
-# option(USE_SERIALCOMM "Using serialcomm library" ON)
-# if(USE_SERIALCOMM)
-    # # serialcomm -----------------
-    # FetchContent_Declare(serialcomm
-    # GIT_REPOSITORY "https://github.com/gecko-robotics/serialcomm.git"
-    # GIT_TAG "origin/main"
-    # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/serialcomm"
-    # )
-# endif(USE_SERIALCOMM)
-
-# gciMock -----------------
-# FetchContent_Declare(gcimock
-#   GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciMock.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcimock"
-# )
-
-# yivo -----------------
-# FetchContent_Declare(yivo
-#   GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/yivo.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/yivo"
-#   SOURCE_SUBDIR "cpp"
-# )
-
-# # gciSensors -----------------
-# FetchContent_Declare(gcisensors
-#   GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciSensors.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcisensors"
-# )
-
-# squaternion -----------------
-# FetchContent_Declare(squaternion
-#   GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/squaternion.git"
-#   GIT_TAG "origin/master"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/squaternion"
-#   SOURCE_SUBDIR "cpp"
-# )
-
-# marko -----------------
-# FetchContent_Declare(marko
-#     GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
-#     GIT_TAG "origin/master"
-#     SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/marko"
-#     SOURCE_SUBDIR "cpp"
-# )
-
-# LIST(APPEND libs
-#     # squaternion
-#     # yivo
-#     # serialcomm
-#     # gcimock
-#     marko
-# )
-
-# FetchContent_MakeAvailable( ${libs} )
-
-# foreach(lib ${libs})
-#     if(${lib}_POPULATED)
-#         message(STATUS "=> Found ${lib}")
-#     else()
-#         message(STATUS "*** Didn't find ${lib}")
-#     endif()
-# endforeach()
-
-
 # Library =====================================================================
-# configure_file(src/gecko2/version.hpp.in src/gecko2/version.hpp)
-
 add_library(${PROJECT_NAME} INTERFACE src)
 target_include_directories(${PROJECT_NAME} INTERFACE src)
-# target_link_libraries(${PROJECT_NAME}
-# INTERFACE
-#         # marko
-#         # yivo
-#         # Threads::Threads
-# )
 
 message(STATUS "Building ${PROJECT_NAME} examples is ${BUILD_EXAMPLES}")
 if(BUILD_EXAMPLES)
