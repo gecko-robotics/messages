@@ -22,7 +22,7 @@
 // SOFTWARE.
 //////////////////////////////////////////////////////////////////////////////////
 #pragma once
-
+#include <stdint.h>
 
 // constexpr uint8_t MSG_NO_ERROR    = 0; // when use this, echo?
 // constexpr uint8_t MSG_ERROR       = 1; // ??
