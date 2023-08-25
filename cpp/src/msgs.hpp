@@ -259,7 +259,7 @@ struct __attribute__((packed)) cmd_pose_quad_t {
   // vec_t position; // 12
   // vec_t velocity; // 12
   // quaternion_t orientation; // 16
-  post_t pose;
+  pose_t pose;
   twist_t vel;
 };
 
