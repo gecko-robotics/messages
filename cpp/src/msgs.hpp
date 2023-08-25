@@ -48,12 +48,12 @@ constexpr uint8_t MSG_IMU_AGM     = 43;
 constexpr uint8_t MSG_IMU_AGMT    = 44;
 constexpr uint8_t MSG_IMU_AGMPT   = 45;
 //-------------------------------------
-constexpr uint8_t MSG_IMU_A       = 50;
-constexpr uint8_t MSG_IMU_AG      = 51;
-constexpr uint8_t MSG_IMU_AM      = 52;
-constexpr uint8_t MSG_IMU_AGM     = 53;
-constexpr uint8_t MSG_IMU_AGMT    = 54;
-constexpr uint8_t MSG_IMU_AGMPT   = 55;
+// constexpr uint8_t MSG_IMU_A       = 50;
+// constexpr uint8_t MSG_IMU_AG      = 51;
+// constexpr uint8_t MSG_IMU_AM      = 52;
+// constexpr uint8_t MSG_IMU_AGM     = 53;
+// constexpr uint8_t MSG_IMU_AGMT    = 54;
+// constexpr uint8_t MSG_IMU_AGMPT   = 55;
 //-------------------------------------
 constexpr uint8_t MSG_ATMOSPHERIC = 60;
 constexpr uint8_t MSG_SATNAV      = 65;
