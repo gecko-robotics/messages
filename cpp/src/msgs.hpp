@@ -79,15 +79,15 @@ unix:///here/there/mycool.sock
 */
 // broadcast mDNS
 struct __attribute__((packed)) advertizement_t {
-  char url[64];
-  char topic[32];
-  uint16_t msg_id;
-  uint16_t msg_size;
+  char url[64];      // udp://1.2.3.4:56789
+  char topic[32];    // alice
+  uint16_t msg_id;   // 23
+  uint16_t msg_size; // 34
 };
 
 // request - reply
 struct __attribute__((packed)) subscription_t {
-  char topic[32];
+  char topic[32]; // alice
   uint8_t status; // SUBSCRIBE, UNSUBSCRIBE, ERROR, OK
 };
 
@@ -118,18 +118,18 @@ struct __attribute__((packed)) quat_t {
 }; // 4*4 = 16
 
 struct __attribute__((packed)) twist_t {
-  vec_t linear;  // 12
+  vec_t linear;  // 4*3 = 12
   vec_t angular; // 12
 };
 
 struct __attribute__((packed)) wrench_t {
-  vec_t force;  // 12
+  vec_t force;  // 4*3 = 12
   vec_t torque; // 12
 };
 
 struct __attribute__((packed)) pose_t {
-  vec_t position;           // 12
-  quat_t orientation; // 16
+  vec_t position;     // 4*3 = 12
+  quat_t orientation; // 4*4 = 16
 };
 
 struct __attribute__((packed)) frame_t {
@@ -157,9 +157,9 @@ struct __attribute__((packed)) gps_t {
 }; // 4*4+2+3+3 = 24
 
 struct __attribute__((packed)) imu_agmpt_t : header_t {
-  vec_t a; // 12 [0:11]
-  vec_t g; // 12 [12:23]
-  vec_t m; // 12 [24:35]
+  vec_t a;  // 12 [0:11]
+  vec_t g;  // 12 [12:23]
+  vec_t m;  // 12 [24:35]
   quat_t q; // 16 [36:51]
   float temperature; // 4 [76:79]
   float pressure; // 4 [80:83]
