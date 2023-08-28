@@ -94,11 +94,10 @@ struct __attribute__((packed)) subscription_t {
 //---------------------------------------------------------------------------
 // low level messages
 
-struct __attribute__((packed)) header_t {
-  // uint8_t type;   // 1
-  uint8_t id;         // 1
-  uint64_t timestamp; // 8 - FIXME: u32 or u64 ????
-};
+// struct __attribute__((packed)) header_t {
+//   uint8_t id;         // 1
+//   uint32_t timestamp; // 8 - FIXME: u32 (arduino) but u64 linux/mac
+// }; // 9
 
 struct __attribute__((packed)) date_t {
   uint8_t year, month, day;
@@ -140,7 +139,7 @@ struct __attribute__((packed)) frame_t {
 struct __attribute__((packed)) atmospheric_t {
   float pressure;    // 4
   float temperature; // 4
-};
+}; // 4+4 = 8
 
 //------------------------------------------
 // high level combined messages
@@ -148,25 +147,44 @@ struct __attribute__((packed)) atmospheric_t {
 struct __attribute__((packed)) gps_t {
   float lat, lon; // decimal degrees
   float altitude; // meters above MSL
-  // float speed; // meters/sec
   float hdop; // horizontal dilution of precision
   uint8_t satellites;
   uint8_t fix;
   date_t date;
   clock_time_t time;
-}; // 4*4+2+3+3 = 24
+}; // 16+2+3+3 = 24
 
-struct __attribute__((packed)) imu_agmpt_t : header_t {
+enum IMU_Status: uint8_t {
+  FAIL     = 0,
+  A_OK     = 1,
+  G_OK     = 2,
+  AG_OK    = 3,
+  M_OK     = 4,
+  GM_OK    = 6,
+  AGM_OK   = 7,
+  AGMPT_OK = 8
+};
+
+struct __attribute__((packed)) imu_agmqpt_t {
   vec_t a;  // 12 [0:11]
   vec_t g;  // 12 [12:23]
   vec_t m;  // 12 [24:35]
   quat_t q; // 16 [36:51]
-  float temperature; // 4 [76:79]
-  float pressure; // 4 [80:83]
-}; // 36+16+18+12+3+3 = 88
+  float temperature;  // 4 [52:55]
+  float pressure;     // 4 [56:59]
+  uint32_t timestamp; // 4 [60:63] - FIXME: u32 (arduino) but u64 linux/mac
+}; // 36+16+4+4+4 = 64
 
+struct __attribute__((packed)) imu_agmpt_t {
+  vec_t a;  // 12 [0:11]
+  vec_t g;  // 12 [12:23]
+  vec_t m;  // 12 [24:35]
+  float temperature;  // 4 [36:39]
+  float pressure;     // 4 [40:43]
+  uint32_t timestamp; // 4 [44:47] - FIXME: u32 (arduino) but u64 linux/mac
+}; // 36+8+4 = 48
 
-struct __attribute__((packed)) distance_t : header_t {
+struct __attribute__((packed)) distance_t {
   enum Distance_Sensor : uint8_t {
     LASER      = 1,
     ULTRASOUND = 2,
@@ -179,7 +197,7 @@ struct __attribute__((packed)) distance_t : header_t {
   uint16_t max_distance; // cm
   uint16_t distance;     // cm
   Distance_Sensor type;
-};
+}; //
 
 
 struct __attribute__((packed)) status_motors4_t {
@@ -195,35 +213,35 @@ struct __attribute__((packed)) status_motors4_t {
   // Status status; // bits: m3[6:7], m2[4:5], m1[2:3], m0[0:1]
 };
 
-struct __attribute__((packed)) ping_t : header_t {};
+// struct __attribute__((packed)) ping_t : header_t {};
 
 struct __attribute__((packed)) calibrate_t {
   float params[9];
 };
 
-struct __attribute__((packed)) satnav_t {
-  enum NavSatStatus : uint8_t {
-    STATUS_NO_FIX   = 0, // unable to fix position
-    STATUS_FIX      = 1, // unaugmented fix
-    STATUS_SBAS_FIX = 2, // with satellite-based augmentation
-    STATUS_GBAS_FIX = 4, // with ground-based augmentation
-  };
+// struct __attribute__((packed)) satnav_t {
+//   enum NavSatStatus : uint8_t {
+//     STATUS_NO_FIX   = 0, // unable to fix position
+//     STATUS_FIX      = 1, // unaugmented fix
+//     STATUS_SBAS_FIX = 2, // with satellite-based augmentation
+//     STATUS_GBAS_FIX = 4, // with ground-based augmentation
+//   };
 
-  enum NavSatService : uint8_t {
-    SERVICE_GPS     = 1,
-    SERVICE_GLONASS = 2,
-    SERVICE_COMPASS = 4,
-    SERVICE_GALILEO = 8
-  };
+//   enum NavSatService : uint8_t {
+//     SERVICE_GPS     = 1,
+//     SERVICE_GLONASS = 2,
+//     SERVICE_COMPASS = 4,
+//     SERVICE_GALILEO = 8
+//   };
 
-  // satellite information
-  NavSatStatus status;
-  NavSatService service;
+//   // satellite information
+//   NavSatStatus status;
+//   NavSatService service;
 
-  float latitude;  // degrees, North(+), South(-)
-  float longitude; // dgrees, East(+), West(-)
-  float altitude;  // meters, distance above WGS84 ellipoid
-};
+//   float latitude;  // degrees, North(+), South(-)
+//   float longitude; // dgrees, East(+), West(-)
+//   float altitude;  // meters, distance above WGS84 ellipoid
+// };
 
 struct __attribute__((packed)) battery_t {
   enum Type : uint8_t { NONE = 0, MAIN = 1, ALT = 2 };
