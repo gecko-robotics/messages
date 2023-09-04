@@ -32,14 +32,9 @@
 constexpr uint8_t MSG_PING        = 10;
 constexpr uint8_t MSG_HEARTBEAT   = 11;
 constexpr uint8_t MSG_BATTERY     = 12;
+constexpr uint8_t MSG_CALIBRATION = 13;
 //-------------------------------------
 constexpr uint8_t MSG_DISTANCE    = 20;
-//-------------------------------------
-constexpr uint8_t MSG_MOTORS_1    = 30;
-constexpr uint8_t MSG_MOTORS_2    = 31;
-constexpr uint8_t MSG_MOTORS_4    = 32;
-constexpr uint8_t MSG_MOTORS_6    = 33;
-constexpr uint8_t MSG_MOTORS_8    = 34;
 //-------------------------------------
 constexpr uint8_t MSG_IMU_A       = 40;
 constexpr uint8_t MSG_IMU_AG      = 41;
@@ -48,21 +43,24 @@ constexpr uint8_t MSG_IMU_AGM     = 43;
 constexpr uint8_t MSG_IMU_AGMT    = 44;
 constexpr uint8_t MSG_IMU_AGMPT   = 45;
 //-------------------------------------
-// constexpr uint8_t MSG_IMU_A       = 50;
-// constexpr uint8_t MSG_IMU_AG      = 51;
-// constexpr uint8_t MSG_IMU_AM      = 52;
-// constexpr uint8_t MSG_IMU_AGM     = 53;
-// constexpr uint8_t MSG_IMU_AGMT    = 54;
-// constexpr uint8_t MSG_IMU_AGMPT   = 55;
+constexpr uint8_t MSG_IMU_A_RAW     = 50;
+constexpr uint8_t MSG_IMU_AG_RAW    = 51;
+constexpr uint8_t MSG_IMU_AM_RAW    = 52;
+constexpr uint8_t MSG_IMU_AGM_RAW   = 53;
+constexpr uint8_t MSG_IMU_AGMT_RAW  = 54;
+constexpr uint8_t MSG_IMU_AGMPT_RAW = 55;
 //-------------------------------------
 constexpr uint8_t MSG_ATMOSPHERIC = 60;
+constexpr uint8_t MSG_PRESSURE    = 61;
+constexpr uint8_t MSG_TEMPERATURE = 62;
 constexpr uint8_t MSG_SATNAV      = 65;
 constexpr uint8_t MSG_PPS         = 66;
 //-------------------------------------
-constexpr uint8_t MSG_CMD_TWIST   = 70; // vel lin/ang
-constexpr uint8_t MSG_CMD_POSE    = 71; // pos-orientation
-constexpr uint8_t MSG_CMD_FULL    = 72; // sum of above 2 msgs
-constexpr uint8_t MSG_CMD_EFFORT  = 73; // force-torque
+constexpr uint8_t MSG_POSE     = 70; // pos-orientation
+constexpr uint8_t MSG_TWIST    = 71; // vel lin/ang
+constexpr uint8_t MSG_STATE    = 72; // sum of above 2 msgs
+constexpr uint8_t MSG_WRENCH   = 73; // force-torque
+constexpr uint8_t MSG_ODOMETRY = 74; //
 
 
 
@@ -141,10 +139,30 @@ struct __attribute__((packed)) atmospheric_t {
   float temperature; // 4
 }; // 4+4 = 8
 
+enum IMU_Status: uint8_t {
+  OK      = 0,
+  A_FAIL  = 1,
+  G_FAIL  = 2,
+  M_FAIL  = 4,
+  PT_FAIL = 8
+};
+
+struct __attribute__((packed)) accel_t {
+  vec_t accel; // 12 [0:11]
+};
+
+struct __attribute__((packed)) gyro_t {
+  vec_t gyro;  // 12 [0:11]
+};
+
+struct __attribute__((packed)) mag_t {
+  vec_t mag;  // 12 [0:11]
+};
+
 //------------------------------------------
 // high level combined messages
 
-struct __attribute__((packed)) gps_t {
+struct __attribute__((packed)) satnav_t {
   float lat, lon; // decimal degrees
   float altitude; // meters above MSL
   float hdop; // horizontal dilution of precision
@@ -153,17 +171,6 @@ struct __attribute__((packed)) gps_t {
   date_t date;
   clock_time_t time;
 }; // 16+2+3+3 = 24
-
-enum IMU_Status: uint8_t {
-  FAIL     = 0,
-  A_OK     = 1,
-  G_OK     = 2,
-  AG_OK    = 3,
-  M_OK     = 4,
-  GM_OK    = 6,
-  AGM_OK   = 7,
-  AGMPT_OK = 8
-};
 
 struct __attribute__((packed)) imu_agmqpt_t {
   vec_t a;  // 12 [0:11]
@@ -200,23 +207,14 @@ struct __attribute__((packed)) distance_t {
 }; //
 
 
-struct __attribute__((packed)) status_motors4_t {
-  enum Status: uint8_t {
-    OK,       // 0
-    DEGRADED, // 1
-    FAIL,     // 2
-    UNKNOWN   // 3
-  };
-  uint16_t m0, m1, m2, m3; // pwm
-  // uint16_t c0, c1, c2, c3; // current
-  uint8_t armed;
-  // Status status; // bits: m3[6:7], m2[4:5], m1[2:3], m0[0:1]
-};
-
-// struct __attribute__((packed)) ping_t : header_t {};
-
 struct __attribute__((packed)) calibrate_t {
-  float params[9];
+  enum type_t {
+    ACCEL,
+    GYRO,
+    MAG
+  };
+  float params[12];
+  type_t sensor;
 };
 
 // struct __attribute__((packed)) satnav_t {
@@ -268,18 +266,19 @@ struct __attribute__((packed)) battery_t {
 //   uint16_t motors[4];
 // };
 
-struct __attribute__((packed)) cmd_pose_quad_t {
-  enum Error: uint8_t {
-    ERROR_INVALID_POSITION,
-    ERROR_INVALID_VELOCITY,
-    ERROR_INVALID_ORIENTATION
-  };
-  // vec_t position; // 12
-  // vec_t velocity; // 12
-  // quaternion_t orientation; // 16
-  pose_t pose;
-  twist_t vel;
-};
+// struct __attribute__((packed)) state_t {
+//   enum Error: uint8_t {
+//     ERROR_INVALID_POSITION,
+//     ERROR_INVALID_VELOCITY,
+//     ERROR_INVALID_ORIENTATION
+//   };
+//   // vec_t position; // 12
+//   // vec_t velocity; // 12
+//   // quaternion_t orientation; // 16
+//   pose_t pose;
+//   twist_t twist;
+//   Error error;
+// };
 
 
 
