@@ -139,7 +139,7 @@ struct __attribute__((packed)) atmospheric_t {
   float temperature; // 4
 }; // 4+4 = 8
 
-enum IMU_Status: uint8_t {
+enum class IMU_Status: uint8_t {
   OK      = 0,
   A_FAIL  = 1,
   G_FAIL  = 2,
