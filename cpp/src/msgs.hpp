@@ -102,9 +102,14 @@ struct __attribute__((packed)) date_t {
 }; // 3*1 = 3
 
 // clock_time_t t;
-struct __attribute__((packed)) clock_time_t {
+struct __attribute__((packed)) iclock_time_t {
   uint8_t hour, minute, seconds;
 }; // 3*1 = 3
+
+struct __attribute__((packed)) fclock_time_t {
+  uint8_t hour, minute;
+  float seconds;
+}; // 2 + 4 = 7
 
 struct __attribute__((packed)) vec_t {
   float x,y,z;
@@ -169,8 +174,8 @@ struct __attribute__((packed)) satnav_t {
   uint8_t satellites;
   uint8_t fix;
   date_t date;
-  clock_time_t time;
-}; // 16+2+3+3 = 24
+  fclock_time_t time;
+}; // 16+2+3+6 = 27
 
 struct __attribute__((packed)) imu_agmqpt_t {
   vec_t a;  // 12 [0:11]

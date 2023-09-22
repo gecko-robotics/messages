@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.22.0)
 
+include(FetchContent)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -27,11 +29,22 @@ if(PROJECT_IS_TOP_LEVEL)
 
     set(BUILD_EXAMPLES ON)
     set(BUILD_GTESTS ON)
+
+    FetchContent_Declare(
+        gtest
+        # GIT_REPOSITORY "https://github.com/google/googletest"
+        # GIT_TAG "origin/main"
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    )
+
+    FetchContent_MakeAvailable( gtest )
 else()
     message(STATUS "-> ${PROJECT_NAME} is submodule")
     set(BUILD_EXAMPLES OFF)
     set(BUILD_GTESTS OFF)
 endif()
+
+
 
 # Library =====================================================================
 add_library(${PROJECT_NAME} INTERFACE src)
@@ -42,8 +55,8 @@ if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-# message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
-# if(BUILD_GTESTS)
-#     add_subdirectory(gtests)
-# endif()
+message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
+if(BUILD_GTESTS)
+    add_subdirectory(gtests)
+endif()
 
