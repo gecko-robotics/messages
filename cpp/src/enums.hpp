@@ -23,6 +23,41 @@
 //////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include "enums.hpp"
-#include "msgs.hpp"
-#include "db.hpp"
+#include <cstdint>
+
+
+enum Frame : uint8_t {
+  FRAME_UNKNOWN,
+  FRAME_NED,
+  FRAME_NEU,
+  FRAME_NWU,
+  FRAME_ECEF,
+  FRAME_IEC,
+  FRAME_BODY_STD, // z-up
+  FRAME_BODY_AERO // z-down
+};
+
+enum Working_Status: uint8_t {
+  STATUS_OK,       // 0
+  STATUS_DEGRADED, // 1
+  STATUS_FAIL,     // 2
+  STATUS_UNKNOWN   // 3
+};
+
+
+enum IMU_Status: uint8_t {
+  GOOD    = 0,
+  A_FAIL  = 1,
+  G_FAIL  = 2,
+  M_FAIL  = 4,
+  PT_FAIL = 8
+};
+
+
+enum Distance_Sensor : uint8_t {
+  LASER      = 1,
+  ULTRASOUND = 2,
+  INFRARED   = 4,
+  RADAR      = 8,
+  LIDAR      = 16
+};

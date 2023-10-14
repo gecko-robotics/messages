@@ -22,7 +22,8 @@
 // SOFTWARE.
 //////////////////////////////////////////////////////////////////////////////////
 #pragma once
-#include <stdint.h>
+#include <cstdint>
+#include "enums.hpp"
 
 // constexpr uint8_t MSG_NO_ERROR    = 0; // when use this, echo?
 // constexpr uint8_t MSG_ERROR       = 1; // ??
@@ -135,7 +136,7 @@ struct __attribute__((packed)) pose_t {
 };
 
 struct __attribute__((packed)) frame_t {
-  enum Frame : uint8_t { UNKNOWN, BODY, BODY_NED, GLOBAL, GLOBAL_NED };
+  // enum Frame : uint8_t { UNKNOWN, BODY, BODY_NED, GLOBAL, GLOBAL_NED };
   uint8_t frame; // 1
 };
 
@@ -144,13 +145,13 @@ struct __attribute__((packed)) atmospheric_t {
   float temperature; // 4
 }; // 4+4 = 8
 
-enum class IMU_Status: uint8_t {
-  OK      = 0,
-  A_FAIL  = 1,
-  G_FAIL  = 2,
-  M_FAIL  = 4,
-  PT_FAIL = 8
-};
+// enum class IMU_Status: uint8_t {
+//   OK      = 0,
+//   A_FAIL  = 1,
+//   G_FAIL  = 2,
+//   M_FAIL  = 4,
+//   PT_FAIL = 8
+// };
 
 struct __attribute__((packed)) accel_t {
   vec_t accel; // 12 [0:11]
@@ -197,14 +198,14 @@ struct __attribute__((packed)) imu_agmpt_t {
 }; // 36+8+4 = 48
 
 struct __attribute__((packed)) distance_t {
-  enum Distance_Sensor : uint8_t {
-    LASER      = 1,
-    ULTRASOUND = 2,
-    INFRARED   = 4,
-    RADAR      = 8,
-    LIDAR      = 16,
-    UNKNOWN    = 32
-  };
+  // enum Distance_Sensor : uint8_t {
+  //   LASER      = 1,
+  //   ULTRASOUND = 2,
+  //   INFRARED   = 4,
+  //   RADAR      = 8,
+  //   LIDAR      = 16,
+  //   UNKNOWN    = 32
+  // };
   uint16_t min_distance; // cm
   uint16_t max_distance; // cm
   uint16_t distance;     // cm
