@@ -1,0 +1,16 @@
+# this is a test
+# a second line
+# a third line
+
+include vecf
+
+uint8 id # something
+
+vecf accel
+vecf gyro
+vecf mag
+float pressure
+float temperature
+uint32 timestamp
+
+# float[20] array

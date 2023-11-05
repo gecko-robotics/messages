@@ -1,0 +1,33 @@
+float x
+float y
+float z
+
+<enum status
+null = 0
+big = 1
+small = 2
+huge = 4
+enum>
+
+<enum big_name uint8_t
+a
+b
+c
+enum>
+
+<c
+float magnitude() {
+  // something
+  return sqrtf(x*x + y*y + z*z);
+}
+
+vecf_t normalize() {
+  float mag = magnitude();
+  return vecf_t{x/mag,y/mag,z/mag};
+}
+c>
+
+<p
+def normalize(self):
+    return sqrt(self.x*self.x + self.y*self.y + self.z*self.z)
+p>
