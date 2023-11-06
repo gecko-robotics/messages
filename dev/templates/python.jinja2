@@ -7,7 +7,7 @@ from struct import Struct
 {% endfor %}
 
 @dataclass
-class {{ name }}:
+class {{ name|capitalize }}_t:
     {%- for var in vars %}
     {{ var }}
     {%- endfor %}

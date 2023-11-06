@@ -7,7 +7,7 @@
 // this is a test
 // a second line
 // a third line
-//float[20] array
+// float[20] array
 
 namespace yivo {
 
@@ -27,7 +27,7 @@ struct __attribute__((packed)) imu_t {
 };
 
 static
-imu_t imu_init(const uint8 id, const vecf accel, const vecf gyro, const vecf mag, const float pressure, const float temperature, const uint32 timestamp) {
+imu_t imu_init(const uint8 id, const vecf_t& accel, const vecf_t& gyro, const vecf_t& mag, const float pressure, const float temperature, const uint32 timestamp) {
   imu_t ret;
   ret.id = id;
   ret.accel = accel;
@@ -41,7 +41,7 @@ imu_t imu_init(const uint8 id, const vecf accel, const vecf gyro, const vecf mag
 }
 
 static
-message_t imu_pack(const uint8 id, const vecf accel, const vecf gyro, const vecf mag, const float pressure, const float temperature, const uint32 timestamp) {
+message_t imu_pack(const uint8 id, const vecf_t& accel, const vecf_t& gyro, const vecf_t& mag, const float pressure, const float temperature, const uint32 timestamp) {
   imu_t ret;
   ret.id = id;
   ret.accel = accel;
@@ -56,11 +56,6 @@ message_t imu_pack(const uint8 id, const vecf accel, const vecf gyro, const vecf
   return msg;
 }
 
-static
-void print(const imu_t &val) {
-    printf(
-        
-    );
-}
+
 
 } // end namespace

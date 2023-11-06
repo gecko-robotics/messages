@@ -7,7 +7,7 @@ from vecf import *
 
 
 @dataclass
-class imu:
+class Imu_t:
     id: int # something
     accel: vecf_t
     gyro: vecf_t

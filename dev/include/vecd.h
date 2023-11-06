@@ -41,11 +41,6 @@ message_t vecd_pack(const double x, const double y, const double z) {
   return msg;
 }
 
-static
-void print(const vecd_t &val) {
-    printf(
-        
-    );
-}
+
 
 } // end namespace

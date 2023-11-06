@@ -77,10 +77,10 @@ message_t {{ name }}_pack(
   return msg;
 }
 
+{#
 static
 void print(const {{ name }}_t &val) {
     printf(
-        {#
     {%- for a in args -%}
       {%-   if {{ a[0] }} == "float" -%} "%f "
       {%- elif {{ a[0] }} == "double" -%} "%lf "
@@ -91,8 +91,8 @@ void print(const {{ name }}_t &val) {
     {%- for a in args -%}
     ,{{ a[1] }}
     {%- endfor -%}
-        #}
     );
 }
+#}
 
 } // end namespace

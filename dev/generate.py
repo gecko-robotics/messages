@@ -114,22 +114,6 @@ def tokenize(file):
         line = line.rstrip().lstrip()
         if len(line) == 0: continue
 
-        if line.find("<enum") == 0:
-            # <enum name size
-            toks = line.split(" ")
-            enums = Enums(toks[1].upper())
-            if len(toks) == 3: enums.size = toks[2]
-            enum_open = True
-            continue
-        if line.find("enum>") == 0:
-            enum_open = False
-            mp.enums.append(enums)
-            enums = None
-            continue
-        if enum_open:
-            enums.values.append(line.upper())
-            continue
-
         if line.find("<c") == 0:
             c_func_open = True
             continue
@@ -150,6 +134,22 @@ def tokenize(file):
 
         if py_func_open:
             mp.py_funcs.append(line)
+            continue
+
+        if line.find("<enum") == 0:
+            # <enum name size
+            toks = line.split(" ")
+            enums = Enums(toks[1].upper())
+            if len(toks) == 3: enums.size = toks[2]
+            enum_open = True
+            continue
+        if line.find("enum>") == 0:
+            enum_open = False
+            mp.enums.append(enums)
+            enums = None
+            continue
+        if enum_open:
+            enums.values.append(line.upper())
             continue
 
         if line[0] == "#":
@@ -227,6 +227,8 @@ def create_c_header(msg_parts):
 
     func_args = []
     for t, v, c in msg_parts.fields:
+        if var_types[t].complex: t = var_types[t].c + "&"
+        else: var_types[t].c
         func_args.append((t,v))
 
     includes = []

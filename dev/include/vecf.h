@@ -53,11 +53,6 @@ message_t vecf_pack(const float x, const float y, const float z) {
   return msg;
 }
 
-static
-void print(const vecf_t &val) {
-    printf(
-        
-    );
-}
+
 
 } // end namespace

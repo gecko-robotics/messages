@@ -5,7 +5,7 @@ from struct import Struct
 
 
 @dataclass
-class vecf:
+class Vecf_t:
     x: float
     y: float
     z: float
