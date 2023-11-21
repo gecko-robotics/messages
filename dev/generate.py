@@ -258,7 +258,7 @@ def create_c_header(msg_parts):
     }
     content = tmpl.render(info)
 
-    filename = "include/" + msg_parts.file.stem + ".h"
+    filename = "c/" + msg_parts.file.stem + ".h"
     with open(filename, mode="w", encoding="utf-8") as fd:
         fd.write(content)
         print(f"Wrote C Header: {filename}")
