@@ -23,7 +23,7 @@ env = Environment(loader=FileSystemLoader("templates"))
 # fmt - pack/unpack
 # complex - for user defined types, more involved
 VarInfo = namedtuple("VarInfo","c py size fmt complex")
-Field = namedtuple("Field", "type var comment")
+Field = namedtuple("Field", "type array_size var comment")
 
 class Enums:
     def __init__(self, name, size=None):
@@ -55,6 +55,7 @@ class MsgParts:
         self.enums = []
         self.msg_size = 0
         self.file = None
+        self.id = 0
 
     def __repr__(self):
         return str(self)
@@ -108,7 +109,7 @@ def tokenize(file):
     py_func_open = False
     enum_open = False
     enums = None
-    reg = re.compile(r'([\w]+) *([\w]+) *([#\w_ ]*)')
+    reg = re.compile(r'([\w\[\]]+) *([\w]+) *([#\w_ ]*)')
 
     for line in lines.split('\n'):
         line = line.rstrip().lstrip()
@@ -164,10 +165,21 @@ def tokenize(file):
             continue
 
         typ, var, comment = toks
-        if len(comment) == 0: comment = None
-        mp.msg_size += var_types[typ].size
+        if len(comment) == 0: comment = "# "
+
+        array_size = 0
+        left = typ.find('[')
+        right = typ.find(']')
+        if left > 0 and right > 0:
+            array_size = int(typ[left+1:right])
+            typ = typ[:left]
+            mp.msg_size += var_types[typ].size*array_size
+            comment += f"size: {var_types[typ].size} * {array_size}"
+        else:
+            mp.msg_size += var_types[typ].size
+            comment += f"size: {var_types[typ].size}"
         # name = typ #var_types[typ].c
-        args = Field(typ, var, comment)
+        args = Field(typ, array_size, var, comment)
         mp.fields.append(args)
         # else:
         #     logger.error(f"invalid line: {subline} -> {toks}")
@@ -180,7 +192,7 @@ def create_python(msg_parts):
         comments.append(c)
 
     func_args = []
-    for t, v, c in msg_parts.fields:
+    for t, ars, v, c in msg_parts.fields:
         func_args.append(v)
 
     includes = []
@@ -189,7 +201,7 @@ def create_python(msg_parts):
         includes.append(ii)
 
     vars = []
-    for t, v, c in msg_parts.fields:
+    for t, ars, v, c in msg_parts.fields:
         # if t.find("int") > -1: t = "int"
         # if t == "double": t = "float"
         line = f"{v}: {var_types[t].py}"
@@ -197,7 +209,7 @@ def create_python(msg_parts):
         vars.append(line)
 
     # env = Environment(loader=FileSystemLoader("templates"))
-    tmpl = env.get_template("python.jinja2")
+    tmpl = env.get_template("msg2.py.jinja")
     info = {
         "name": msg_parts.file.stem,
         "vars": vars,
@@ -209,9 +221,12 @@ def create_python(msg_parts):
         "args": func_args,
         "functions": msg_parts.py_funcs,
         "enums": msg_parts.enums,
-        "format": var_types[ msg_parts.file.stem ].fmt
+        "format": var_types[ msg_parts.file.stem ].fmt,
+        "msgid": msg_parts.id
     }
     content = tmpl.render(info)
+
+    # print(f">> {var_types[ msg_parts.file.stem ].fmt}")
 
     filename = "python/" + msg_parts.file.stem + ".py"
     with open(filename, mode="w", encoding="utf-8") as fd:
@@ -220,16 +235,28 @@ def create_python(msg_parts):
 
 
 def create_c_header(msg_parts):
+    """
+    struct
+        - vars: string, "int bob[2];"
+
+    functions
+        - func_args: tuple(type, var_name), ("int","bob[2]")
+    """
     comments = []
     for c in msg_parts.comments:
         c = c.replace("#", "//")
         comments.append(c)
 
     func_args = []
-    for t, v, c in msg_parts.fields:
+    for t, ars, v, c in msg_parts.fields:
         if var_types[t].complex: t = var_types[t].c + "&"
-        else: var_types[t].c
-        func_args.append((t,v))
+        else: t = var_types[t].c
+        if ars > 0:
+            vv = f"{v}[{ars}]"
+        else:
+            vv = f"{v}"
+
+        func_args.append((t,vv,v))
 
     includes = []
     for i in msg_parts.includes:
@@ -237,13 +264,14 @@ def create_c_header(msg_parts):
         includes.append(ii)
 
     vars = []
-    for t, v, c in msg_parts.fields:
-        line = f"{var_types[t].c} {v};"
+    for t, ars, v, c in msg_parts.fields:
+        if ars == 0: line = f"{var_types[t].c} {v};"
+        else: line = f"{var_types[t].c} {v}[{ars}];"
         if c: line += f" {c.replace('#','//')}"
         vars.append(line)
 
     # env = Environment(loader=FileSystemLoader("templates"))
-    tmpl = env.get_template("header.c.jinja2")
+    tmpl = env.get_template("msg.cpp.jinja")
     info = {
         "name": msg_parts.file.stem,
         "vars": vars,
@@ -254,7 +282,8 @@ def create_c_header(msg_parts):
         "template": False,
         "args": func_args,
         "functions": msg_parts.c_funcs,
-        "enums": msg_parts.enums
+        "enums": msg_parts.enums,
+        "msgid": msg_parts.id
     }
     content = tmpl.render(info)
 
@@ -267,19 +296,24 @@ def create_c_header(msg_parts):
 def main(path):
     path = pathlib.Path(path).absolute()
 
-    files = [
-        path/"vecf.yivo",
-        path/"vecd.yivo",
+    files = {
+        1: path/"vecf.yivo",
+        2: path/"vecd.yivo",
         # path/"vec.yivo", not doing templates
-        path/"imu.yivo"
-    ]
-    for file in files:
+        4: path/"imu.yivo",
+        5: path/"cal.yivo"
+    }
+    for msgid, file in files.items():
         msg_parts = tokenize(file)
+        msg_parts.id = msgid
         print(msg_parts)
 
         fmt = ""
         for v in msg_parts.fields:
-            fmt += var_types[v.type].fmt
+            if v.array_size > 0:
+                fmt += str(v.array_size) + var_types[v.type].fmt
+            else:
+                fmt += var_types[v.type].fmt
 
         var_types[file.stem] = VarInfo(file.stem+"_t", file.stem+"_t", msg_parts.msg_size,fmt,True)
 

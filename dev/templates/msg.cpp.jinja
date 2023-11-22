@@ -16,21 +16,19 @@ namespace yivo {
 {% if msg_size > 0 -%}
 constexpr {{ msg_size_type }} {{ name|upper }}_MSG_SIZE = {{ msg_size }};
 {% endif %}
+constexpr uint8_t {{ name|upper }}_MSG_ID = {{ msgid }};
 
-{% if enums|length > 0 %}
-{% for enum in enums %}
-enum {{ name|upper }}_{{ enum.name }} {%- if enum.size %}: {{ enum.size }} {% endif %}{
+struct __attribute__((packed)) {{ name }}_t {
+{%- if enums|length > 0 %}
+{%- for enum in enums %}
+  enum {{ name|upper }}_{{ enum.name }} {%- if enum.size %}: {{ enum.size }} {% endif %}{
 {%- for val in enum.values -%}
   {{ val }} {%- if loop.index != loop.length %}, {% endif -%}
 {%- endfor -%}
 };
-{% endfor %}
-{% endif %}
+{% endfor -%}
+{% endif -%}
 
-{%- if template %}
-template<typename T>
-{%- endif %}
-struct __attribute__((packed)) {{ name }}_t {
 {%- for var in vars %}
   {{ var }}
 {%- endfor %}
@@ -43,7 +41,7 @@ struct __attribute__((packed)) {{ name }}_t {
 
 };
 
-static
+{# static
 {{ name }}_t {{ name }}_init(
     {%- for a in args -%}
     const {{ a[0] }} {{ a[1] }}
@@ -53,27 +51,15 @@ static
   {{ name }}_t ret;
 
   {%- for a in args%}
-  ret.{{ a[1] }} = {{ a[1] }};
+  ret.{{ a[2] }} = {{ a[2] }};
   {%- endfor %}
 
   return ret;
-}
+} #}
 
-static
-message_t {{ name }}_pack(
-    {%- for a in args -%}
-    const {{ a[0] }} {{ a[1] }}
-    {%- if loop.index != loop.length %}, {% endif -%}
-    {%- endfor -%}
-) {
-  {{ name }}_t ret;
-
-  {%- for a in args%}
-  ret.{{ a[1] }} = {{ a[1] }};
-  {%- endfor %}
-
-  message_t msg;
-
+inline
+message_t {{ name }}_yivo_pack(const {{ name }}_t& msg) {
+  message_t msg = yivo.pack({{ msgid }}, (uint8_t*)&msg, {{msg_size}});
   return msg;
 }
 
@@ -92,7 +78,7 @@ void print(const {{ name }}_t &val) {
     ,{{ a[1] }}
     {%- endfor -%}
     );
-}
-#}
+} #}
+
 
 } // end namespace

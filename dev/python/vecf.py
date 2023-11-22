@@ -1,30 +1,14 @@
-
 from dataclasses import dataclass
-from dataclasses import field
-from struct import Struct
 
 
-@dataclass
-class Vecf_t:
-    x: float
-    y: float
-    z: float
-    packer: Struct = field(init=False, repr=False, default=Struct( "fff" )))
 
-    def pack(self):
-        return self.packer.pack(*self.to_list())
 
-    def unpack(self, pkt):
-        return self.packer.unpack(pkt)
 
-    def to_list(self):
-        ret = []
-        for a in self.__dict__.values():
-            if isinstance(a,float) or isinstance(a,int):
-                ret.append(a)
-            else:
-                for i in a.to_list():
-                    ret.append(i)
-        return ret
+@dataclass(frozen=True)
+class vecf_t(Base):
+    x: float # size: 4
+    y: float # size: 4
+    z: float # size: 4
 
-    
+    def __yivo__(self):
+        return ("fff", 12, vecf_t, 1)

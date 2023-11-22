@@ -7,54 +7,33 @@
 // this is a test
 // a second line
 // a third line
-// float[20] array
 
 namespace yivo {
 
-constexpr uint8_t IMU_MSG_SIZE = 49;
+constexpr uint8_t IMU_MSG_SIZE = 48;
 
-
+constexpr uint8_t IMU_MSG_ID = 4;
 
 struct __attribute__((packed)) imu_t {
-  uint8_t id; // something
-  vecf_t accel;
-  vecf_t gyro;
-  vecf_t mag;
-  float pressure;
-  float temperature;
-  uint32_t timestamp;
+  enum IMU_STATUS: uint32_t {NO_ERROR = 0, ACCELS = 1, GYROS = 2, MAGS = 4, PRESSURE = 8, TEMPERATURE = 16};
+
+  vecf_t accel; // size: 12
+  vecf_t gyro; // size: 12
+  vecf_t mag; // size: 12
+  float pressure; // size: 4
+  float temperature; // size: 4
+  uint32_t timestamp; // size: 4
 
 };
 
-static
-imu_t imu_init(const uint8 id, const vecf_t& accel, const vecf_t& gyro, const vecf_t& mag, const float pressure, const float temperature, const uint32 timestamp) {
-  imu_t ret;
-  ret.id = id;
-  ret.accel = accel;
-  ret.gyro = gyro;
-  ret.mag = mag;
-  ret.pressure = pressure;
-  ret.temperature = temperature;
-  ret.timestamp = timestamp;
 
-  return ret;
-}
 
-static
-message_t imu_pack(const uint8 id, const vecf_t& accel, const vecf_t& gyro, const vecf_t& mag, const float pressure, const float temperature, const uint32 timestamp) {
-  imu_t ret;
-  ret.id = id;
-  ret.accel = accel;
-  ret.gyro = gyro;
-  ret.mag = mag;
-  ret.pressure = pressure;
-  ret.temperature = temperature;
-  ret.timestamp = timestamp;
-
-  message_t msg;
-
+inline
+message_t imu_yivo_pack(const imu_t& msg) {
+  message_t msg = yivo.pack(4, (uint8_t*)&msg, 48);
   return msg;
 }
+
 
 
 

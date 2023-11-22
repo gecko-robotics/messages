@@ -4,7 +4,14 @@
 
 include vecf
 
-uint8 id # something
+<enum status uint32_t
+no_error = 0
+accels = 1
+gyros = 2
+mags = 4
+pressure = 8
+temperature = 16
+enum>
 
 vecf accel
 vecf gyro
@@ -12,5 +19,3 @@ vecf mag
 float pressure
 float temperature
 uint32 timestamp
-
-# float[20] array

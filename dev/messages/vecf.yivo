@@ -2,7 +2,7 @@ float x
 float y
 float z
 
-<enum status
+<enum status uint32_t
 null = 0
 big = 1
 small = 2

@@ -1,0 +1,16 @@
+from dataclasses import dataclass
+{# from dataclasses import field #}
+{# from collections import namedtuple #}
+{# from struct import Struct #}
+{% for inc in includes %}
+{{ inc }}
+{% endfor %}
+
+@dataclass(frozen=True)
+class {{ name }}_t(Base):
+    {%- for var in vars %}
+    {{ var }}
+    {%- endfor %}
+
+    def __yivo__(self):
+        return ("{{ format }}", {{ msg_size }}, {{ name }}_t, {{ msgid }})

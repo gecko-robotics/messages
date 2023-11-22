@@ -1,16 +1,20 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from struct import Struct
+{# from struct import Struct #}
 {% for inc in includes %}
 {{ inc }}
 {% endfor %}
 
 @dataclass
-class {{ name|capitalize }}_t:
+class {{ name }}_t:
     {%- for var in vars %}
     {{ var }}
     {%- endfor %}
+    fmt: str = field(init=False, repr=False, default="{{ format }}" )
+
+
+{#
     packer: Struct = field(init=False, repr=False, default=Struct( "{{ format }}" )))
 
     def pack(self):
@@ -27,7 +31,7 @@ class {{ name|capitalize }}_t:
             else:
                 for i in a.to_list():
                     ret.append(i)
-        return ret
+        return ret #}
 
     {#
     {%- if functions|length > 0 -%}
@@ -43,4 +47,4 @@ class {{ name|capitalize }}_t:
         return self.packer.unpack(pkt)
 
     self.to_bytes = Struct( {{format}} )
-    #}
+#}

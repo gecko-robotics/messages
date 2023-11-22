@@ -8,38 +8,25 @@ namespace yivo {
 
 constexpr uint8_t VECD_MSG_SIZE = 24;
 
-
+constexpr uint8_t VECD_MSG_ID = 2;
 
 struct __attribute__((packed)) vecd_t {
-  double x;
-  double y;
-  double z;
+  double x; // size: 8
+  double y; // size: 8
+  double z; // size: 8
   inline
   double normalize() { return sqrt(x*x + y*y + z*z); }
 
 };
 
-static
-vecd_t vecd_init(const double x, const double y, const double z) {
-  vecd_t ret;
-  ret.x = x;
-  ret.y = y;
-  ret.z = z;
 
-  return ret;
-}
 
-static
-message_t vecd_pack(const double x, const double y, const double z) {
-  vecd_t ret;
-  ret.x = x;
-  ret.y = y;
-  ret.z = z;
-
-  message_t msg;
-
+inline
+message_t vecd_yivo_pack(const vecd_t& msg) {
+  message_t msg = yivo.pack(2, (uint8_t*)&msg, 24);
   return msg;
 }
+
 
 
 

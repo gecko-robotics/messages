@@ -1,36 +1,19 @@
-
 from dataclasses import dataclass
-from dataclasses import field
-from struct import Struct
+
+
+
 
 from vecf import *
 
 
-@dataclass
-class Imu_t:
-    id: int # something
-    accel: vecf_t
-    gyro: vecf_t
-    mag: vecf_t
-    pressure: float
-    temperature: float
-    timestamp: int
-    packer: Struct = field(init=False, repr=False, default=Struct( "BfffffffffffI" )))
+@dataclass(frozen=True)
+class imu_t(Base):
+    accel: vecf_t # size: 12
+    gyro: vecf_t # size: 12
+    mag: vecf_t # size: 12
+    pressure: float # size: 4
+    temperature: float # size: 4
+    timestamp: int # size: 4
 
-    def pack(self):
-        return self.packer.pack(*self.to_list())
-
-    def unpack(self, pkt):
-        return self.packer.unpack(pkt)
-
-    def to_list(self):
-        ret = []
-        for a in self.__dict__.values():
-            if isinstance(a,float) or isinstance(a,int):
-                ret.append(a)
-            else:
-                for i in a.to_list():
-                    ret.append(i)
-        return ret
-
-    
+    def __yivo__(self):
+        return ("fffffffffffI", 48, imu_t, 4)
