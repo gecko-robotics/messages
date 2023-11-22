@@ -1,11 +1,7 @@
-# this is a test
-# a second line
-# a third line
+include vec
 
-include vecf
-
-<enum status uint32_t
-no_error = 0
+<enum error uint32_t
+none = 0
 accels = 1
 gyros = 2
 mags = 4
@@ -13,9 +9,10 @@ pressure = 8
 temperature = 16
 enum>
 
-vecf accel
-vecf gyro
-vecf mag
+vec accel
+vec gyro
+vec mag
 float pressure
 float temperature
+uint32 error
 uint32 timestamp

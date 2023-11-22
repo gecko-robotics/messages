@@ -222,7 +222,8 @@ def create_python(msg_parts):
         "functions": msg_parts.py_funcs,
         "enums": msg_parts.enums,
         "format": var_types[ msg_parts.file.stem ].fmt,
-        "msgid": msg_parts.id
+        "msgid": msg_parts.id,
+        "license_notice": msg_parts.license_notice
     }
     content = tmpl.render(info)
 
@@ -283,7 +284,8 @@ def create_c_header(msg_parts):
         "args": func_args,
         "functions": msg_parts.c_funcs,
         "enums": msg_parts.enums,
-        "msgid": msg_parts.id
+        "msgid": msg_parts.id,
+        "license_notice": msg_parts.license_notice
     }
     content = tmpl.render(info)
 
@@ -297,8 +299,8 @@ def main(path):
     path = pathlib.Path(path).absolute()
 
     files = {
-        1: path/"vecf.yivo",
-        2: path/"vecd.yivo",
+        1: path/"vec.yivo",
+        2: path/"quat.yivo",
         # path/"vec.yivo", not doing templates
         4: path/"imu.yivo",
         5: path/"cal.yivo"
@@ -306,6 +308,7 @@ def main(path):
     for msgid, file in files.items():
         msg_parts = tokenize(file)
         msg_parts.id = msgid
+        msg_parts.license_notice = "MIT Kevin Walchko (c) 2023"
         print(msg_parts)
 
         fmt = ""

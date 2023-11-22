@@ -1,9 +1,0 @@
-double x
-double y
-double z
-
-
-<c
-inline
-double normalize() { return sqrt(x*x + y*y + z*z); }
-c>

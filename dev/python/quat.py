@@ -4,10 +4,12 @@ from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
-class cal_t(Base):
-    cals: float # size: 4 * 12
-    sensor: int # size: 1
+class quat_t(Base):
+    w: float # size: 4
+    x: float # size: 4
+    y: float # size: 4
+    z: float # size: 4
 
     def __yivo__(self):
         # (fmt, size, name, id)
-        return ("12fB", 49, cal_t, 5)
+        return ("ffff", 16, quat_t, 2)
