@@ -10,4 +10,5 @@ class cal_t(Base):
 
     def __yivo__(self):
         # (fmt, size, name, id)
+        # name_t.__class__ already has name, do I need it again?
         return ("12fB", 49, cal_t, 5)

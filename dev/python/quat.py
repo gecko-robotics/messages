@@ -12,4 +12,5 @@ class quat_t(Base):
 
     def __yivo__(self):
         # (fmt, size, name, id)
+        # name_t.__class__ already has name, do I need it again?
         return ("ffff", 16, quat_t, 2)

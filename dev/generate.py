@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 from jinja2 import Environment
+from jinja2.loaders import FileSystemLoader
 import re
 # import os
 # import argparse
 # import sys
 import pathlib
-from jinja2.loaders import FileSystemLoader
 from collections import namedtuple
 import logging
 from colorama import Fore
-from struct import Struct
+# from struct import Struct
 
 
 # logging: DEBUG ERROR INFO
@@ -46,16 +46,22 @@ var_types = {
 }
 
 class MsgParts:
+    """
+    Breaks a message format appart and stores the results so it can be
+    converted into other languages. Supported languages:
+    - python
+    - C/C++
+    """
     def __init__(self):
-        self.comments = []
-        self.fields = []
-        self.includes = []
-        self.c_funcs = []
-        self.py_funcs = []
-        self.enums = []
-        self.msg_size = 0
-        self.file = None
-        self.id = 0
+        self.comments = [] # comments in body of message prototype
+        self.fields = []   # variables in message
+        self.includes = [] # included message headers/modules
+        self.c_funcs = []  # custom C functions
+        self.py_funcs = [] # custom Python functions
+        self.enums = []    # enums
+        self.msg_size = 0  # size of message in bytes
+        self.file = None   # filename for naming the message
+        self.id = 0        # message id number
 
     def __repr__(self):
         return str(self)
@@ -95,10 +101,23 @@ class MsgParts:
         ret += f"{Fore.CYAN}\nMessage Size:{Fore.RESET} {self.msg_size}\n"
         return ret
 
+def write_file(filename, content):
+    # filename = "python/" + msg_parts.file.stem + ".py"
+    with open(filename, mode="w", encoding="utf-8") as fd:
+        fd.write(content)
+        print(f"Wrote File: {filename}")
 
 def tokenize(file):
     # regex
     # ([\w]+) *([\w]+) *([#\w_ ]*)
+    # Everything is either:
+    # - comment: starts with #
+    # - include
+    # - enum: start "<enum" and end "enum>"
+    # - c function: start "<c" and end "c>"
+    # - python function: start "<p" and end "p>"
+    # - variable: <type> <name> <comment>
+    # - array: <type[N]> <name> <comment>
 
     with file.open() as fd:
         lines = fd.read()
@@ -167,18 +186,19 @@ def tokenize(file):
         typ, var, comment = toks
         if len(comment) == 0: comment = "# "
 
+        # find array brackets in typ
         array_size = 0
         left = typ.find('[')
         right = typ.find(']')
-        if left > 0 and right > 0:
+        if left > 0 and right > 0: # array found
             array_size = int(typ[left+1:right])
             typ = typ[:left]
             mp.msg_size += var_types[typ].size*array_size
             comment += f"size: {var_types[typ].size} * {array_size}"
-        else:
+        else: # scalar
             mp.msg_size += var_types[typ].size
             comment += f"size: {var_types[typ].size}"
-        # name = typ #var_types[typ].c
+
         args = Field(typ, array_size, var, comment)
         mp.fields.append(args)
         # else:
@@ -202,8 +222,6 @@ def create_python(msg_parts):
 
     vars = []
     for t, ars, v, c in msg_parts.fields:
-        # if t.find("int") > -1: t = "int"
-        # if t == "double": t = "float"
         line = f"{v}: {var_types[t].py}"
         if c: line += f" {c}"
         vars.append(line)
@@ -217,7 +235,6 @@ def create_python(msg_parts):
         "msg_size": msg_parts.msg_size,
         # "msg_size_type": "uint8_t",
         "comments": comments,
-        "template": False,
         "args": func_args,
         "functions": msg_parts.py_funcs,
         "enums": msg_parts.enums,
@@ -227,12 +244,8 @@ def create_python(msg_parts):
     }
     content = tmpl.render(info)
 
-    # print(f">> {var_types[ msg_parts.file.stem ].fmt}")
-
     filename = "python/" + msg_parts.file.stem + ".py"
-    with open(filename, mode="w", encoding="utf-8") as fd:
-        fd.write(content)
-        print(f"Wrote Python File: {filename}")
+    write_file(filename, content)
 
 
 def create_c_header(msg_parts):
@@ -280,7 +293,6 @@ def create_c_header(msg_parts):
         "msg_size": msg_parts.msg_size,
         "msg_size_type": "uint8_t",
         "comments": comments,
-        "template": False,
         "args": func_args,
         "functions": msg_parts.c_funcs,
         "enums": msg_parts.enums,
@@ -290,13 +302,23 @@ def create_c_header(msg_parts):
     content = tmpl.render(info)
 
     filename = "c/" + msg_parts.file.stem + ".h"
-    with open(filename, mode="w", encoding="utf-8") as fd:
-        fd.write(content)
-        print(f"Wrote C Header: {filename}")
+    # with open(filename, mode="w", encoding="utf-8") as fd:
+    #     fd.write(content)
+    #     print(f"Wrote C Header: {filename}")
+    write_file(filename, content)
 
 
 def main(path):
     path = pathlib.Path(path).absolute()
+
+
+    tmpl = env.get_template("base.py.jinja")
+    info = {
+        "license_notice": "MIT Kevin Walchko (c) 2023"
+    }
+    content = tmpl.render(info)
+    filename = "python/base.py"
+    write_file(filename, content)
 
     files = {
         1: path/"vec.yivo",
