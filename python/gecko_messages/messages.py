@@ -116,8 +116,8 @@ class imu_agmtp_t(Base):
     a: vec_t
     g: vec_t
     m: vec_t
-    temperature: float
     pressure: float
+    temperature: float
     timestamp: int
 
     def __init__(self,ax,ay,az,gx,gy,gz,mx,my,mz,t,p,ts):
