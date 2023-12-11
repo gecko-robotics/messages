@@ -2,6 +2,12 @@
 # {{ license_notice }}
 import dataclasses
 
+def id2str(id):
+    {% for mid, name in ids.items() -%}
+    if id == {{ mid }}: return "{{ name|upper }}"
+    {% endfor -%}
+    return "UNKNOWN"
+
 class Base:
     def flatten(self, data):
         """

@@ -2,14 +2,12 @@
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
 import re
-# import os
-# import argparse
-# import sys
+import argparse
 import pathlib
 from collections import namedtuple
 import logging
 from colorama import Fore
-# from struct import Struct
+import sys
 
 
 # logging: DEBUG ERROR INFO
@@ -41,8 +39,7 @@ var_types = {
     "int32": VarInfo("int32_t", "int", 4, "i", False),
     "int64": VarInfo("int64_t", "int", 8, "q", False),
     "float": VarInfo("float", "float", 4, "f", False),
-    "double": VarInfo("double", "float", 8, "d", False),
-    # "T": VarInfo("T",0),
+    "double": VarInfo("double", "float", 8, "d", False)
 }
 
 class MsgParts:
@@ -53,15 +50,16 @@ class MsgParts:
     - C/C++
     """
     def __init__(self):
-        self.comments = [] # comments in body of message prototype
-        self.fields = []   # variables in message
-        self.includes = [] # included message headers/modules
-        self.c_funcs = []  # custom C functions
-        self.py_funcs = [] # custom Python functions
-        self.enums = []    # enums
-        self.msg_size = 0  # size of message in bytes
-        self.file = None   # filename for naming the message
-        self.id = 0        # message id number
+        self.comments = []  # comments in body of message prototype
+        self.fields = []    # variables in message
+        self.includes = []  # included message headers/modules
+        self.c_funcs = []   # custom C functions
+        self.py_funcs = []  # custom Python functions
+        self.enums = []     # enums
+        self.msg_size = 0   # size of message in bytes
+        self.file = None    # filename for naming the message
+        self.id = 0         # message id number
+        self.namespace = None # cpp namespace
 
     def __repr__(self):
         return str(self)
@@ -69,6 +67,8 @@ class MsgParts:
     def __str__(self):
         ret = f"{Fore.YELLOW}------------------------------\n"
         ret += f"File: {self.file}\n"
+        if self.namespace is not None:
+            ret += f"Namespace: {self.namespace}\n"
         ret += f"------------------------------\n{Fore.RESET}"
         ret += f"{Fore.CYAN}Comments:\n{Fore.RESET}"
         ret += f"{Fore.GREEN}"
@@ -103,13 +103,20 @@ class MsgParts:
 
 def write_file(filename, content):
     # filename = "python/" + msg_parts.file.stem + ".py"
-    with open(filename, mode="w", encoding="utf-8") as fd:
+    # with open(filename, mode="w", encoding="utf-8") as fd:
+    #     fd.write(content)
+    #     print(f"Wrote File: {filename}")
+    with filename.open("w", encoding="utf-8") as fd:
         fd.write(content)
         print(f"Wrote File: {filename}")
 
 def tokenize(file):
+    # Parse a template file into a dictionary of tokens
+    # that are processed into C++ or Python message headers
+    #
     # regex
     # ([\w]+) *([\w]+) *([#\w_ ]*)
+    #
     # Everything is either:
     # - comment: starts with #
     # - include
@@ -172,6 +179,10 @@ def tokenize(file):
             enums.values.append(line.upper())
             continue
 
+        if line.find("namespace") >=0:
+            mp.namespace = line.split(" ")[1]
+            continue
+
         if line[0] == "#":
             mp.comments.append(line)
             continue
@@ -196,8 +207,12 @@ def tokenize(file):
             mp.msg_size += var_types[typ].size*array_size
             comment += f"size: {var_types[typ].size} * {array_size}"
         else: # scalar
-            mp.msg_size += var_types[typ].size
-            comment += f"size: {var_types[typ].size}"
+            try:
+                mp.msg_size += var_types[typ].size
+                comment += f"size: {var_types[typ].size}"
+            except:
+                print(f"{Fore.RED}*** Invalid keyword in line: {line} ***{Fore.RESET}")
+                continue
 
         args = Field(typ, array_size, var, comment)
         mp.fields.append(args)
@@ -206,7 +221,7 @@ def tokenize(file):
 
     return mp
 
-def create_python(msg_parts):
+def create_python(msg_parts, out_path):
     comments = []
     for c in msg_parts.comments:
         comments.append(c)
@@ -227,7 +242,7 @@ def create_python(msg_parts):
         vars.append(line)
 
     # env = Environment(loader=FileSystemLoader("templates"))
-    tmpl = env.get_template("msg2.py.jinja")
+    tmpl = env.get_template("msg.py.jinja")
     info = {
         "name": msg_parts.file.stem,
         "vars": vars,
@@ -244,11 +259,13 @@ def create_python(msg_parts):
     }
     content = tmpl.render(info)
 
-    filename = "python/" + msg_parts.file.stem + ".py"
+    filename = msg_parts.file.stem + "_t.py"
+    filename = out_path/filename
+    # filename = pathlib.Path(filename)
     write_file(filename, content)
 
 
-def create_c_header(msg_parts):
+def create_c_header(msg_parts, out_path):
     """
     struct
         - vars: string, "int bob[2];"
@@ -297,40 +314,73 @@ def create_c_header(msg_parts):
         "functions": msg_parts.c_funcs,
         "enums": msg_parts.enums,
         "msgid": msg_parts.id,
-        "license_notice": msg_parts.license_notice
+        "license_notice": msg_parts.license_notice,
+        "namespace": msg_parts.namespace
     }
     content = tmpl.render(info)
 
-    filename = "c/" + msg_parts.file.stem + ".h"
-    # with open(filename, mode="w", encoding="utf-8") as fd:
-    #     fd.write(content)
-    #     print(f"Wrote C Header: {filename}")
+    filename = msg_parts.file.stem + "_t.hpp"
+    filename = out_path/filename
+    # filename = pathlib.Path(filename)
     write_file(filename, content)
 
 
-def main(path):
-    path = pathlib.Path(path).absolute()
+def main(files):
+    license = ""
+    if "license" in files.keys():
+        license = files["license"]
+        files.pop("license", None)
+
+    output = "."
+    if "output" in files.keys():
+        output = files["output"]
+        files.pop("output", None)
+    output = pathlib.Path(output)
+    cppdir = output/"cpp"
+    cppdir.mkdir(parents=True, exist_ok=True)
+    pydir = output/"python"
+    pydir.mkdir(parents=True, exist_ok=True)
+
+    namespace = None
+    if "namespace" in files.keys():
+        namespace = files["namespace"]
+        files.pop("namespace", None)
 
 
-    tmpl = env.get_template("base.py.jinja")
-    info = {
-        "license_notice": "MIT Kevin Walchko (c) 2023"
-    }
-    content = tmpl.render(info)
-    filename = "python/base.py"
-    write_file(filename, content)
+    # create the base headers for messages ------------
+    ids = {}
+    for k,v in files.items():
+        ids[k] = v.split('.')[0]
 
-    files = {
-        1: path/"vec.yivo",
-        2: path/"quat.yivo",
-        # path/"vec.yivo", not doing templates
-        4: path/"imu.yivo",
-        5: path/"cal.yivo"
-    }
+    baseinfo = [
+        ("base.py.jinja", ids, "py"),
+        ("base.cpp.jinja", ids, "cpp"),
+    ]
+
+    for template, ids, ext in baseinfo:
+        tmpl = env.get_template(template)
+        info = {
+            "license_notice": license,
+            "ids": ids,
+            "namespace": namespace
+        }
+        content = tmpl.render(info)
+        if ext == "py": filename = output/"python/base.py"
+        elif ext == "cpp": filename = output/"cpp/base.hpp"
+        else:
+            print(f"{Fore.RED}*** Invalid ext: {ext} ***{Fore.RESET}")
+            sys.exit(1)
+
+        write_file(filename, content)
+
+    # create messages from each template ---------------
+    path = pathlib.Path(".").absolute()
     for msgid, file in files.items():
+        file = path/file
         msg_parts = tokenize(file)
         msg_parts.id = msgid
-        msg_parts.license_notice = "MIT Kevin Walchko (c) 2023"
+        msg_parts.license_notice = license
+        msg_parts.namespace = namespace
         print(msg_parts)
 
         fmt = ""
@@ -342,76 +392,17 @@ def main(path):
 
         var_types[file.stem] = VarInfo(file.stem+"_t", file.stem+"_t", msg_parts.msg_size,fmt,True)
 
-        create_c_header(msg_parts)
-        create_python(msg_parts)
-
-    # for k, v in var_types.items():
-    #     print(f"{k}: {v}")
-
-main("./messages")
+        create_c_header(msg_parts, cppdir)
+        create_python(msg_parts, pydir)
 
 
-
-
-
-
-
-# def tokenize(file):
-#     # regex
-#     # ([\w]+) *([\w]+) *([#\w_ ]*)
-
-#     with file.open() as fd:
-#         lines = fd.read()
-
-#     mp = MsgParts()
-#     mp.file = file
-#     func_open = False
-
-#     for line in lines.split('\n'):
-#         line = line.rstrip().lstrip()
-#         if len(line) == 0: continue
-
-#         if line.find("<c") ==0:
-#             func_open = True
-#             continue
-#         if line.find("c>") == 0:
-#             func_open = False
-#             continue
-
-#         if func_open:
-#             mp.c_funcs.append(line)
-#             continue
-
-#         i = line.find("#")
-#         logger.info(f"comment: {i} {line}")
-
-#         if (i == 0):
-#             mp.comments.append(line)
-#             continue
-#         elif i > 0:
-#             subline = line[:i].rstrip().lstrip()
-#             comment = line[i:].rstrip().lstrip()
-#         else:
-#             subline = line.rstrip().lstrip()
-#             comment = None
-
-#         logger.info(f"subline: {subline}  comment: {comment}")
-
-#         toks = subline.split(" ")
-#         toks = [x for x in toks if x] # remove "" in array
-#         logger.info(f"toks: {toks}")
-
-#         if len(toks) == 2:
-#             a, b = toks
-#             if a == "include":
-#                 mp.includes.append(b)
-#             else:
-#                 typ, var = a, b
-#                 mp.msg_size += var_types[typ].size
-#                 name = var_types[typ].c
-#                 args = Field(name, var, comment)
-#                 mp.fields.append(args)
-#         else:
-#             logger.error(f"invalid line: {subline} -> {toks}")
-
-#     return mp
+info = {
+    "namespace": "foobar",
+    "license": "MIT Kevin Walchko (c) 2023",
+    "output": "test",
+    1: "messages/vec.yivo",
+    2: "messages/quat.yivo",
+    4: "messages/imu.yivo",
+    5: "messages/cal.yivo"
+}
+main(info)

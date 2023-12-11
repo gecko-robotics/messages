@@ -13,8 +13,9 @@
 {%- for com in comments %}
 {{ com }}
 {%- endfor %}
-
-namespace yivo {
+{% if namespace %}
+namespace {{ namespace }} {
+{% endif %}
 
 {% if msg_size > 0 -%}
 constexpr {{ msg_size_type }} {{ name|upper }}_MSG_SIZE = {{ msg_size }};
@@ -83,5 +84,6 @@ void print(const {{ name }}_t &val) {
     );
 } #}
 
-
+{% if namespace %}
 } // end namespace
+{% endif %}
