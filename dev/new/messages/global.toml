@@ -1,0 +1,24 @@
+[global]
+namespace = "msgs"
+
+[license]
+type = "MIT"
+name = "bad bart"
+year = 1997
+
+[serialize]
+yivo = true
+mavlink = false
+
+[ids]
+vec_t = 1
+quat_t = 2
+twist_t = 3
+wrench_t = 4
+pose_t = 5
+imu_t = 10
+calibration_t = 20
+
+[var_types]
+# (name, c_size, py_format, id)
+veci_t = ["veci_t", 12, "3I", 22]

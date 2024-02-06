@@ -1,0 +1,34 @@
+
+[message]
+x = "float"
+"float[3]" = y
+float z
+
+
+[functions]
+c = '''
+inline
+float magnitude(const vec_t& v) {
+    // test 1
+    return sqrt(v.x*v.x + v.y*v.y + v.z*v.z);
+}
+
+inline
+vec_t normalize(const vec_t& v) {
+    // test 2
+    float tmp = 3-4;
+    float mag = magnitude(v);
+    return vec_t(v.x/mag, v.y/mag, v.z/mag);
+}
+'''
+
+python = '''
+def magnitude(a):
+    return a
+
+def normalize(a):
+    # this is a test
+    return a
+'''
+
+
