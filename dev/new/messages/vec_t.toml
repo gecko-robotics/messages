@@ -1,8 +1,8 @@
 
 [message]
-x = "float"
-"float[3]" = y
-float z
+float-x = 0
+float-y = 0
+float-z = 0
 
 
 [functions]

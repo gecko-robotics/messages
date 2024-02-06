@@ -8,7 +8,7 @@ year = 1997
 
 [serialize]
 yivo = true
-mavlink = false
+# mavlink = false
 
 [ids]
 vec_t = 1
@@ -19,6 +19,6 @@ pose_t = 5
 imu_t = 10
 calibration_t = 20
 
-[var_types]
-# (name, c_size, py_format, id)
-veci_t = ["veci_t", 12, "3I", 22]
+# [var_types]
+# # (name, c_size, py_format, id)
+# veci_t = ["veci_t", 12, "3I", 22]

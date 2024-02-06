@@ -9,7 +9,7 @@ from .base import Base
 {%- if enums %}
 from enum import IntEnum
 {%- endif -%}
-{%- if include -%}
+{%- if includes -%}
 {%- for inc in includes %}
 {{ inc }}
 {%- endfor -%}

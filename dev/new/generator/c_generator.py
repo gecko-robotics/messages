@@ -15,32 +15,44 @@ def create_c_header(msg, template_path, template="msg.cpp.jinja"):
     content = tmpl.render(info)
     return content
 
-def includes_c(msg, local):
+def includes_c(msg):
     """
+     'message': {'name': 'quat_t',
+             'vars': [Var(type='float', var='w', value=1, array_size=0),
+                      Var(type='float', var='x', value=0, array_size=0),
+                      Var(type='float', var='y', value=0, array_size=0),
+                      Var(type='float', var='z', value=0, array_size=0)]},
+                      
     REMOVE: local, global
     REPLACE: c = ['"vec_t"', "<cstdint>"]
     Libraries aren't working right ... not in header
     """
-    if local:
-        if "local" not in msg:
-            return []
-        inc = msg["local"]
-        op = '"'
-        cl = '"'
-    else:
-        if "global" not in msg:
-            return []
-        inc = msg["global"]
-        op = "<"
-        cl = ">"
-
     includes = set()
-    if isinstance(inc, str):
-        includes.add(f"#include {op}{inc}{cl}")
-    else:
-        for i in inc:
-            includes.add(f"#include {op}{i}{cl}")
+    for var in msg["message"]["vars"]:
+        c = var_types[var.type].complex
+        if c is True:
+            includes.add(f"#include \"{var.type}.hpp\"")
     return list(includes)
+    # if local:
+    #     if "local" not in msg:
+    #         return []
+    #     inc = msg["local"]
+    #     op = '"'
+    #     cl = '"'
+    # else:
+    #     if "global" not in msg:
+    #         return []
+    #     inc = msg["global"]
+    #     op = "<"
+    #     cl = ">"
+
+    # includes = set()
+    # if isinstance(inc, str):
+    #     includes.add(f"#include {op}{inc}{cl}")
+    # else:
+    #     for i in inc:
+    #         includes.add(f"#include {op}{i}{cl}")
+    # return list(includes)
         
 def parse_c(msg):
     """
@@ -90,33 +102,35 @@ def parse_c(msg):
     _,_,msg_size,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
     
     includes = ["#include <cstdint>"]
-    if "libraries" in msg:
-        if "c" in msg["libraries"]:
-            includes = includes_c(msg["libraries"]["c"], local=True)
-            includes += includes_c(msg["libraries"]["c"], local=False)
+    includes += includes_c(msg)
+    # if "libraries" in msg:
+    #     if "c" in msg["libraries"]:
+    #         includes = includes_c(msg["libraries"]["c"], local=True)
+    #         includes += includes_c(msg["libraries"]["c"], local=False)
     
     vars = []
     incs = set()
     for v in msg["message"]["vars"]:
         complex = var_types[v.type].complex
-        if complex:
-            incs.add(f"#include \"{v.type}.hpp\"")
+        # if complex:
+        #     incs.add(f"#include \"{v.type}.hpp\"")
         if v.array_size > 0 and not complex:
-            default = str(v.value).replace('[','{').replace(']','}')
+            # default = str(v.value).replace('[','{').replace(']','}')
+            default = str([0]*v.array_size).replace('[','{').replace(']','}')
             vars.append(f"{v.type}[{v.array_size}] {v.var}{default};")
         else:
             # so complex user types (e.g., vec_t) default to an array, but
             # you want vec_t{0,0,0} and not vec_t[3]{0,0,0}
-            if v.array_size > 0:
+            if complex:
                 default = str(v.value).replace('[','{').replace(']','}')
                 vars.append(f"{v.type} {v.var}{default};")
             else:
                 vars.append(f"{v.type} {v.var} = {v.value};")
     # print(incs)
-    if len(incs) > 0:
-        if includes is None:
-            includes = []
-        includes += list(incs)
+    # if len(incs) > 0:
+    #     if includes is None:
+    #         includes = []
+    #     includes += list(incs)
     # print(includes)
 
     c_funcs = None
@@ -132,8 +146,9 @@ def parse_c(msg):
             mavlink = msg["serialize"]["mavlink"]
 
     namespace = None
-    if "namespace" in msg:
-        namespace = msg["namespace"]
+    if "global" in msg:
+        if "namespace" in msg["global"]:
+            namespace = msg["global"]["namespace"]
 
     if "id" in msg["message"]:
         msg_id = msg["message"]["id"]

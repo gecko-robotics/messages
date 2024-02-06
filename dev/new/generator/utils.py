@@ -7,6 +7,7 @@ import tomllib
 from pprint import pprint
 from pathlib import Path
 from .license import *
+import re
 
 # Enum = namedtuple("Enum","var value")
 Var = namedtuple("Var","type var value array_size")
@@ -98,14 +99,22 @@ def var_fix(data):
     float-x => float x
     """
     vars = []
+    m = re.compile(r'([a-zA-Z0-9_]+)')
     for k,val in data["message"].items():
-        # print(k)
         try:
-            type, var = k.split('-')
-            array_size = 0
-            if isinstance(val, list):
-                array_size = len(val)
-            v = Var(type,var,val, array_size)
+            # type, var = k.split('-')
+            # array_size = 0
+            # if isinstance(val, list):
+            #     array_size = len(val)
+            mm = m.findall(k)
+            if len(mm) == 2:
+                type, var = mm
+                array_size = 0
+            elif len(mm) == 3:
+                type, array_size, var = mm
+            else:
+                raise Exception(f"Error parsing message vars: {k}:{val}")
+            v = Var(type,var,val,int(array_size))
             vars.append(v)
         except ValueError:
             continue

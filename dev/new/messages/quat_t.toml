@@ -4,10 +4,14 @@ float-w = 1
 float-x = 0
 float-y = 0
 float-z = 0
+float-7-v = 0
 
 
 [functions]
 c = '''
+#include "this.hpp"
+#include <cstring>
+
 inline
 float magnitude(const vec_t& v) {
     // test 1
@@ -24,6 +28,9 @@ vec_t normalize(const vec_t& v) {
 '''
 
 python = '''
+import os
+from slurm import sin
+
 def magnitude(a):
     return a
 
