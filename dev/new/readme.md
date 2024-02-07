@@ -11,8 +11,8 @@ Files:
  
 ```toml
 [global]
-comments = string
-namespace = string
+comments = "string"
+namespace = "string"
 license = string    # full text of what you want at the top of each file
 version = string    # anything you want like 1.0.2 or 2022.2.23
  
