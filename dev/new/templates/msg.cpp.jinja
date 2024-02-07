@@ -6,11 +6,14 @@
 ///////////////////////////////////////////////////////////
 #pragma once
 
-{% if includes %}
+{%- if includes %}
 {%- for inc in includes %}
 {{ inc }}
 {%- endfor %}
 {% endif -%}
+{%- if yivo -%}
+#include <yivo.hpp>
+{%- endif %}
 
 {# {%- for com in comments %}
 {{ com }}
@@ -56,13 +59,14 @@ struct __attribute__((packed)) {{ name }} {
 {%- if yivo %}
 inline
 message_t yivo_pack(const {{ name }}& msg) {
-  message_t msg = yivo.pack({{ msgid }}, (uint8_t*)&msg, {{msg_size}});
+  message_t msg = yivo.pack({{ msg_id }}, (uint8_t*)&msg, {{size}});
   return msg;
 }
 {% endif -%}
-{%- if mavlink %}
+
+{# {%- if mavlink %}
 // mavlink function
-{% endif -%}
+{% endif -%} #}
 
 
 {# static

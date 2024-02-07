@@ -7,17 +7,18 @@
 from dataclasses import dataclass
 from .base import Base
 {%- if enums %}
-from enum import IntEnum
+from enum import IntEnum, unique
 {%- endif -%}
-{%- if include -%}
+{%- if includes -%}
 {%- for inc in includes %}
 {{ inc }}
 {%- endfor -%}
 {%- endif -%}
 
-{# ENUMS ------------------------------ #}
+{#- ENUMS ------------------------------ #}
 {%- if enums %}
 {%- for k, v in enums.items() %}
+@unique
 class {{ k|upper }}(IntEnum):
     {%- for name, value in v.items() %}
     {{ name }} = {{ value }}
@@ -25,7 +26,7 @@ class {{ k|upper }}(IntEnum):
 {% endfor %}
 {% endif %}
 
-{# DATACLASS ---------------------------- #}
+{#- DATACLASS ---------------------------- #}
 @dataclass(frozen=True)
 class {{ name }}(Base):
     {%- for var in vars %}

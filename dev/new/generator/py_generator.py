@@ -20,16 +20,15 @@ def create_python(msg, template_path, template="msg.py.jinja"):
     content = tmpl.render(info)
     return content
 
-def includes_python(inc):
+def includes_python(msg):
     """
     Formats library imports for a python message
     """
     includes = set()
-    if isinstance(inc, str):
-        includes.add(f"{inc}")
-    else:
-        for i in inc:
-            includes.add(f"{i}")
+    for var in msg["message"]["vars"]:
+        c = var_types[var.type].complex
+        if c is True:
+            includes.add(f"from .{var.type} import {var.type}")
     return list(includes)
     
 def parse_python(msg):
@@ -38,7 +37,7 @@ def parse_python(msg):
     to generate a python file for the message
     """
     # FIXME: limit to 80 cols
-    width = 80
+    width = 70
 
     comments = None
     if "comments" in msg:
@@ -47,27 +46,6 @@ def parse_python(msg):
     enums = None
     if "enums" in msg:
         enums = msg["enums"]
-
-    license = None
-    if "license" in msg:
-        # # license = format_str_width(msg["license"],'#',width)
-        # if "type" in msg["license"]:
-        #     lic = msg["license"]["type"]
-        #     yr = msg["license"]["year"]
-        #     name = msg["license"]["name"]
-        #     if lic.upper() == "MIT":
-        #         license = MIT_LICENSE(name, yr)
-        #     else:
-        #         print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
-        #         print(msg["license"])
-        #         raise Exception("Bad license")
-        # elif "custom" in msg["license"]:
-        #     license = msg["license"]["custom"]
-        # else:
-        #     print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
-        #     print(msg["license"])
-        #     raise Exception("Bad license")
-        license = format_str_width(msg["license"], '#', width)
 
     msg_comments = None
     if "comments" in msg["message"]:
@@ -79,35 +57,41 @@ def parse_python(msg):
     vars = []
     for v in msg["message"]["vars"]:
         type = var_types[v.type].py
-        if v.array_size > 0:
+        if var_types[v.type].complex:
             # default = str(v.value)
-            vars.append(f"{v.var}: list[{type}] = {v.value}")
+            vars.append(f"{v.var}: list[{type}] = field(default_factory=(lambda:{v.value}))")
         else:
             vars.append(f"{v.var}: {type} = {v.value}")
 
-    includes = None
-    if "libraries" in msg and "python" in msg["libraries"]:
-        includes = includes_python(msg["libraries"]["python"])
+    includes = []
+    includes += includes_python(msg)
+    # print(includes)
+    # if "libraries" in msg and "python" in msg["libraries"]:
+    #     includes = includes_python(msg["libraries"]["python"])
 
     funcs = None
     if "functions" in msg and "python" in msg["functions"]:
         funcs = msg["functions"]["python"]
 
+    namespace = None
+    license = None
     yivo, mavlink = False, False
-    if "serialize" in msg:
-        if "yivo" in msg["serialize"]:
-            yivo = msg["serialize"]["yivo"]
-        if "mavlink" in msg["serialize"]:
-            mavlink = msg["serialize"]["mavlink"]
-    
+    if "global" in msg:
+        if "namespace" in msg["global"]:
+            namespace = msg["global"]["namespace"]
+        if "license" in msg["global"]:
+            license = format_str_width(msg["global"]["license"], '#', width)
+        if "ids" in msg["global"]:
+            mtype = msg["message"]["name"]
+            msg_id = msg["global"]["ids"][mtype]
+        if "serialize" in msg:
+            if "yivo" in msg["global"]["serialize"]:
+                yivo = msg["global"]["serialize"]["yivo"]
+            if "mavlink" in msg["global"]["serialize"]:
+                mavlink = msg["global"]["serialize"]["mavlink"]
+            
     if "id" in msg["message"]:
         msg_id = msg["message"]["id"]
-    elif "ids" in msg:
-        mtype = msg["message"]["name"]
-        msg_id = msg["ids"][mtype]
-    else:
-        print(f"ERROR: can't find id in toml")
-        raise Exception()
         
     info = {
         "name": msg["message"]["name"],  # str
@@ -118,11 +102,11 @@ def parse_python(msg):
         "functions": funcs,              # list of str
         "enums": enums,                  # dict: {name: {var:value, ...}, name:...}
         "msg_size": msg_size,            # int
-        "namespace": msg["namespace"],   # str
+        "namespace": namespace,          # str
         "mavlink": mavlink,              # bool
         "yivo": yivo,                    # bool
         "license": license,              # str
-        "msg_id": msg_id,  # int
+        "msg_id": msg_id,                # int
         "format": format                 # str
     }
 

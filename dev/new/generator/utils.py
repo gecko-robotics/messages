@@ -7,6 +7,7 @@ import tomllib
 from pprint import pprint
 from pathlib import Path
 from .license import *
+import re
 
 # Enum = namedtuple("Enum","var value")
 Var = namedtuple("Var","type var value array_size")
@@ -15,6 +16,28 @@ Var = namedtuple("Var","type var value array_size")
 # py - python type name
 # fmt - pack/unpack
 # complex - for user defined types, more involved, try to avoid
+# VarInfo = namedtuple("VarInfo","c py size fmt id")
+
+# var_types = {
+#     # Standard scalar types --------------------------------------------------------
+#     "uint8":  VarInfo("uint8_t",  "int",   1, "B", 0),
+#     "uint16": VarInfo("uint16_t", "int",   2, "H", 0),
+#     "uint32": VarInfo("uint32_t", "int",   4, "I", 0),
+#     "uint64": VarInfo("uint64_t", "int",   8, "Q", 0),
+#     "int8":   VarInfo("int8_t",   "int",   1, "b", 0),
+#     "int16":  VarInfo("int16_t",  "int",   2, "h", 0),
+#     "int32":  VarInfo("int32_t",  "int",   4, "i", 0),
+#     "int64":  VarInfo("int64_t",  "int",   8, "q", 0),
+#     "float":  VarInfo("float",    "float", 4, "f", 0),
+#     "double": VarInfo("double",   "float", 8, "d", 0),
+#     # ROS inspired messages -------------------------------------------------------
+#     "vec_t":    VarInfo("vec_t",    "vec_t",    12, "3f", 1), # [x y z]
+#     "quat_t":   VarInfo("quat_t",   "quat_t",   16, "4f", 2), # [w x y z]
+#     "twist_t":  VarInfo("twist_t",  "twist_t",  24, "6f", 3), # [linear, angular]
+#     "wrench_t": VarInfo("wrench_t", "wrench_t", 24, "6f", 4), # [force, torque]
+#     "pose_t":   VarInfo("pose_t",   "pose_t",   28, "7f", 5), # [position, attitude]
+# }
+
 VarInfo = namedtuple("VarInfo","c py size fmt complex")
 
 var_types = {
@@ -45,28 +68,28 @@ def read_toml(file):
     if "message" in data:
         data = var_fix(data)
 
-    license = None
-    if "license" in data:
-        # license = format_str_width(msg["license"],'#',width)
-        if "type" in data["license"]:
-            lic = data["license"]["type"]
-            yr = data["license"]["year"]
-            name = data["license"]["name"]
-            if lic.upper() == "MIT":
-                license = MIT_LICENSE(name, yr)
-            else:
-                print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
-                print(data["license"])
-                raise Exception("Bad license")
-        elif "custom" in data["license"]:
-            license = data["license"]["custom"]
-        else:
-            print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
-            print(data["license"])
-            raise Exception("Bad license")
+    # license = None
+    # if "license" in data:
+    #     # license = format_str_width(msg["license"],'#',width)
+    #     if "type" in data["license"]:
+    #         lic = data["license"]["type"]
+    #         yr = data["license"]["year"]
+    #         name = data["license"]["name"]
+    #         if lic.upper() == "MIT":
+    #             license = MIT_LICENSE(name, yr)
+    #         else:
+    #             print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
+    #             print(data["license"])
+    #             raise Exception("Bad license")
+    #     elif "custom" in data["license"]:
+    #         license = data["license"]["custom"]
+    #     else:
+    #         print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
+    #         print(data["license"])
+    #         raise Exception("Bad license")
     
-    if license is not None:
-        data["license"] = license
+    # if license is not None:
+    #     data["license"] = license
         
     return data
 
@@ -98,52 +121,44 @@ def var_fix(data):
     float-x => float x
     """
     vars = []
+    m = re.compile(r'([a-zA-Z0-9_]+)')
     for k,val in data["message"].items():
-        # print(k)
         try:
-            type, var = k.split('-')
-            array_size = 0
-            if isinstance(val, list):
-                array_size = len(val)
-            v = Var(type,var,val, array_size)
+            # type, var = k.split('-')
+            # array_size = 0
+            # if isinstance(val, list):
+            #     array_size = len(val)
+            if k == "id":
+                continue
+            if k == "name":
+                continue
+            mm = m.findall(k)
+            if len(mm) == 2:
+                type, var = mm
+                array_size = 0
+            elif len(mm) == 3:
+                type, array_size, var = mm
+            else:
+                raise Exception(f"Error parsing message vars: {k}:{val}")
+            v = Var(type,var,val,int(array_size))
             vars.append(v)
         except ValueError:
             continue
     
-    msg = {
-        "vars": vars,
-        "name": data["file"].stem
-    }
-    if "id" in data["message"]:
-        msg["id"] = data["message"]["id"],
+    # msg = {
+    #     "vars": vars,
+    #     # "name": data["file"].stem
+    #     "name": data["message"]["name"]
+    # }
+    # if "id" in data["message"]:
+    #     msg["id"] = data["message"]["id"],
     
-    if "comments" in data["message"]:
-        msg["comments"]: data["message"]["comments"]
+    # if "comments" in data["message"]:
+    #     msg["comments"]: data["message"]["comments"]
     
-    # pprint(msg)
-    # license = None
-    # if "license" in data:
-    #     # license = format_str_width(msg["license"],'#',width)
-    #     if "type" in data["license"]:
-    #         lic = data["license"]["type"]
-    #         yr = data["license"]["year"]
-    #         name = data["license"]["name"]
-    #         if lic.upper() == "MIT":
-    #             license = MIT_LICENSE(name, yr)
-    #         else:
-    #             print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
-    #             print(data["license"])
-    #             raise Exception("Bad license")
-    #     elif "custom" in data["license"]:
-    #         license = data["license"]["custom"]
-    #     else:
-    #         print(f"{Fore.RED}ERROR: Unknown license{Fore.RESET}")
-    #         print(data["license"])
-    #         raise Exception("Bad license")
+    # data["message"] = msg
+    data["message"]["vars"] = vars
     
-    data["message"] = msg
-    # if license is not None:
-    #     data["license"] = license
     return data
 
 def write_file(filename, content):
