@@ -27,7 +27,11 @@ class {{ k|upper }}(IntEnum):
 {% endif %}
 
 {#- DATACLASS ---------------------------- #}
+{%- if frozen %}
 @dataclass(frozen=True)
+{% else %}
+@dataclass
+{%- endif %}
 class {{ name }}(Base):
     {%- for var in vars %}
     {{ var }}

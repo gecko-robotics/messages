@@ -7,3 +7,4 @@ mags = 3
 [message]
 float-12-cal=0
 uint8-type = 0
+name = "calibration_t"

@@ -6,9 +6,10 @@ from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
 
 
-def create_c_header(msg, template_path, template="msg.cpp.jinja"):
+def create_cpp(msg, template="msg.cpp.jinja"):
     # tmp_dir = Path(__file__).resolve().parent/"templates"
-    tmp_dir = Path(template_path)
+    tmp_dir = Path(".").resolve()/"templates"
+    # print(tmp_dir)
     env = Environment(loader=FileSystemLoader(tmp_dir))
     tmpl = env.get_template(template)
     info = parse_c(msg)
@@ -80,28 +81,29 @@ def parse_c(msg):
         if "c" in msg["functions"]:
             c_funcs = msg["functions"]["c"]
 
-    yivo, mavlink = False, False
-    namespace = None
-    license = None
-    comments = None
-    if "global" in msg:
-        if "namespace" in msg["global"]:
-            namespace = msg["global"]["namespace"]
-        if "license" in msg["global"]:
-            license = format_str_width(msg["global"]["license"], '//', width)
-        if "ids" in msg["global"]:
-            mtype = msg["message"]["name"]
-            try:
-                msg_id = msg["global"]["ids"][mtype]
-            except KeyError:
-                pass
-        if "serialize" in msg["global"]:
-            if "yivo" in msg["global"]["serialize"]:
-                yivo = msg["global"]["serialize"]["yivo"]
-            if "mavlink" in msg["global"]["serialize"]:
-                mavlink = msg["global"]["serialize"]["mavlink"]
-        if "comments" in msg["global"]:
-            comments = format_str_width(msg["global"]["comments"],'//',width)
+    # yivo, mavlink = False, False
+    # namespace = None
+    # license = None
+    # comments = None
+    # if "global" in msg:
+    #     if "namespace" in msg["global"]:
+    #         namespace = msg["global"]["namespace"]
+    #     if "license" in msg["global"]:
+    #         license = format_str_width(msg["global"]["license"], '//', width)
+    #     if "ids" in msg["global"]:
+    #         mtype = msg["message"]["name"]
+    #         try:
+    #             msg_id = msg["global"]["ids"][mtype]
+    #         except KeyError:
+    #             pass
+    #     if "serialize" in msg["global"]:
+    #         if "yivo" in msg["global"]["serialize"]:
+    #             yivo = msg["global"]["serialize"]["yivo"]
+    #         if "mavlink" in msg["global"]["serialize"]:
+    #             mavlink = msg["global"]["serialize"]["mavlink"]
+    #     if "comments" in msg["global"]:
+    #         comments = format_str_width(msg["global"]["comments"],'//',width)
+    namespace, license, yivo, mavlink, frozen, msg_id, comments = parse_global(msg, '//', width)
 
     if "id" in msg["message"]:
         msg_id = msg["message"]["id"]
