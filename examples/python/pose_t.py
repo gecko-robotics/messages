@@ -6,8 +6,8 @@
 ###############################################################################
 from dataclasses import dataclass
 from .base import Base
-from .vec_t import vec_t
 from .quat_t import quat_t
+from .vec_t import vec_t
 @dataclass
 class pose_t(Base):
     position: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
