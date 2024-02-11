@@ -6,13 +6,13 @@
 ###############################################################################
 from dataclasses import dataclass
 from .base import Base
+from .vec_t import vec_t
 @dataclass
-class vec_t(Base):
-    x: float = 0
-    y: float = 0
-    z: float = 0
+class twist_t(Base):
+    linear: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
+    angular: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
 
     def __yivo__(self):
         # (fmt, size, id)
-        return ("3f", 12, 1)
+        return ("6f", 24, 3)
 

@@ -6,20 +6,21 @@
 ///////////////////////////////////////////////////////////
 #pragma once
 #include <cstdint>
-#include "vec_t.hpp"
 
 
 
 namespace msgs {
 
-constexpr uint8_t MSG_SIZE_WRENCH_T = 24;
-constexpr uint8_t MSG_ID_WRENCH_T = 4;
+constexpr uint8_t MSG_SIZE_QUAT_T = 16;
+constexpr uint8_t MSG_ID_QUAT_T = 2;
 
 
-struct __attribute__((packed)) wrench_t {
+struct __attribute__((packed)) quat_t {
 
-  vec_t force{0, 0, 0};
-  vec_t torque{0, 0, 0};
+  float w = 1;
+  float x = 0;
+  float y = 0;
+  float z = 0;
 };
 
 

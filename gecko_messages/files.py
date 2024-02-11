@@ -10,21 +10,21 @@ def read_toml(file):
     path = Path(file)
     with path.open("rb") as f:
         data = tomllib.load(f)
-        
+
     if "message" in data:
         data = var_fix(data)
-        
+
     return data
-    
+
 def read_tomls(txt):
     """
     Read toml string and return dict
     """
     data = tomllib.loads(txt)
-        
+
     if "message" in data:
         data = var_fix(data)
-        
+
     return data
 
 def read_folder(dir):
@@ -51,23 +51,23 @@ def read_folder(dir):
     # handle builtins ----------------------------------
     for f in complex_types:
         # data = tomllib.loads(f) | gData
-        
+
         # if "message" in data:
         #     data = var_fix(data)
         data = read_tomls(f) | gData
-            
+
         data_files.append(data)
-    
+
     # process messages ---------------------------------
     for f in files:
         # with f.open("rb") as fd:
             # data = tomllib.load(fd) | gData
-        
+
             # if "message" in data:
             #     data = var_fix(data)
 
             # pprint(data)
-            
+
         data = read_toml(f) | gData
         data_files.append(data)
     return data_files
@@ -76,7 +76,7 @@ def write_file(filename, content):
     """
     Simple writes content to filename
     """
-    if not isinstance(filename, Path)
+    if not isinstance(filename, Path):
         filename = Path(filename)
     try:
         with filename.open("w", encoding="utf-8") as fd:

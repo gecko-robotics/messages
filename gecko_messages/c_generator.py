@@ -7,8 +7,8 @@ from jinja2.loaders import FileSystemLoader
 
 
 def create_cpp(msg, template="msg.cpp.jinja"):
-    # tmp_dir = Path(__file__).resolve().parent/"templates"
-    tmp_dir = Path(".").resolve()/"templates"
+    tmp_dir = Path(__file__).resolve().parent/"templates"
+    # tmp_dir = Path(".").resolve()/"templates"
     # print(tmp_dir)
     env = Environment(loader=FileSystemLoader(tmp_dir))
     tmpl = env.get_template(template)
@@ -23,7 +23,7 @@ def includes_c(msg):
                       Var(type='float', var='x', value=0, array_size=0),
                       Var(type='float', var='y', value=0, array_size=0),
                       Var(type='float', var='z', value=0, array_size=0)]},
-                      
+
     REMOVE: local, global
     REPLACE: c = ['"vec_t"', "<cstdint>"]
     Libraries aren't working right ... not in header
@@ -34,10 +34,10 @@ def includes_c(msg):
         if c is True:
             includes.add(f"#include \"{var.type}.hpp\"")
     return list(includes)
-        
+
 def parse_c(msg):
     """
-    
+
     """
     # FIXME: limit to 80 cols
     width = 80
@@ -56,10 +56,10 @@ def parse_c(msg):
         msg_comments = format_str_width(msg['message']['comments'],'  //',width)
 
     _,_,msg_size,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
-    
+
     includes = ["#include <cstdint>"]
     includes += includes_c(msg)
-    
+
     vars = []
     incs = set()
     for v in msg["message"]["vars"]:
@@ -107,7 +107,7 @@ def parse_c(msg):
 
     if "id" in msg["message"]:
         msg_id = msg["message"]["id"]
-    
+
     info = {
         "name": msg["message"]["name"], # str
         "vars": vars,                   # list of str
@@ -125,9 +125,9 @@ def parse_c(msg):
         "license": license,             # str
         "msg_id": msg_id                # int
     }
-    
+
     # pprint(info)
-    
+
     # tmpl = env.get_template("msg.cpp.jinja")
     # content = tmpl.render(info)
     # print(content)

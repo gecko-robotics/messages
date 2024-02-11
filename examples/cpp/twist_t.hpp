@@ -12,14 +12,14 @@
 
 namespace msgs {
 
-constexpr uint8_t MSG_SIZE_WRENCH_T = 24;
-constexpr uint8_t MSG_ID_WRENCH_T = 4;
+constexpr uint8_t MSG_SIZE_TWIST_T = 24;
+constexpr uint8_t MSG_ID_TWIST_T = 3;
 
 
-struct __attribute__((packed)) wrench_t {
+struct __attribute__((packed)) twist_t {
 
-  vec_t force{0, 0, 0};
-  vec_t torque{0, 0, 0};
+  vec_t linear{0, 0, 0};
+  vec_t angular{0, 0, 0};
 };
 
 

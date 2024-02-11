@@ -7,12 +7,13 @@
 from dataclasses import dataclass
 from .base import Base
 @dataclass
-class vec_t(Base):
+class quat_t(Base):
+    w: float = 1
     x: float = 0
     y: float = 0
     z: float = 0
 
     def __yivo__(self):
         # (fmt, size, id)
-        return ("3f", 12, 1)
+        return ("4f", 16, 2)
 

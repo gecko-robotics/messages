@@ -6,13 +6,14 @@
 ###############################################################################
 from dataclasses import dataclass
 from .base import Base
+from .vec_t import vec_t
+from .quat_t import quat_t
 @dataclass
-class vec_t(Base):
-    x: float = 0
-    y: float = 0
-    z: float = 0
+class pose_t(Base):
+    position: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
+    orientation: list[quat_t] = field(default_factory=(lambda:[1, 0, 0, 0]))
 
     def __yivo__(self):
         # (fmt, size, id)
-        return ("3f", 12, 1)
+        return ("7f", 28, 5)
 

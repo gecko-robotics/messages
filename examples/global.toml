@@ -1,9 +1,10 @@
 [global]
 namespace = "msgs"
 frozen = false
-license = '''opyright 1997 Silent Bob
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”)
+license = '''
+The MIT License (MIT)
+Copyright (c) 2023 Kevin Walchko
+see LICENSE for full details
 '''
 # license_MIT = '''Copyright 1997 Silent Bob
 

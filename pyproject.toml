@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "gecko_messages"
 version = "2023.08.26"
-description = "gecko messages"
+description = "gecko_messages"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
 license = "MIT"
@@ -25,9 +25,14 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = ">=3.8"
+colorama = "*"
+jinja2 = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
+
+[tool.poetry.scripts]
+gmsg = 'gecko_messages.bin.gmsg:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

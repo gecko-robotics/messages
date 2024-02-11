@@ -6,13 +6,21 @@
 ###############################################################################
 from dataclasses import dataclass
 from .base import Base
+from enum import IntEnum, unique
+@unique
+class SENSOR(IntEnum):
+    unknown = 0
+    accels = 1
+    gyros = 2
+    mags = 3
+
+
 @dataclass
-class vec_t(Base):
-    x: float = 0
-    y: float = 0
-    z: float = 0
+class calibration_t(Base):
+    cal: float = 0
+    type: int = 0
 
     def __yivo__(self):
         # (fmt, size, id)
-        return ("3f", 12, 1)
+        return ("12fB", 49, 20)
 
