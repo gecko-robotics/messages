@@ -35,7 +35,7 @@ def language(data, create, output_path, ext):
 
 def main():
     args = handleArgs()
-    print(args)
+    # print(args)
 
     in_path = Path(args["in_path"])
     out_path = Path(args["out_path"])

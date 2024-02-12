@@ -12,3 +12,4 @@ old
 test
 
 .ipynb_checkpoints
+poetry.lock
