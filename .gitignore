@@ -10,5 +10,6 @@ __pycache__
 
 old
 test
+poetry.lock
 
 .ipynb_checkpoints
