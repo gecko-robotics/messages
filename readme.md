@@ -46,11 +46,13 @@ Message use standard types:
 
 Or complex types:
 
-- `vec_t`: `[x,y,z]`
-- `wrench_t`
-- `twist_t`
-- `quat_t` (quaternion): `[w,x,y,z]`
-- `pose_t`
+| ID | Message    | Info                             |
+|----|------------|----------------------------------|
+| 1  | `vec_t`    | {float x,y,z}
+| 2  | `quat_t`   | {float w,x,y,z}
+| 3  | `twist_t`  | {vec_t linear, vec_t angular}
+| 4  | `wrench_t` | {vec_t force, vec_t torque}
+| 5  | `pose_t`   | {vec_t position, quat_t orientation}
 
 ```toml
 [global]
