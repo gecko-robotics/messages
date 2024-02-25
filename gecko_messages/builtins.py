@@ -1,3 +1,9 @@
+###############################################
+# The MIT License (MIT)
+# Copyright (c) 2023 Kevin Walchko
+# see LICENSE for full details
+##############################################
+# -*- coding: utf-8 -*-
 
 complex_types = [
     """

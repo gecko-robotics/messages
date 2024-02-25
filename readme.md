@@ -78,15 +78,19 @@ Val3 = 3
 # default types, so what should be an array (float[3]), you can set to a
 # scalar int. C is the only one that will complain if you do this.
 [message]
-float-x = 0.0         # type-var_name = default_value
-float-2-y = [0.0,0.0] # type-array_size-var_name = default_value
-float-z = 0.0         # var names can only be ascii letters, numbers and -
-vec_t-a = [1,2,3]     # other messages CANNOT be arrays, this will also automatically
-                      # add `#include “vec_t.hpp”` and `from vec_t import *` when generated
+float-x = 1  # type-var_name = array_dimension
+float-y = 2  # type-var_name = array_dimension
+float-z = 1  # var names can only be ascii letters, numbers and -
+vec_t-a = 1  # other messages CANNOT be arrays, this will also automatically
+             # add `#include “vec_t.hpp”` and `from vec_t import *` when generated
 
 comments = "string"     # optional, will be attached to the `struct`
 id = "bool"             # can be in global.toml [ids] or here, value must be between 20 - 255
 frozen = "bool"         # only for python dataclass
+
+[message.defaults] # optional, don't need to do this
+x = 12      # set defaults for variables
+y = [1,2]   # don't need to define defaults for all variables
 
 # this is really a message library for serialization, so only put functions if
 # you really need to, otherwise, let some other part of your code base
@@ -129,3 +133,30 @@ calibration_t = int
 my_cool_msg = int
 awesome_msg = int
 ```
+
+## To Do
+
+- [ ] Add defaults to message
+- [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
+
+# MIT License
+
+**Copyright (c) 2023 gecko-robotics**
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

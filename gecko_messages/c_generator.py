@@ -1,6 +1,11 @@
+###############################################
+# The MIT License (MIT)
+# Copyright (c) 2023 Kevin Walchko
+# see LICENSE for full details
+##############################################
+# -*- coding: utf-8 -*-
 
-from .utils import *
-from .license import *
+from .utils import calc_msg_size, parse_global
 from pathlib import Path
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
@@ -63,18 +68,6 @@ def parse_c(msg):
     vars = []
     incs = set()
     for v in msg["message"]["vars"]:
-        # complex = v.complex
-        # if v.len > 1 and not complex:
-        #     default = str([0]*v.len).replace('[','{').replace(']','}')
-        #     vars.append(f"{v.type}[{v.len}] {v.var}{default};")
-        # else:
-        #     # so complex user types (e.g., vec_t) default to an array, but
-        #     # you want vec_t{0,0,0} and not vec_t[3]{0,0,0}
-        #     # if complex:
-        #     #     default = str(v.value).replace('[','{').replace(']','}')
-        #     #     vars.append(f"{v.type} {v.var}{default};")
-        #     # else:
-        #     #     vars.append(f"{v.type} {v.var} = {v.value};")
         vars.append(v.c_format())
 
     c_funcs = None
@@ -82,28 +75,6 @@ def parse_c(msg):
         if "c" in msg["functions"]:
             c_funcs = msg["functions"]["c"]
 
-    # yivo, mavlink = False, False
-    # namespace = None
-    # license = None
-    # comments = None
-    # if "global" in msg:
-    #     if "namespace" in msg["global"]:
-    #         namespace = msg["global"]["namespace"]
-    #     if "license" in msg["global"]:
-    #         license = format_str_width(msg["global"]["license"], '//', width)
-    #     if "ids" in msg["global"]:
-    #         mtype = msg["message"]["name"]
-    #         try:
-    #             msg_id = msg["global"]["ids"][mtype]
-    #         except KeyError:
-    #             pass
-    #     if "serialize" in msg["global"]:
-    #         if "yivo" in msg["global"]["serialize"]:
-    #             yivo = msg["global"]["serialize"]["yivo"]
-    #         if "mavlink" in msg["global"]["serialize"]:
-    #             mavlink = msg["global"]["serialize"]["mavlink"]
-    #     if "comments" in msg["global"]:
-    #         comments = format_str_width(msg["global"]["comments"],'//',width)
     namespace, license, yivo, mavlink, frozen, msg_id, comments = parse_global(msg, '//', width)
 
     if "id" in msg["message"]:
@@ -127,13 +98,4 @@ def parse_c(msg):
         "msg_id": msg_id                # int
     }
 
-    # pprint(info)
-
-    # tmpl = env.get_template("msg.cpp.jinja")
-    # content = tmpl.render(info)
-    # print(content)
     return info
-
-    # filename = info["name"] + ".hpp"
-    # filename = Path(out_path)/filename
-    # write_file(filename, content)

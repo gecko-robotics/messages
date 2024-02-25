@@ -1,7 +1,68 @@
-import tomllib
+###############################################
+# The MIT License (MIT)
+# Copyright (c) 2023 Kevin Walchko
+# see LICENSE for full details
+##############################################
+# -*- coding: utf-8 -*-
+try:
+    import tomllib
+except ImportError:
+    import tomlkit as tomllib
+
 from pathlib import Path
-from .utils import var_fix
 from .builtins import *
+from .types import *
+
+
+def var_fix(data):
+    """
+    format variables in message properly from the TOML template
+    float-x=1 => float x
+    float-x=3 => float[3] x
+    """
+    # print(data)
+
+    vars = []
+    key_remove = []
+
+    for k,val in data["message"].items():
+        try:
+            # there are some keys that are not variable types
+            # and we are just protecting them here
+            if k == "id":
+                continue
+            if k == "name":
+                continue
+
+            key_remove.append(k)
+
+            type, var = k.split('-')
+            array_size = int(val)
+
+            if type == "vec_t":
+                v = Vec(var, array_size)
+            elif type == "quat_t":
+                v = Quat(var, array_size)
+            elif type == "twist_t":
+                v = Twist(var, array_size)
+            elif type == "wrench_t":
+                v = Wrench(var, array_size)
+            elif type == "pose_t":
+                v = Pose(var, array_size)
+            else:
+                v = Scalar(var, type, array_size)
+            vars.append(v)
+        except ValueError:
+            continue
+
+    # Add in new namedtuple Var array
+    data["message"]["vars"] = vars
+
+    # remove old keys that were replaced above with namedtuple code
+    for k in key_remove:
+        data["message"].pop(k)
+
+    return data
 
 def read_toml(file):
     """
@@ -50,23 +111,12 @@ def read_folder(dir):
 
     # handle builtins ----------------------------------
     for f in complex_types:
-        # data = tomllib.loads(f) | gData
-
-        # if "message" in data:
-        #     data = var_fix(data)
         data = read_tomls(f) | gData
 
         data_files.append(data)
 
     # process messages ---------------------------------
     for f in files:
-        # with f.open("rb") as fd:
-            # data = tomllib.load(fd) | gData
-
-            # if "message" in data:
-            #     data = var_fix(data)
-
-            # pprint(data)
 
         data = read_toml(f) | gData
         data_files.append(data)

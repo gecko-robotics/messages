@@ -1,6 +1,13 @@
+###############################################
+# The MIT License (MIT)
+# Copyright (c) 2023 Kevin Walchko
+# see LICENSE for full details
+##############################################
+# -*- coding: utf-8 -*-
 import sys
 from collections import namedtuple
-from .utils import var_types
+
+Var = namedtuple("Var","type var value array_size")
 
 drange = namedtuple("drange","min max")
 dfprange = namedtuple("drange","fracbit min max res")
@@ -11,11 +18,13 @@ def irange(bits, signed):
         return drange(-2**(bits-1),2**(bits-1)-1)
     return drange(0,2**bits-1)
 
-def frange(double=True):
+def fltrange(double=True):
     """Floating point"""
-    if double:
-        return drange(sys.float_info.min,sys.float_info.max)
     return drange(1.175494351e-38,3.402823466e+38)
+
+def dblrange():
+    """Floating point"""
+    return drange(sys.float_info.min,sys.float_info.max)
 
 def fprange(frac):
     """Fixed Point"""
@@ -24,6 +33,33 @@ def fprange(frac):
     minfp = -2**(whole-1)
     maxfp = 2**(whole-1) - scale
     return dfprange(frac, minfp, maxfp, scale)
+
+# c - c type name
+# py - python type name
+# fmt - pack/unpack
+# complex - non-standard data type
+VarInfo = namedtuple("VarInfo","c py size fmt complex range")
+
+var_types = {
+    # Standard scalar types --------------------------------------------------------
+    "char":   VarInfo("char",     "str",   1, "B", False, irange(8,False)),
+    "uint8":  VarInfo("uint8_t",  "int",   1, "B", False, irange(8,False)),
+    "uint16": VarInfo("uint16_t", "int",   2, "H", False, irange(16,False)),
+    "uint32": VarInfo("uint32_t", "int",   4, "I", False, irange(32,False)),
+    "uint64": VarInfo("uint64_t", "int",   8, "Q", False, irange(64,False)),
+    "int8":   VarInfo("int8_t",   "int",   1, "b", False, irange(8,True)),
+    "int16":  VarInfo("int16_t",  "int",   2, "h", False, irange(16,True)),
+    "int32":  VarInfo("int32_t",  "int",   4, "i", False, irange(32,True)),
+    "int64":  VarInfo("int64_t",  "int",   8, "q", False, irange(64,True)),
+    "float":  VarInfo("float",    "float", 4, "f", False, fltrange()),
+    "double": VarInfo("double",   "float", 8, "d", False, dblrange()),
+    # ROS inspired messages -------------------------------------------------------
+    # "vec_t":    VarInfo("vec_t",    "vec_t",    12, "3f", True, 0), # [x y z]
+    # "quat_t":   VarInfo("quat_t",   "quat_t",   16, "4f", True, 0), # [w x y z]
+    # "twist_t":  VarInfo("twist_t",  "twist_t",  24, "6f", True, 0), # [linear, angular]
+    # "wrench_t": VarInfo("wrench_t", "wrench_t", 24, "6f", True, 0), # [force, torque]
+    # "pose_t":   VarInfo("pose_t",   "pose_t",   28, "7f", True, 0), # [position, attitude]
+}
 
 class TypeBase:
     def __str__(self):
@@ -124,13 +160,3 @@ class Pose(TypeBase):
         self.default = [[0,0,0,1,0,0,0] for _ in range(len)] if len > 1 else [0,0,0,1,0,0,0]
         self.size = 7*4*len
         self.fmt = f"{7*len}f"
-
-# print(Scalar("x","float",1))
-# print(Scalar("y","uint32",3))
-# print(Pose("bob",1))
-# print("Python -------------------")
-# print(Scalar("y","uint32",3).py_format())
-# print(Vec("bob",2).py_format())
-# print("C ------------------------")
-# print(Scalar("x","float",1).c_format())
-# print(Vec("bob",2).c_format())
