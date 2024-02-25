@@ -54,14 +54,17 @@ def var_fix(data):
                 v = Wrench(var, array_size)
             elif type == "pose_t":
                 v = Pose(var, array_size)
-            else:
+            elif type.find("int") > -1 or type == "float" or type == "double":
                 v = Scalar(var, type, array_size)
+            else:
+                # raise Exception(f"'{type}' is unknown")
+                v = Complex(var, type, array_size)
 
             if defaults:
                 if v.variable in defaults:
                     v.default = defaults[v.variable]
 
-            print(v)
+            # print(v)
 
             vars.append(v)
         except ValueError:

@@ -123,15 +123,17 @@ def update_var_types(data):
 
     msg_size = 0
     format = ''
+    # print(f">> {vars}")
     for v in vars:
         if v.len > 1 and not v.complex:
             msg_size += v.size * v.len
-            format += str(v.len) + v.fmt
+            format += v.len * v.fmt   # str(v.len) + v.fmt
+            # print(f">> {name}: {format} {v.complex}")
         else:
             msg_size += v.size
             format += v.fmt
 
-    # VarInfo(c py size fmt complex)
+    # VarInfo(c py size fmt complex default)
     new_var = VarInfo(name, name, msg_size, format, True, None)
     var_types[name] = new_var
 
@@ -252,3 +254,19 @@ class Pose(TypeBase):
         self.default = [[0,0,0,1,0,0,0] for _ in range(len)] if len > 1 else [0,0,0,1,0,0,0]
         self.size = 7*4*len
         self.fmt = f"{7*len}f"
+
+class Complex(TypeBase):
+    def __init__(self, var, type, len):
+        if not isinstance(var, str) or not isinstance(len, int) or len < 1:
+            raise Exception(f"Invalid: variable: {var} and/or len: {len}")
+        if not isinstance(type, str) or type not in var_types:
+            raise Exception(f"Invalid: {type}")
+        self.variable = var
+        self.type = type
+        self.len = len
+        self.complex = True
+        self.c = type
+        self.py = type
+        self.default = None
+        self.size = len*var_types[type].size
+        self.fmt = f"{len*var_types[type].fmt}" if len > 1 else var_types[type].fmt

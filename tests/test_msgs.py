@@ -1,6 +1,10 @@
+# pytest -s tests
+
 import pytest
 from gecko_messages import *
 from gecko_messages.builtins import complex_types, complex_types_global
+from gecko_messages.types import var_types
+from pprint import pprint
 
 def test_builtins():
 
@@ -45,6 +49,15 @@ def test_custom_msg():
         pytest.fail("Error custom message")
 
 def test_multi_msg():
+    g = """
+    [global]
+    license = '''Test License'''
+    namespace = "testing"
+    [global.serialize]
+    yivo = true
+    """
+    g = read_tomls(g)
+
     a =  """
     [message]
     vec_t-a = 1
@@ -54,16 +67,23 @@ def test_multi_msg():
     b =  """
     [message]
     a-b = 1
+    a-bb = 2
+
     name = "b"
     id = 51
+
+    [message.defaults]
+    b = [1.1,2.2,3.3]
     """
 
     for txt in [a,b]:
         try:
-            msg = read_tomls(txt)
+            msg = read_tomls(txt) | g
             c=create_cpp(msg)
             p=create_python(msg)
-            print(c,p)
+            # print(c,p)
             assert True
         except:
             pytest.fail("Error multi message")
+
+    # pprint(var_types)
