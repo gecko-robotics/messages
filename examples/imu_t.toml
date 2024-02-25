@@ -1,10 +1,10 @@
 [message]
-vec_t-accels = [0,0,0]
-vec_t-gyros = [0,0,0]
-vec_t-mags = [0,0,0]
-float-pressure = 0
-float-temperature = 0
-uint32-time = 0
+vec_t-accels = 1
+vec_t-gyros = 1
+vec_t-mags = 1
+float-pressure = 1
+float-temperature = 1
+uint32-time = 1
 name = "imu_t"
 
 [enums.health]

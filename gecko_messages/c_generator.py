@@ -30,7 +30,7 @@ def includes_c(msg):
     """
     includes = set()
     for var in msg["message"]["vars"]:
-        c = var_types[var.type].complex
+        c = var.complex
         if c is True:
             includes.add(f"#include \"{var.type}.hpp\"")
     return list(includes)
@@ -55,7 +55,7 @@ def parse_c(msg):
     if "comments" in msg["message"]:
         msg_comments = format_str_width(msg['message']['comments'],'  //',width)
 
-    _,_,msg_size,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
+    _,_,msg_size,_,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
 
     includes = ["#include <cstdint>"]
     includes += includes_c(msg)
@@ -63,18 +63,19 @@ def parse_c(msg):
     vars = []
     incs = set()
     for v in msg["message"]["vars"]:
-        complex = var_types[v.type].complex
-        if v.array_size > 0 and not complex:
-            default = str([0]*v.array_size).replace('[','{').replace(']','}')
-            vars.append(f"{v.type}[{v.array_size}] {v.var}{default};")
-        else:
-            # so complex user types (e.g., vec_t) default to an array, but
-            # you want vec_t{0,0,0} and not vec_t[3]{0,0,0}
-            if complex:
-                default = str(v.value).replace('[','{').replace(']','}')
-                vars.append(f"{v.type} {v.var}{default};")
-            else:
-                vars.append(f"{v.type} {v.var} = {v.value};")
+        # complex = v.complex
+        # if v.len > 1 and not complex:
+        #     default = str([0]*v.len).replace('[','{').replace(']','}')
+        #     vars.append(f"{v.type}[{v.len}] {v.var}{default};")
+        # else:
+        #     # so complex user types (e.g., vec_t) default to an array, but
+        #     # you want vec_t{0,0,0} and not vec_t[3]{0,0,0}
+        #     # if complex:
+        #     #     default = str(v.value).replace('[','{').replace(']','}')
+        #     #     vars.append(f"{v.type} {v.var}{default};")
+        #     # else:
+        #     #     vars.append(f"{v.type} {v.var} = {v.value};")
+        vars.append(v.c_format())
 
     c_funcs = None
     if "functions" in msg:

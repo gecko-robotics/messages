@@ -29,7 +29,7 @@ def includes_python(msg):
     """
     includes = set()
     for var in msg["message"]["vars"]:
-        c = var_types[var.type].complex
+        c = var.complex
         if c is True:
             includes.add(f"from .{var.type} import {var.type}")
     return list(includes)
@@ -55,16 +55,17 @@ def parse_python(msg):
         msg_comments = format_str_width(msg['message']['comments'],'    #',width)
 
 
-    _,_,msg_size,format,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
+    _,_,msg_size,format,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
 
     vars = []
     for v in msg["message"]["vars"]:
-        type = var_types[v.type].py
-        if var_types[v.type].complex:
-            # default = str(v.value)
-            vars.append(f"{v.var}: list[{type}] = field(default_factory=(lambda:{v.value}))")
-        else:
-            vars.append(f"{v.var}: {type} = {v.value}")
+        # type = var_types[v.type].py
+        # if v.complex:
+        #     # default = str(v.value)
+        #     vars.append(f"{v.var}: list[{v.type}] = field(default_factory=(lambda:{v.value}))")
+        # else:
+        #     vars.append(f"{v.var}: {v.py} = {v.value}")
+        vars.append(v.py_format())
 
     includes = []
     includes += includes_python(msg)
