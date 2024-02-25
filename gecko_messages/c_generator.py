@@ -5,7 +5,9 @@
 ##############################################
 # -*- coding: utf-8 -*-
 
-from .utils import calc_msg_size, parse_global
+# from .utils import calc_msg_size
+from .utils import parse_global
+from .types import var_types
 from pathlib import Path
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
@@ -45,7 +47,7 @@ def parse_c(msg):
 
     """
     # FIXME: limit to 80 cols
-    width = 80
+    # width = 80
 
     enums = None
     enums_type = None
@@ -57,10 +59,12 @@ def parse_c(msg):
             enums_type = msg["enums"]["type"]
 
     msg_comments = None
-    if "comments" in msg["message"]:
-        msg_comments = format_str_width(msg['message']['comments'],'  //',width)
+    # if "comments" in msg["message"]:
+    #     msg_comments = format_str_width(msg['message']['comments'],'  //',width)
 
-    _,_,msg_size,_,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
+    # _,_,msg_size,_,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
+    msginfo = var_types[msg["message"]["name"]]
+    msg_size = msginfo.size
 
     includes = ["#include <cstdint>"]
     includes += includes_c(msg)
@@ -75,7 +79,7 @@ def parse_c(msg):
         if "c" in msg["functions"]:
             c_funcs = msg["functions"]["c"]
 
-    namespace, license, yivo, mavlink, frozen, msg_id, comments = parse_global(msg, '//', width)
+    namespace, license, yivo, mavlink, frozen, msg_id, comments = parse_global(msg, '//')
 
     if "id" in msg["message"]:
         msg_id = msg["message"]["id"]

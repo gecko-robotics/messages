@@ -5,6 +5,15 @@
 ##############################################
 # -*- coding: utf-8 -*-
 
+complex_types_global = """
+[global]
+license = '''The MIT License (MIT)
+Copyright (c) 2023 Kevin Walchko
+see LICENSE for full details
+'''
+frozen = false
+"""
+
 complex_types = [
     """
     [message]

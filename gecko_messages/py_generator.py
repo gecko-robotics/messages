@@ -4,7 +4,9 @@
 # see LICENSE for full details
 ##############################################
 # -*- coding: utf-8 -*-
-from .utils import calc_msg_size, parse_global
+# from .utils import calc_msg_size
+from .utils import parse_global
+from .types import var_types
 from pathlib import Path
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
@@ -39,7 +41,7 @@ def parse_python(msg):
     to generate a python file for the message
     """
     # FIXME: limit to 80 cols
-    width = 70
+    # width = 70
 
     comments = None
     if "comments" in msg:
@@ -50,11 +52,14 @@ def parse_python(msg):
         enums = msg["enums"]
 
     msg_comments = None
-    if "comments" in msg["message"]:
-        msg_comments = format_str_width(msg['message']['comments'],'    #',width)
+    # if "comments" in msg["message"]:
+    #     msg_comments = format_str_width(msg['message']['comments'],'    #',width)
 
 
-    _,_,msg_size,format,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
+    # _,_,msg_size,format,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
+    msginfo = var_types[msg["message"]["name"]]
+    msg_size = msginfo.size
+    format = msginfo.fmt
 
     vars = []
     for v in msg["message"]["vars"]:
@@ -67,7 +72,7 @@ def parse_python(msg):
     if "functions" in msg and "python" in msg["functions"]:
         funcs = msg["functions"]["python"]
 
-    namespace, license, yivo, mavlink, frozen, msg_id, comments = parse_global(msg, '#', width)
+    namespace, license, yivo, mavlink, frozen, msg_id, comments = parse_global(msg, '#')
 
     if "id" in msg["message"]:
         msg_id = msg["message"]["id"]

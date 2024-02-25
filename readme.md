@@ -54,6 +54,13 @@ Or complex types:
 | 4  | `wrench_t` | {vec_t force, vec_t torque}
 | 5  | `pose_t`   | {vec_t position, quat_t orientation}
 
+
+## Global
+
+Now you can shorten your message file because a lot of the keys are repetitive across
+message files. Basically, anything in the “global” space of a message file can be moved
+to a `global.toml` file instead of putting it into a message file.
+
 ```toml
 [global]
 comments = "string"
@@ -61,11 +68,26 @@ namespace = "string"
 license = "string" # full text of what you want at the top of each file
 version = "string" # anything you want like 1.0.2 or 2022.2.23
 frozen = "bool"    # is python dataclass frozen true or false
+wrap_width = "int" # line width for text wrapping, default = 70
 
 [global.serialize]
 yivo = "bool"         # true | false
 mavlink = "bool"
 
+# put native types in var_types VarTypes(name, size, fmt, id) ... native ids = 0,
+# complex ids > 0, remove complex altogether ids between 20 - 255. This is nice
+# to put message ids here, because you can see them all in one place and know you don’t
+# have any conflicts.
+[global.ids]
+imu_t = int
+calibration_t = int
+my_cool_msg = int
+awesome_msg = int
+```
+
+## Message
+
+```toml
 [enum.name] # optional, can have many of these, each must have
             # an original name and each value in an enum must
             # be unique (python uses `@unique` from `enum`
@@ -78,10 +100,11 @@ Val3 = 3
 # default types, so what should be an array (float[3]), you can set to a
 # scalar int. C is the only one that will complain if you do this.
 [message]
-float-x = 1  # type-var_name = array_dimension
-float-y = 2  # type-var_name = array_dimension
+# type-var_name = array_dimension
+float-x = 1  # float x = 0 or default
+float-y = 2  # float y[2]{0,0} or default
 float-z = 1  # var names can only be ascii letters, numbers and -
-vec_t-a = 1  # other messages CANNOT be arrays, this will also automatically
+vec_t-a = 2  # vec_t a[2]{{0,0,0},{0,0,0}}
              # add `#include “vec_t.hpp”` and `from vec_t import *` when generated
 
 comments = "string"     # optional, will be attached to the `struct`
@@ -104,40 +127,23 @@ The minimum message file is:
 
 ```toml
 [message]
-float-x = 0.0
-id = 33 # this can be in global.toml under [global.ids]
+float-x = 1
+id = 33  # this can be in global.toml under [global.ids]
 name = "simple"
-```
-
-## Global File
-
-Now you can shorten your message file because a lot of these are repetitive across message files using a global file
-to capture the common settings. Basically, anything in the “global” space of a message file can be moved here.
-
-```toml
-[global]
-namespace = "string"
-license = "string"
-
-[global.serialize]
-yivo = "bool"
-mavlink = "bool" # useful?
-
-# put native types in var_types VarTypes(name, size, fmt, id) ... native ids = 0,
-# complex ids > 0, remove complex altogether ids between 20 - 255. This is nice
-# to put message ids here, because you can see them all in one place and know you don’t
-# have any conflicts.
-[global.ids]
-imu_t = int
-calibration_t = int
-my_cool_msg = int
-awesome_msg = int
 ```
 
 ## To Do
 
-- [ ] Add defaults to message
+- [x] Add defaults to message
 - [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
+- [x] Added ranges to types, but don't use them, remove?
+- [ ] Add global wrap size default to 70 char wide
+- [ ] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
+- [ ] Fix comments ... do I need them?
+- [ ] Fix or remove automatic defaults, messages with new types are not
+      getting setup correctly with defaults. Only allow custom defaults
+      for new messages. Maybe embed default in each type class or `None`
+      if no default?
 
 # MIT License
 

@@ -45,29 +45,6 @@ def print_summary(data):
         else:
             print(f" - {s[0]:3} {s[1]}")
 
-def calc_msg_size(name, vars):
-    """
-    Adds user defined variables to the var_types dict so they can
-    be used in other messages.
-    """
-    if name in var_types:
-        return var_types[name]
-
-    msg_size = 0
-    format = ''
-    for v in vars:
-        if v.len > 1 and not v.complex:
-            # msg_size += var_types[v.type].size * v.len
-            msg_size += v.size * v.len
-            format += str(v.len) + v.fmt
-        else:
-            msg_size += v.size
-            format += v.fmt
-
-    new_var = VarInfo(name, name, msg_size, format, True,0)
-    var_types[name] = new_var
-    return new_var
-
 def format_str_width(s, sym, width=70):
     """
     Formates the string to a defined column width and adds the
@@ -80,14 +57,19 @@ def format_str_width(s, sym, width=70):
     c = "\n".join(ll)
     return c
 
-def parse_global(msg, sym, width):
+def parse_global(msg, sym):
     namespace = None
     license = None
     yivo, mavlink = False, False
-    frozen = True
+    frozen = False
     msg_id = None
     comments = None
     if "global" in msg:
+        if "wrap_width" in msg["global"]:
+            width = msg["global"]["wrap_width"]
+        else:
+            width = 70
+
         if "namespace" in msg["global"]:
             namespace = msg["global"]["namespace"]
         if "license" in msg["global"]:

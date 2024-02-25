@@ -25,6 +25,11 @@ def var_fix(data):
     vars = []
     key_remove = []
 
+    defaults = None
+    if "defaults" in data["message"]:
+        defaults = data["message"]["defaults"]
+        data["message"].pop("defaults")
+
     for k,val in data["message"].items():
         try:
             # there are some keys that are not variable types
@@ -51,6 +56,13 @@ def var_fix(data):
                 v = Pose(var, array_size)
             else:
                 v = Scalar(var, type, array_size)
+
+            if defaults:
+                if v.variable in defaults:
+                    v.default = defaults[v.variable]
+
+            print(v)
+
             vars.append(v)
         except ValueError:
             continue
@@ -70,12 +82,9 @@ def read_toml(file):
     """
     path = Path(file)
     with path.open("rb") as f:
-        data = tomllib.load(f)
+        txt = read(f)
 
-    if "message" in data:
-        data = var_fix(data)
-
-    return data
+    return read_tomls(txt)
 
 def read_tomls(txt):
     """
@@ -85,6 +94,7 @@ def read_tomls(txt):
 
     if "message" in data:
         data = var_fix(data)
+        update_var_types(data)
 
     return data
 
@@ -103,21 +113,24 @@ def read_folder(dir):
     gf = Path(dir) / "global.toml"
     gData = {"global": None}
     if gf in files:
-        # with gf.open("rb") as f:
-        #     gData = tomllib.load(f)
         gData = read_toml(gf)
         globalFile = True
         files.remove(gf)
 
+    if "wrap_width" not in gData["global"]:
+        gData["global"]["wrap_width"] = 70
+
     # handle builtins ----------------------------------
     for f in complex_types:
-        data = read_tomls(f) | gData
-
+        gc = read_tomls(complex_types_global)
+        for key in ["namespace","wrap_width","comments","serialization"]:
+            if key in gData["global"]:
+                gc[key] = gData["global"][key]
+        data = read_tomls(f) | gc
         data_files.append(data)
 
     # process messages ---------------------------------
     for f in files:
-
         data = read_toml(f) | gData
         data_files.append(data)
     return data_files
@@ -128,6 +141,7 @@ def write_file(filename, content):
     """
     if not isinstance(filename, Path):
         filename = Path(filename)
+
     try:
         with filename.open("w", encoding="utf-8") as fd:
             fd.write(content)
