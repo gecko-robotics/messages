@@ -8,10 +8,10 @@ from dataclasses import dataclass
 from .base import Base
 @dataclass
 class quat_t(Base):
-    w: float = 1
-    x: float = 0
-    y: float = 0
-    z: float = 0
+    w: float
+    x: float
+    y: float
+    z: float
 
     def __yivo__(self):
         # (fmt, size, id)

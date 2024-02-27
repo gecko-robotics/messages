@@ -15,12 +15,12 @@ class HEALTH(IntEnum):
 
 @dataclass
 class imu_t(Base):
-    accels: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
-    gyros: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
-    mags: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
-    pressure: float = 0
-    temperature: float = 0
-    time: int = 0
+    accels: vec_t
+    gyros: vec_t
+    mags: vec_t
+    pressure: float
+    temperature: float
+    time: uint32
 
     def __yivo__(self):
         # (fmt, size, id)

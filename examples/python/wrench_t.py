@@ -9,8 +9,8 @@ from .base import Base
 from .vec_t import vec_t
 @dataclass
 class wrench_t(Base):
-    force: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
-    torque: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
+    force: vec_t
+    torque: vec_t
 
     def __yivo__(self):
         # (fmt, size, id)

@@ -86,4 +86,4 @@ def test_multi_msg():
         except:
             pytest.fail("Error multi message")
 
-    # pprint(var_types)
+    pprint(var_types)

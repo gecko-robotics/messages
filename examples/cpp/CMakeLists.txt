@@ -26,37 +26,12 @@ if(PROJECT_IS_TOP_LEVEL)
     message(STATUS " ${OSN}: ${OS_VERSION}")
     message(STATUS " ${PROC}")
     message(STATUS "-------------------------------------")
-
-    set(BUILD_EXAMPLES ON)
-    set(BUILD_GTESTS ON)
-
-    FetchContent_Declare(
-        gtest
-        # GIT_REPOSITORY "https://github.com/google/googletest"
-        # GIT_TAG "origin/main"
-        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
-    )
-
-    FetchContent_MakeAvailable( gtest )
 else()
     message(STATUS "-> ${PROJECT_NAME} is submodule")
     set(BUILD_EXAMPLES OFF)
     set(BUILD_GTESTS OFF)
 endif()
 
+add_executable(${PROJECT_NAME} main.cpp)
 
-
-# Library =====================================================================
-add_library(${PROJECT_NAME} INTERFACE src)
-target_include_directories(${PROJECT_NAME} INTERFACE src)
-
-message(STATUS "Building ${PROJECT_NAME} examples is ${BUILD_EXAMPLES}")
-if(BUILD_EXAMPLES)
-    add_subdirectory(examples)
-endif()
-
-message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
-if(BUILD_GTESTS)
-    add_subdirectory(gtests)
-endif()
 

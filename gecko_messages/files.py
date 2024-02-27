@@ -44,15 +44,15 @@ def var_fix(data):
             type, var = k.split('-')
             array_size = int(val)
 
-            if type == "vec_t":
+            if type == "vec":
                 v = Vec(var, array_size)
-            elif type == "quat_t":
+            elif type == "quat":
                 v = Quat(var, array_size)
-            elif type == "twist_t":
+            elif type == "twist":
                 v = Twist(var, array_size)
-            elif type == "wrench_t":
+            elif type == "wrench":
                 v = Wrench(var, array_size)
-            elif type == "pose_t":
+            elif type == "pose":
                 v = Pose(var, array_size)
             elif type.find("int") > -1 or type == "float" or type == "double":
                 v = Scalar(var, type, array_size)
@@ -84,8 +84,8 @@ def read_toml(file):
     Read toml file and return a dict
     """
     path = Path(file)
-    with path.open("rb") as f:
-        txt = read(f)
+    with path.open("r") as fd:
+        txt = fd.read()
 
     return read_tomls(txt)
 
@@ -96,7 +96,7 @@ def read_tomls(txt):
     data = tomllib.loads(txt)
 
     if "message" in data:
-        data = var_fix(data)
+        data = var_fix(data) # fix key name: float-x => float x
         update_var_types(data)
 
     return data
@@ -128,7 +128,7 @@ def read_folder(dir):
         gc = read_tomls(complex_types_global)
         for key in ["namespace","wrap_width","comments","serialization"]:
             if key in gData["global"]:
-                gc[key] = gData["global"][key]
+                gc["global"][key] = gData["global"][key]
         data = read_tomls(f) | gc
         data_files.append(data)
 

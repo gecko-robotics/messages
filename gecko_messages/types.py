@@ -115,8 +115,21 @@ def update_var_types(data):
     if "message" not in data:
         return
 
+    # print(data)
+    # assert False
+
     name = data["message"]["name"]
     vars = data["message"]["vars"]
+
+    # clean = {
+    #     "vec_t": "vec",
+    #     "quat_t": "quat",
+    #     "wrench_t": "wrench",
+    #     "twist_t": "twist",
+    #     "pose_t": "pose"
+    # }
+    # if name in clean.keys():
+    #     name = clean[name]
 
     if name in var_types:
         return
@@ -126,6 +139,7 @@ def update_var_types(data):
     # print(f">> {vars}")
     for v in vars:
         if v.len > 1 and not v.complex:
+            # print(v.size, v.len)
             msg_size += v.size * v.len
             format += v.len * v.fmt   # str(v.len) + v.fmt
             # print(f">> {name}: {format} {v.complex}")
@@ -136,6 +150,7 @@ def update_var_types(data):
     # VarInfo(c py size fmt complex default)
     new_var = VarInfo(name, name, msg_size, format, True, None)
     var_types[name] = new_var
+    print(f">> Updating var_types with {name}: {new_var}")
 
 class TypeBase:
     def __str__(self):
@@ -162,15 +177,15 @@ class TypeBase:
             if default.find('[') > -1:
                 default = default.replace('[','{').replace(']','}')
         if self.len > 1:
-            return f"{self.type} {self.variable}[{self.len}]{default};"
+            return f"{self.c} {self.variable}[{self.len}]{default};"
 
         if self.complex:
-            return f"{self.type} {self.variable}{default};"
+            return f"{self.c} {self.variable}{default};"
 
         if default == '':
-            return f"{self.type} {self.variable};"
+            return f"{self.c} {self.variable};"
 
-        return f"{self.type} {self.variable} = {default};"
+        return f"{self.c} {self.variable} = {default};"
 
     def py_format(self):
         # if self.len == 1 and not self.complex:
@@ -192,7 +207,7 @@ class Scalar(TypeBase):
         self.c = var_types[type].c
         self.py = var_types[type].py
         self.default = [0]*len if len > 1 else 0
-        self.size = len*var_types[type].size
+        self.size = var_types[type].size # len*var_types[type].size
         self.fmt = f"{len}{var_types[type].fmt}" if len > 1 else var_types[type].fmt
 
 class Quat(TypeBase):
@@ -201,6 +216,8 @@ class Quat(TypeBase):
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
         self.type = "quat_t"
+        self.c = "quat_t"
+        self.py = "quat_t"
         self.len = len
         self.complex = True
         self.default = [[1,0,0,0] for _ in range(len)] if len > 1 else [1,0,0,0]
@@ -213,6 +230,8 @@ class Vec(TypeBase):
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
         self.type = "vec_t"
+        self.c = "vec_t"
+        self.py = "vec_t"
         self.len = len
         self.complex = True
         self.default = [[0,0,0] for _ in range(len)] if len > 1 else [0,0,0]
@@ -225,6 +244,8 @@ class Twist(TypeBase):
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
         self.type = "twist_t"
+        self.c = "twist_t"
+        self.py = "twist_t"
         self.len = len
         self.complex = True
         self.default = [[0,0,0,0,0,0] for _ in range(len)] if len > 1 else [0,0,0,0,0,0]
@@ -237,6 +258,8 @@ class Wrench(TypeBase):
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
         self.type = "wrench_t"
+        self.c = "wrench_t"
+        self.py = "wrench_t"
         self.len = len
         self.complex = True
         self.default = [[0,0,0,0,0,0] for _ in range(len)] if len > 1 else [0,0,0,0,0,0]
@@ -249,6 +272,8 @@ class Pose(TypeBase):
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
         self.type = "pose_t"
+        self.c = "pose_t"
+        self.py = "pose_t"
         self.len = len
         self.complex = True
         self.default = [[0,0,0,1,0,0,0] for _ in range(len)] if len > 1 else [0,0,0,1,0,0,0]
@@ -263,6 +288,8 @@ class Complex(TypeBase):
             raise Exception(f"Invalid: {type}")
         self.variable = var
         self.type = type
+        self.c = type
+        self.py = type
         self.len = len
         self.complex = True
         self.c = type

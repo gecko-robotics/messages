@@ -9,8 +9,8 @@ from .base import Base
 from .vec_t import vec_t
 @dataclass
 class twist_t(Base):
-    linear: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
-    angular: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
+    linear: vec_t
+    angular: vec_t
 
     def __yivo__(self):
         # (fmt, size, id)

@@ -34,15 +34,18 @@ Id, Msg_name, size, fmt
 
 Cpp and python need id2msg(int) -> string
 
-## Message File
+## Message File Data Types
 
-Message use standard types:
+Messages can use standard language types:
 
-- `uint8` or `int8`
-- `uint16` or `int16`
-- `uint32` or `int32`
-- `uint64` or `int64`
-- `float`
+| Message    | C            | Python   |
+|------------|--------------|----------|
+| `[u]int8`  | `[u]int8_t`  | `int`    |
+| `[u]int16` | `[u]int16_t` | `int`    |
+| `[u]int32` | `[u]int32_t` | `int`    |
+| `[u]int64` | `[u]int64_t` | `int`    |
+| `float`    | `float`      | `float`  |
+| `double`   | `double`     | `double` |
 
 Or complex types:
 
@@ -107,9 +110,9 @@ float-z = 1  # var names can only be ascii letters, numbers and -
 vec_t-a = 2  # vec_t a[2]{{0,0,0},{0,0,0}}
              # add `#include “vec_t.hpp”` and `from vec_t import *` when generated
 
-comments = "string"     # optional, will be attached to the `struct`
-id = "bool"             # can be in global.toml [ids] or here, value must be between 20 - 255
-frozen = "bool"         # only for python dataclass
+comments = "string" # optional, will be attached to the `struct`
+id = "bool"         # can be in global.toml [ids] or here, value must be between 20 - 255
+frozen = "bool"     # only for python dataclass
 
 [message.defaults] # optional, don't need to do this
 x = 12      # set defaults for variables

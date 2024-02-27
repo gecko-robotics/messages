@@ -10,8 +10,8 @@ from .quat_t import quat_t
 from .vec_t import vec_t
 @dataclass
 class pose_t(Base):
-    position: list[vec_t] = field(default_factory=(lambda:[0, 0, 0]))
-    orientation: list[quat_t] = field(default_factory=(lambda:[1, 0, 0, 0]))
+    position: vec_t
+    orientation: quat_t
 
     def __yivo__(self):
         # (fmt, size, id)

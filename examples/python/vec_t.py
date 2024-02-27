@@ -8,9 +8,9 @@ from dataclasses import dataclass
 from .base import Base
 @dataclass
 class vec_t(Base):
-    x: float = 0
-    y: float = 0
-    z: float = 0
+    x: float
+    y: float
+    z: float
 
     def __yivo__(self):
         # (fmt, size, id)
