@@ -23,11 +23,11 @@ def test_builtins():
 def test_custom_msg():
     txt =  """
     [message]
-    vec_t-a = 1
-    quat_t-b = 2
-    wrench_t-c = 1
-    pose_t-d = 1
-    twist_t-e = 1
+    vec-a = 1
+    quat-b = 2
+    wrench-c = 1
+    pose-d = 1
+    twist-e = 1
     uint32-f = 3
     float-g = 1
     id = 50
@@ -60,7 +60,7 @@ def test_multi_msg():
 
     a =  """
     [message]
-    vec_t-a = 1
+    vec-a = 1
     name = "a"
     id = 50
     """

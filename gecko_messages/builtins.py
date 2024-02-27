@@ -21,7 +21,7 @@ complex_types = [
     float-y = 1
     float-z = 1
     id = 1
-    name = "vec_t"
+    name = "vec"
     """,
     """
     [message]
@@ -30,26 +30,26 @@ complex_types = [
     float-y = 1
     float-z = 1
     id = 2
-    name = "quat_t"
+    name = "quat"
     """,
     """
     [message]
-    vec_t-linear = 1
-    vec_t-angular = 1
+    vec-linear = 1
+    vec-angular = 1
     id = 3
-    name = "twist_t"
+    name = "twist"
     """,
     """
     [message]
-    vec_t-force = 1
-    vec_t-torque = 1
+    vec-force = 1
+    vec-torque = 1
     id = 4
-    name = "wrench_t"
+    name = "wrench"
     """,
     """
     [message]
-    vec_t-position = 1
-    quat_t-orientation = 1
+    vec-position = 1
+    quat-orientation = 1
     id = 5
-    name = "pose_t"
+    name = "pose"
     """]

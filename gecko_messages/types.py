@@ -6,6 +6,7 @@
 # -*- coding: utf-8 -*-
 import sys
 from collections import namedtuple
+from colorama import Fore
 
 Var = namedtuple("Var","type var value array_size")
 
@@ -37,7 +38,7 @@ def fprange(frac):
 # c - c type name
 # py - python type name
 # fmt - pack/unpack
-# complex - non-standard data type
+# complex - non-standard language data type or user defined message
 VarInfo = namedtuple("VarInfo","c py size fmt complex default")
 
 var_types = {
@@ -54,11 +55,11 @@ var_types = {
     "float":  VarInfo("float",    "float", 4, "f", False, 0.0),
     "double": VarInfo("double",   "float", 8, "d", False, 0.0),
     # ROS inspired messages -------------------------------------------------------
-    "vec_t":    VarInfo("vec_t",    "vec_t",    12, "3f", True, [0,0,0]), # [x y z]
-    "quat_t":   VarInfo("quat_t",   "quat_t",   16, "4f", True, [1,0,0,0]), # [w x y z]
-    "twist_t":  VarInfo("twist_t",  "twist_t",  24, "6f", True, [0,0,0,0,0,0]), # [linear, angular]
-    "wrench_t": VarInfo("wrench_t", "wrench_t", 24, "6f", True, [0,0,0,0,0,0]), # [force, torque]
-    "pose_t":   VarInfo("pose_t",   "pose_t",   28, "7f", True, [0,0,0,1,0,0,0]), # [position, attitude]
+    "vec":    VarInfo("vec_t",    "vec_t",    12, "3f", True, [0,0,0]),         # [x y z]
+    "quat":   VarInfo("quat_t",   "quat_t",   16, "4f", True, [1,0,0,0]),       # [w x y z]
+    "twist":  VarInfo("twist_t",  "twist_t",  24, "6f", True, [0,0,0,0,0,0]),   # [linear, angular]
+    "wrench": VarInfo("wrench_t", "wrench_t", 24, "6f", True, [0,0,0,0,0,0]),   # [force, torque]
+    "pose":   VarInfo("pose_t",   "pose_t",   28, "7f", True, [0,0,0,1,0,0,0]), # [position, attitude]
 }
 
 # VarInfo = namedtuple("VarInfo","c py size fmt complex")
@@ -150,7 +151,7 @@ def update_var_types(data):
     # VarInfo(c py size fmt complex default)
     new_var = VarInfo(name, name, msg_size, format, True, None)
     var_types[name] = new_var
-    print(f">> Updating var_types with {name}: {new_var}")
+    print(f"{Fore.RED}>> Updating var_types with {name}: {new_var}{Fore.RESET}")
 
 class TypeBase:
     def __str__(self):
@@ -215,7 +216,7 @@ class Quat(TypeBase):
         if not isinstance(var, str) or not isinstance(len, int) or len < 1:
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
-        self.type = "quat_t"
+        self.type = "quat"
         self.c = "quat_t"
         self.py = "quat_t"
         self.len = len
@@ -229,7 +230,7 @@ class Vec(TypeBase):
         if not isinstance(var, str) or not isinstance(len, int) or len < 1:
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
-        self.type = "vec_t"
+        self.type = "vec"
         self.c = "vec_t"
         self.py = "vec_t"
         self.len = len
@@ -243,7 +244,7 @@ class Twist(TypeBase):
         if not isinstance(var, str) or not isinstance(len, int) or len < 1:
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
-        self.type = "twist_t"
+        self.type = "twist"
         self.c = "twist_t"
         self.py = "twist_t"
         self.len = len
@@ -257,7 +258,7 @@ class Wrench(TypeBase):
         if not isinstance(var, str) or not isinstance(len, int) or len < 1:
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
-        self.type = "wrench_t"
+        self.type = "wrench"
         self.c = "wrench_t"
         self.py = "wrench_t"
         self.len = len
@@ -271,7 +272,7 @@ class Pose(TypeBase):
         if not isinstance(var, str) or not isinstance(len, int) or len < 1:
             raise Exception(f"Invalid: {var} and/or {len}")
         self.variable = var
-        self.type = "pose_t"
+        self.type = "pose"
         self.c = "pose_t"
         self.py = "pose_t"
         self.len = len
