@@ -25,8 +25,11 @@ def print_summary(data):
         name = d["message"]["name"]
         if "id" in d["message"]:
             id = d["message"]["id"]
-        else:
+        elif name in d["global"]["ids"]:
             id = d["global"]["ids"][name]
+        else:
+            # print(f"")
+            raise Exception(f"{name} message.toml or global.toml doesn't have an ID for {name}")
         sorted.append((id, name))
 
     sorted.sort(key=sortFirst)

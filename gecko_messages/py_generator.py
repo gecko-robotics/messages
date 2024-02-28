@@ -4,12 +4,16 @@
 # see LICENSE for full details
 ##############################################
 # -*- coding: utf-8 -*-
-# from .utils import calc_msg_size
 from .utils import parse_global
 from .types import var_types
 from pathlib import Path
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
+
+
+def py_format(type, variable, len, d):
+    py = var_types[type].py
+    return f"{variable}: {py}"
 
 def create_python(msg, template="msg.py.jinja"):
     """
@@ -30,9 +34,11 @@ def includes_python(msg):
     """
     includes = set()
     for var in msg["message"]["vars"]:
-        c = var.complex
-        if c is True:
-            includes.add(f"from .{var.type} import {var.type}")
+        complex = var_types[var.type].complex
+        if complex is True:
+            py = var_types[var.type].py
+            includes.add(f"from .{py} import {py}")
+
     return list(includes)
 
 def parse_python(msg):
@@ -40,9 +46,6 @@ def parse_python(msg):
     Parses a message and returns a dict containing the information needed
     to generate a python file for the message
     """
-    # FIXME: limit to 80 cols
-    # width = 70
-
     comments = None
     if "comments" in msg:
         comments = format_str_width(msg["comments"],'#',width)
@@ -55,15 +58,13 @@ def parse_python(msg):
     # if "comments" in msg["message"]:
     #     msg_comments = format_str_width(msg['message']['comments'],'    #',width)
 
-
-    # _,_,msg_size,format,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
     msginfo = var_types[msg["message"]["name"]]
     msg_size = msginfo.size
     format = msginfo.fmt
 
     vars = []
     for v in msg["message"]["vars"]:
-        vars.append(v.py_format())
+        vars.append(py_format(*v))
 
     includes = []
     includes += includes_python(msg)
@@ -78,7 +79,7 @@ def parse_python(msg):
         msg_id = msg["message"]["id"]
 
     info = {
-        "name": msg["message"]["name"],  # str
+        "name": msginfo.py,              # str
         "vars": vars,                    # list of str
         "includes": includes,            # list
         "comments": comments,            # str - global comments

@@ -5,6 +5,7 @@ vec-mags = 1
 float-pressure = 1
 float-temperature = 1
 uint32-time = 1
+z-dummy = 1
 name = "imu_t"
 
 [enums.health]

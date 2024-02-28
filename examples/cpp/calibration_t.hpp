@@ -25,7 +25,7 @@ struct __attribute__((packed)) calibration_t {
   };
 
 
-  float cal[12]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  float cal[12];
   uint8_t type;
 };
 

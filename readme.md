@@ -4,20 +4,24 @@ Message formats should be short and simple, but if you want, it can also be comp
 
 Files:
 
-- `imu.toml` where the name of the message is the name of the file
-- `global.toml` which holds common or global setting for all
+- `imu.toml`  message definition for an imu sensor
+- `global.toml` which holds common or global setting for all messages
 
 ```
-toml(file) - > dict -> create_c/py -> string -> file
-toml(string) -> dict -> create_c/py -> string -> file
+read(file) -> string -> tomllib.loads(string) -> dict -> create_c/py -> string -> file
 
 read_folder(dir_path, output_path=./) -> calls below functions
-read_toml(file) -> dict
+read_toml(file) -> string
 read_tomls(string) -> dict
-
-Msg_file(file_path, global_file=file_path/global.toml, output_path=./) -> string
-Msg_string(str, global_str) -> string
 ```
+
+- `read_folder()`
+    - read each message into an array as a string
+    - for each message, for each variable in message:
+        - fix variable names for each message: float-x => float x
+        - is variable in var_types? if no, input if possible or save for later
+        - is message in var_types? if no, input if possible or save for later
+        - repeat with random choices of variables/messages to input into var_types
 
 Binary:
 https://linuxcommandlibrary.com/man/protoc
@@ -31,8 +35,6 @@ num msg found: x
 global found: t/f
 Id, Msg_name, size, fmt
 …
-
-Cpp and python need id2msg(int) -> string
 
 ## Message File Data Types
 
@@ -49,13 +51,13 @@ Messages can use standard language types:
 
 Or complex types:
 
-| ID | Message    | Info                             |
-|----|------------|----------------------------------|
-| 1  | `vec_t`    | {float x,y,z}
-| 2  | `quat_t`   | {float w,x,y,z}
-| 3  | `twist_t`  | {vec_t linear, vec_t angular}
-| 4  | `wrench_t` | {vec_t force, vec_t torque}
-| 5  | `pose_t`   | {vec_t position, quat_t orientation}
+| ID | Message  | Info                             |
+|----|----------|----------------------------------|
+| 1  | `vec`    | {float x,y,z}
+| 2  | `quat`   | {float w,x,y,z}
+| 3  | `twist`  | {vec_t linear, vec_t angular}
+| 4  | `wrench` | {vec_t force, vec_t torque}
+| 5  | `pose`   | {vec_t position, quat_t orientation}
 
 
 ## Global
@@ -137,11 +139,11 @@ name = "simple"
 
 ## To Do
 
-- [x] Add defaults to message
+- [ ] Add defaults to message
 - [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
-- [x] Added ranges to types, but don't use them, remove?
-- [ ] Add global wrap size default to 70 char wide
-- [ ] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
+- [ ] Added ranges to types, but don't use them, remove?
+- [x] Add global wrap size default to 70 char wide
+- [x] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
 - [ ] Fix comments ... do I need them?
 - [ ] Fix or remove automatic defaults, messages with new types are not
       getting setup correctly with defaults. Only allow custom defaults

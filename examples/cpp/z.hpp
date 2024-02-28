@@ -7,30 +7,18 @@
 #pragma once
 #include <cstdint>
 #include "vec_t.hpp"
-#include "z.hpp"
 
 
 
 namespace msgs {
 
-constexpr uint8_t MSG_SIZE_IMU_T = 60;
-constexpr uint8_t MSG_ID_IMU_T = 10;
+constexpr uint8_t MSG_SIZE_Z = 12;
+constexpr uint8_t MSG_ID_Z = 21;
 
 
-struct __attribute__((packed)) imu_t {
-
-  enum Health: uint8_t {
-    OK=0,
-  };
-
+struct __attribute__((packed)) z {
 
   vec_t accels;
-  vec_t gyros;
-  vec_t mags;
-  float pressure;
-  float temperature;
-  uint32_t time;
-  z dummy;
 };
 
 
