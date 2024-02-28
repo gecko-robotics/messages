@@ -18,9 +18,9 @@ class SENSOR(IntEnum):
 @dataclass
 class calibration_t(Base):
     cal: float
-    type: uint8
+    type: int
 
     def __yivo__(self):
         # (fmt, size, id)
-        return ("12f12f12f12f12f12f12f12f12f12f12f12fB", 49, 20)
+        return ("ffffffffffffB", 49, 20)
 

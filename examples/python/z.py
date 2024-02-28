@@ -6,25 +6,12 @@
 ###############################################################################
 from dataclasses import dataclass
 from .base import Base
-from enum import IntEnum, unique
-from .z import z
 from .vec_t import vec_t
-@unique
-class HEALTH(IntEnum):
-    ok = 0
-
-
 @dataclass
-class imu_t(Base):
+class z(Base):
     accels: vec_t
-    gyros: vec_t
-    mags: vec_t
-    pressure: float
-    temperature: float
-    time: int
-    dummy: z
 
     def __yivo__(self):
         # (fmt, size, id)
-        return ("3f3f3fffI3f", 60, 10)
+        return ("3f", 12, 21)
 

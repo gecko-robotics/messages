@@ -4,14 +4,31 @@
 # see LICENSE for full details
 ##############################################
 # -*- coding: utf-8 -*-
-
-# from .utils import calc_msg_size
 from .utils import parse_global
 from .types import var_types
 from pathlib import Path
 from jinja2 import Environment
 from jinja2.loaders import FileSystemLoader
 
+# type variable len default
+def c_format(type, variable, len, d):
+    c = var_types[type].c
+    complex = var_types[type].complex
+    default = ''
+    # if d:
+    #     default = str(d)
+    #     if default.find('[') > -1:
+    #         default = default.replace('[','{').replace(']','}')
+    if len > 1:
+        return f"{c} {variable}[{len}]{default};"
+
+    if complex:
+        return f"{c} {variable}{default};"
+
+    # if default == '':
+    return f"{c} {variable};"
+
+    # return f"{self.c} {self.variable} = {default};"
 
 def create_cpp(msg, template="msg.cpp.jinja"):
     tmp_dir = Path(__file__).resolve().parent/"templates"
@@ -25,29 +42,21 @@ def create_cpp(msg, template="msg.cpp.jinja"):
 
 def includes_c(msg):
     """
-     'message': {'name': 'quat_t',
-             'vars': [Var(type='float', var='w', value=1, array_size=0),
-                      Var(type='float', var='x', value=0, array_size=0),
-                      Var(type='float', var='y', value=0, array_size=0),
-                      Var(type='float', var='z', value=0, array_size=0)]},
-
-    REMOVE: local, global
-    REPLACE: c = ['"vec_t"', "<cstdint>"]
-    Libraries aren't working right ... not in header
     """
     includes = set()
     for var in msg["message"]["vars"]:
-        c = var.complex
-        if c is True:
-            includes.add(f"#include \"{var.type}.hpp\"")
+        complex = var_types[var.type].complex
+        if complex is True:
+            c = var_types[var.type].c
+            includes.add(f"#include \"{c}.hpp\"")
+
     return list(includes)
 
 def parse_c(msg):
     """
 
     """
-    # FIXME: limit to 80 cols
-    # width = 80
+    # print(msg)
 
     enums = None
     enums_type = None
@@ -62,7 +71,6 @@ def parse_c(msg):
     # if "comments" in msg["message"]:
     #     msg_comments = format_str_width(msg['message']['comments'],'  //',width)
 
-    # _,_,msg_size,_,_,_ = calc_msg_size(msg["message"]["name"], msg["message"]["vars"])
     msginfo = var_types[msg["message"]["name"]]
     msg_size = msginfo.size
 
@@ -72,7 +80,7 @@ def parse_c(msg):
     vars = []
     incs = set()
     for v in msg["message"]["vars"]:
-        vars.append(v.c_format())
+        vars.append(c_format(*v))
 
     c_funcs = None
     if "functions" in msg:
@@ -85,7 +93,7 @@ def parse_c(msg):
         msg_id = msg["message"]["id"]
 
     info = {
-        "name": msg["message"]["name"], # str
+        "name": msginfo.c,              # str
         "vars": vars,                   # list of str
         "includes": includes,           # list
         "comments": comments,           # str - global comments

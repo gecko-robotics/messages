@@ -22,4 +22,5 @@ mavlink = false
 [global.ids]
 imu_t = 10
 calibration_t = 20
+z = 21
 
