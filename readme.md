@@ -139,11 +139,11 @@ name = "simple"
 
 ## To Do
 
-- [x] Add defaults to message
+- [ ] Add defaults to message
 - [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
-- [x] Added ranges to types, but don't use them, remove?
-- [ ] Add global wrap size default to 70 char wide
-- [ ] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
+- [ ] Added ranges to types, but don't use them, remove?
+- [x] Add global wrap size default to 70 char wide
+- [x] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
 - [ ] Fix comments ... do I need them?
 - [ ] Fix or remove automatic defaults, messages with new types are not
       getting setup correctly with defaults. Only allow custom defaults
