@@ -30,7 +30,9 @@ def handleArgs():
 
 def language(data, create):
     ret = {}
-    for name, msg in data.items():
+    # for name, msg in data.items():
+    for msg in data:
+        name = msg["message"]["name"]
         content = create(msg)
         ret[name] = content
 
@@ -46,10 +48,11 @@ def main():
 
     data = gmsgs.read_folder(in_path)
     # pprint(data)
-    data = process_messages(data)
+    process_messages(data)
     # pprint(var_types)
     # return
-    gmsgs.print_summary(list(data.values()))
+    # gmsgs.print_summary(list(data.values()))
+    gmsgs.print_summary(data)
     # return
 
     py, cpp = True, True

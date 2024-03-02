@@ -11,32 +11,27 @@ except ImportError:
 
 from pathlib import Path
 from .builtins import *
-# from .types import *
-# from collections import namedtuple
-# import sys
+import sys
 from pprint import pprint
 from colorama import Fore
 
-def read_toml(file):
+def read_toml(path):
     """
     Read toml file and return a dict
     """
-    path = Path(file)
-    with path.open("r") as fd:
-        txt = fd.read()
+    if not isinstance(path, Path):
+        path = Path(file)
 
-    return read_tomls(txt)
+    with path.open("rb") as fd:
+        data = tomllib.load(fd)
+
+    return data
 
 def read_tomls(txt):
     """
     Read toml string and return dict
     """
-    data = tomllib.loads(txt)
-
-    # if "message" in data:
-    #     data = var_fix(data) # fix key name: float-x => float x
-
-    return data
+    return tomllib.loads(txt)
 
 def read_folder(dir):
     """
@@ -90,8 +85,6 @@ def read_folder(dir):
             print(f"{Fore.CYAN}{data}{Fore.RESET}")
             continue
 
-    # process_messages(data_files)
-
     return data_files
 
 
@@ -101,6 +94,9 @@ def write_file(filename, content):
     """
     if not isinstance(filename, Path):
         filename = Path(filename)
+
+    path = filename.parent
+    path.mkdir(parents=True, exist_ok=True)
 
     try:
         with filename.open("w", encoding="utf-8") as fd:
