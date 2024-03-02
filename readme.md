@@ -150,9 +150,9 @@ Still working on this
 [message]
 # var_name = type
 # var_name = {type, len, default} only type is required
-x = "uint32"
+x = "uint32" # len = 1
 y = {type = "float", len = 3, default = [0,0,0]}
-z = {type = "uint8", default = 2}
+z = {type = "uint8", default = 2} # len = 1
 m = {type = "int16", len = 2}
 name = "test"
 id = 33
