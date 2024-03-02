@@ -1,4 +1,9 @@
 # Messages
+[![Github Actions](https://github.com/gecko-robotics/messages/actions/workflows/python.yml/badge.svg)](https://github.com/gecko-robotics/messages/actions/workflows/python.yml)
+![GitHub](https://img.shields.io/github/license/gecko-robotics/messages)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/gecko_messages.svg)
+![PyPI - Format](https://img.shields.io/pypi/format/gecko_messages.svg)
+![PyPI](https://img.shields.io/pypi/v/gecko_messages.svg)
 
 Message formats should be short and simple, but if you want, it can also be complex.
 
