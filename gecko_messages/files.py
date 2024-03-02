@@ -20,7 +20,7 @@ def read_toml(path):
     Read toml file and return a dict
     """
     if not isinstance(path, Path):
-        path = Path(file)
+        path = Path(path)
 
     with path.open("rb") as fd:
         data = tomllib.load(fd)

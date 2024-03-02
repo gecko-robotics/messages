@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gecko_messages"
-version = "2024.02.25"
+version = "2024.03.2"
 description = "gecko_messages"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
@@ -28,7 +28,7 @@ classifiers = [
 python = ">=3.11"
 colorama = "*"
 jinja2 = "*"
-# tomlkit = {version = "*", python = "<3.11"}
+tomlkit = {version = "*", python = "<3.11"}
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
