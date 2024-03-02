@@ -17,7 +17,9 @@ License: {gmsgs.__license__}
 """
 
 def handleArgs():
-    parser = argparse.ArgumentParser(description=DESCRIPTION, formatter_class=argparse.RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=DESCRIPTION,
+        formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('-i','--in_path', help='path to message tomls', type=str, default=".")
     parser.add_argument('-o','--out_path', help='path to save to', type=str, default=".")
     parser.add_argument('-co','--cpp_only', help='C++ only', action='store_true')

@@ -4,12 +4,9 @@
 # see LICENSE for full details
 ##############################################
 # -*- coding: utf-8 -*-
-import sys
 from collections import namedtuple
 from colorama import Fore
 from pprint import pprint
-
-Var = namedtuple("Var","type var value array_size")
 
 # c - c type name
 # py - python type name
@@ -18,6 +15,64 @@ Var = namedtuple("Var","type var value array_size")
 # complex - non-standard language data type or user defined message
 # default - what to initialize the variable to
 VarInfo = namedtuple("VarInfo","c py size fmt complex default")
+
+var_t = namedtuple("var_t", "type variable len default")
+
+
+def var_fix(data):
+    """
+    format variables in message properly from the TOML template
+    float-x=1 => float x
+    float-x=3 => float[3] x
+    """
+    # print(data)
+
+    vars = []
+    key_remove = []
+
+    defaults = None
+    if "defaults" in data["message"]:
+        defaults = data["message"]["defaults"]
+        data["message"].pop("defaults")
+
+    for k,val in data["message"].items():
+        try:
+            # there are some keys that are not variable types
+            # and we are just protecting them here
+            if k == "id":
+                continue
+            if k == "name":
+                continue
+
+            key_remove.append(k)
+
+            type, var = k.split('-')
+            len = int(val)
+
+            default = None
+            if defaults:
+                if var in defaults:
+                    default = defaults[var]
+
+            # ("x", float, 1, False, 0)
+            # ("x", vec, 1, True, [0,0,0])
+            v = var_t(type, var, len, default)
+            # print(v)
+
+            vars.append(v)
+        except ValueError:
+            continue
+
+    # Add in new namedtuple Var array
+    data["message"]["vars"] = vars
+
+    # remove old keys that were replaced above with namedtuple code
+    for k in key_remove:
+        data["message"].pop(k)
+
+    # process_messages(data)
+
+    return data
 
 var_types = {
     # Standard scalar types --------------------------------------------------------
@@ -68,6 +123,14 @@ def update_var_types(data):
 
 def process_messages(data):
     for name, msg in data.items():
+
+        if "message" in msg:
+            msg = var_fix(msg) # fix key name: float-x => float x
+        else:
+            print(f"No message found in {name}")
+            print(msg)
+            raise Exception(f"process_messages error")
+
         if name in var_types:
             continue
 
@@ -78,11 +141,23 @@ def process_messages(data):
                     m = data[v.type]
                     process_messages(m)
                 else:
+                    print("Valid Messages")
+                    for k,v in var_types.items():
+                        print(f"{Fore.YELLOW}{k}: {Fore.GREEN}{v}{Fore.RESET}")
                     raise Exception(f"Invalid/missing message toml for: {v.type}")
         print(f"{Fore.BLUE}{name} added{Fore.RESET}")
         update_var_types(msg)
 
     # pprint(var_types)
+
+
+
+
+
+
+
+
+
 
 
 

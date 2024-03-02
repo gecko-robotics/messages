@@ -11,70 +11,11 @@ except ImportError:
 
 from pathlib import Path
 from .builtins import *
-from .types import *
-from collections import namedtuple
-import sys
+# from .types import *
+# from collections import namedtuple
+# import sys
 from pprint import pprint
-
-var_t = namedtuple("var_t", "type variable len default")
-
-
-def var_fix(data):
-    """
-    format variables in message properly from the TOML template
-    float-x=1 => float x
-    float-x=3 => float[3] x
-    """
-    # print(data)
-
-    vars = []
-    key_remove = []
-
-    defaults = None
-    if "defaults" in data["message"]:
-        defaults = data["message"]["defaults"]
-        data["message"].pop("defaults")
-
-    for k,val in data["message"].items():
-        try:
-            # there are some keys that are not variable types
-            # and we are just protecting them here
-            if k == "id":
-                continue
-            if k == "name":
-                continue
-
-            key_remove.append(k)
-
-            type, var = k.split('-')
-            len = int(val)
-
-            default = None
-            if defaults:
-                if var in defaults:
-                    default = defaults[var]
-
-            # ("x", float, 1, False, 0)
-            # ("x", vec, 1, True, [0,0,0])
-            v = var_t(type, var, len, default)
-            # print(v)
-
-            vars.append(v)
-        except ValueError:
-            continue
-
-    # Add in new namedtuple Var array
-    data["message"]["vars"] = vars
-
-    # remove old keys that were replaced above with namedtuple code
-    for k in key_remove:
-        data["message"].pop(k)
-
-    # process_messages(data)
-
-    return data
-
-
+from colorama import Fore
 
 def read_toml(file):
     """
@@ -92,8 +33,8 @@ def read_tomls(txt):
     """
     data = tomllib.loads(txt)
 
-    if "message" in data:
-        data = var_fix(data) # fix key name: float-x => float x
+    # if "message" in data:
+    #     data = var_fix(data) # fix key name: float-x => float x
 
     return data
 
@@ -130,8 +71,14 @@ def read_folder(dir):
 
     # process messages ---------------------------------
     for f in files:
-        data = read_toml(f) | gData
-        data_files[data["message"]["name"]] = data
+        try:
+            f = f.resolve()
+            data = read_toml(f) | gData
+            data_files[data["message"]["name"]] = data
+        except KeyError as e:
+            print(f"{Fore.RED}KeyError:{e} in File:{f}{Fore.RESET}")
+            print(f"{Fore.CYAN}{data}{Fore.RESET}")
+            continue
 
     # process_messages(data_files)
 

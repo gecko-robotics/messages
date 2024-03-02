@@ -6,8 +6,8 @@
 ///////////////////////////////////////////////////////////
 #pragma once
 #include <cstdint>
-#include "vec_t.hpp"
 #include "z.hpp"
+#include "vec_t.hpp"
 
 
 

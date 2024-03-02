@@ -12,6 +12,8 @@ def test_builtins():
         try:
             msg = read_tomls(cp) | g
             # pprint(msg)
+            name = msg["message"]["name"]
+            process_messages({name: msg})
             # process_messages(msg)
             c=create_cpp(msg)
             p=create_python(msg)
