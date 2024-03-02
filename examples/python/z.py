@@ -9,7 +9,7 @@ from .base import Base
 from .vec_t import vec_t
 @dataclass
 class z(Base):
-    accels: vec_t
+    zz: vec_t
 
     def __yivo__(self):
         # (fmt, size, id)

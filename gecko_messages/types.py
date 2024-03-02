@@ -30,10 +30,10 @@ def var_fix(data):
     vars = []
     key_remove = []
 
-    defaults = None
-    if "defaults" in data["message"]:
-        defaults = data["message"]["defaults"]
-        data["message"].pop("defaults")
+    # defaults = None
+    # if "defaults" in data["message"]:
+    #     defaults = data["message"]["defaults"]
+    #     data["message"].pop("defaults")
 
     for k,val in data["message"].items():
         try:
@@ -43,19 +43,34 @@ def var_fix(data):
                 continue
             if k == "name":
                 continue
+            if k == "defaults":
+                continue
 
             key_remove.append(k)
 
-            type, var = k.split('-')
-            len = int(val)
+            # type, var = k.split('-')
+            # len = int(val)
 
-            default = None
-            if defaults:
-                if var in defaults:
-                    default = defaults[var]
+            # default = None
+            # if defaults:
+            #     if var in defaults:
+            #         default = defaults[var]
 
             # (float, "x", 1, False, 0)
             # (vec, "x", 1, True, [0,0,0])
+            if isinstance(val, str):
+                var = k
+                type = val
+                len = 1
+                default = None
+            elif isinstance(val, dict):
+                var = k
+                type = val["type"]
+                len = val.get("len",1)
+                default = val.get("default",None)
+            else:
+                raise Exception(f"Invalid variable: {k}: {val}")
+
             v = var_t(type, var, len, default)
             # print(v)
 
@@ -115,8 +130,9 @@ def update_var_types(data):
         msg_size += size * v.len
         fmt += v.len * format
 
+    defaults = data["message"].get("defaults", None)
     # VarInfo(c py size fmt complex default)
-    new_var = VarInfo(name, name, msg_size, fmt, True, None)
+    new_var = VarInfo(name, name, msg_size, fmt, True, defaults)
     var_types[name] = new_var
     # print(f"{Fore.RED}>> Updating var_types with {name}: {new_var}{Fore.RESET}")
 

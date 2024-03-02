@@ -5,6 +5,6 @@ gyros = 2
 mags = 3
 
 [message]
-float-cal = 12
-uint8-type = 1
+cal = {type = "float", len = 12}
+type = "uint8"
 name = "calibration_t"
