@@ -4,10 +4,12 @@
 # see LICENSE for full details
 ##############################################
 # -*- coding: utf-8 -*-
-try:
-    import tomllib
-except ImportError:
-    import tomlkit as tomllib
+# try:
+#     from tomllib import load, loads
+# except ImportError:
+#     from tomlkit import load, loads
+# from tomlkit import load, loads
+from tomllib import load, loads
 
 from pathlib import Path
 from .builtins import *
@@ -23,7 +25,7 @@ def read_toml(path):
         path = Path(path)
 
     with path.open("rb") as fd:
-        data = tomllib.load(fd)
+        data = load(fd)
 
     return data
 
@@ -31,7 +33,7 @@ def read_tomls(txt):
     """
     Read toml string and return dict
     """
-    return tomllib.loads(txt)
+    return loads(txt)
 
 def read_folder(dir):
     """

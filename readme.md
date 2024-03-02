@@ -142,9 +142,40 @@ id = 33  # this can be in global.toml under [global.ids]
 name = "simple"
 ```
 
+## Alternate
+
+Still working on this
+
+```toml
+[message]
+# var_name = type
+# var_name = {type, len, default} only type is required
+x = "uint32"
+y = {type = "float", len = 3, default = [0,0,0]}
+z = {type = "uint8", default = 2}
+m = {type = "int16", len = 2}
+name = "test"
+id = 33
+```
+
+```python
+{'message': {'x': 'uint32', 'y': {'type': 'float', 'len': 3, 'default': [0, 0, 0]}, 'z': {'type': 'uint8', 'default': 2}, 'm': {'type': 'int16', 'len': 2}, 'name': 'test', 'id': 33}}
+```
+
 ## To Do
 
+- [ ] Maybe move `id` and `name` to a `meta` key so you can have a key
+    in the `message` that is call one of those two?
+    ```toml
+    [message]
+    float-x = 1
+    [meta]
+    id = 33  # this can be in global.toml under [global.ids]
+    name = "simple"
+    ```
+- [ ] Maybe do `x = "int"` or `x = {type = 'int', len = 3, default = [0,0,0]}`?
 - [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
+    - `tomlkit` doesn't seem to work as good as `tomllib`
 - [ ] Fix comments ... do I need them?
 - [x] Add global wrap size default to 70 char wide
 - [x] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
