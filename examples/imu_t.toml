@@ -1,11 +1,11 @@
 [message]
-vec-accels = 1
-vec-gyros = 1
-vec-mags = 1
-float-pressure = 1
-float-temperature = 1
-uint32-time = 1
-z-dummy = 1
+accels = "vec"
+gyros = "vec"
+mags = "vec"
+pressure = "float"
+temperature = "float"
+time = "uint32"
+dummy = "z"
 name = "imu_t"
 
 [enums.health]

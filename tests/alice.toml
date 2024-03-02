@@ -1,7 +1,10 @@
 [message]
-vec-a = 1
+# vec-a = 1
+a = "vec"
+b = {type = "float", len = 1, default = 0.0}
+c = {type = "quat", default = [1,0,0,0]}
+
 name = "alice"
 id = 111
 
-[message.defaults]
-a = [1,2,3]
+defaults = [[0,0,0],0,[1,0,0,0]]

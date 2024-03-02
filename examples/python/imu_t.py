@@ -7,8 +7,8 @@
 from dataclasses import dataclass
 from .base import Base
 from enum import IntEnum, unique
-from .z import z
 from .vec_t import vec_t
+from .z import z
 @unique
 class HEALTH(IntEnum):
     ok = 0

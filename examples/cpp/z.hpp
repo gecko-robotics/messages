@@ -18,7 +18,7 @@ constexpr uint8_t MSG_ID_Z = 21;
 
 struct __attribute__((packed)) z {
 
-  vec_t accels;
+  vec_t zz;
 };
 
 

@@ -5,6 +5,7 @@ from gecko_messages import *
 from gecko_messages.builtins import complex_types, complex_types_global
 from gecko_messages.types import var_types, process_messages
 from pprint import pprint
+from pathlib import Path
 
 def test_builtins():
     g = read_tomls(complex_types_global)
@@ -24,20 +25,15 @@ def test_builtins():
 def test_custom_msg():
     txt =  """
     [message]
-    vec-a = 1
-    quat-b = 2
-    wrench-c = 1
-    pose-d = 1
-    twist-e = 1
-    uint32-f = 3
-    float-g = 1
+    a = "vec"    # len = 1, default = None
+    b = {type = "quat", len = 2}
+    c = "wrench"
+    d = "pose"
+    e = "twist"
+    f = {type = "uint32", len = 3, default = [1,2,3]}
+    g = "float"
     id = 50
     name = "test_t"
-
-    [message.defaults]
-    g = 110
-    a = [1,2,3]
-    b = [[1,2,3,4],[5,6,7,8]]
     """
 
     try:
@@ -55,7 +51,7 @@ def test_custom_msg():
 def test_unknown_msg():
     txt =  """
     [message]
-    zoo-a = 1
+    a = "zoo" # this type should fail
     id = 50
     name = "test_t"
     """
@@ -65,6 +61,7 @@ def test_unknown_msg():
         process_messages([msg])
         c=create_cpp(msg)
         p=create_python(msg)
+        assert False
     except KeyError as e:
         # print(e)
         assert True
@@ -81,20 +78,18 @@ def test_multi_msg():
 
     a =  """
     [message]
-    vec-a = 1
+    a = "vec"
     name = "a"
     id = 50
     """
+
     b =  """
     [message]
-    a-b = 1
-    a-bb = 2
+    b = {type = "a", default = [1.1,2.2,3.3]}
+    bb = "a"
 
     name = "b"
     id = 51
-
-    [message.defaults]
-    b = [1.1,2.2,3.3]
     """
 
     msgs = []
@@ -118,12 +113,18 @@ def test_multi_msg():
 
 def test_file():
     try:
-        msg = read_toml("./tests/alice.toml")
+        p = Path(__file__).resolve().parent/"alice.toml"
+        msg = read_toml(p)
+        # pprint(msg)
         process_messages([msg])
+        # pprint(var_types)
+        # pprint(msg)
         c=create_cpp(msg)
         p=create_python(msg)
+        # print(c)
         assert True
     except:
         pytest.fail("Error file message")
 
     assert "alice" in var_types, pprint(var_types)
+    # assert False, pprint(var_types)

@@ -173,7 +173,7 @@ id = 33
     id = 33  # this can be in global.toml under [global.ids]
     name = "simple"
     ```
-- [ ] Maybe do `x = "int"` or `x = {type = 'int', len = 3, default = [0,0,0]}`?
+- [x] Maybe do `x = "int"` or `x = {type = 'int', len = 3, default = [0,0,0]}`?
 - [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
     - `tomlkit` doesn't seem to work as good as `tomllib`
 - [ ] Fix comments ... do I need them?
@@ -181,9 +181,11 @@ id = 33
 - [x] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
 - [ ] Fix or remove automatic defaults, messages with new types are not
       getting setup correctly with defaults. Only allow custom defaults
-      for new messages. Maybe embed default in each type class or `None`
-      if no default?
-    - [ ] Add defaults to message
+      for new messages? Maybe embed default in each type class or `None`
+      if no default? Still don't like how I am doing defaults or if they are
+      needed
+    - [x] Add defaults to variable
+    - [ ] OR add one default for whole message
     - [ ] If default available use it
     - [ ] If custom default in message available, it has priority
 
