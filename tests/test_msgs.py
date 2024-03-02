@@ -11,10 +11,8 @@ def test_builtins():
     for cp in complex_types:
         try:
             msg = read_tomls(cp) | g
+            process_messages([msg])
             # pprint(msg)
-            name = msg["message"]["name"]
-            process_messages({name: msg})
-            # process_messages(msg)
             c=create_cpp(msg)
             p=create_python(msg)
             # print("-----------------------------------")
@@ -44,13 +42,32 @@ def test_custom_msg():
 
     try:
         msg = read_tomls(txt)
-        process_messages({msg["message"]["name"]: msg})
+        process_messages([msg])
         c=create_cpp(msg)
         p=create_python(msg)
         assert True
-        # print(c,p)
     except:
         pytest.fail("Error custom message")
+
+    assert "test_t" in var_types, pprint(var_types)
+
+
+def test_unknown_msg():
+    txt =  """
+    [message]
+    zoo-a = 1
+    id = 50
+    name = "test_t"
+    """
+
+    try:
+        msg = read_tomls(txt)
+        process_messages([msg])
+        c=create_cpp(msg)
+        p=create_python(msg)
+    except KeyError as e:
+        # print(e)
+        assert True
 
 def test_multi_msg():
     g = """
@@ -80,17 +97,15 @@ def test_multi_msg():
     b = [1.1,2.2,3.3]
     """
 
-    msgs = {}
+    msgs = []
     for txt in [a,b]:
         msg = read_tomls(txt) | g
-        msgs[msg["message"]["name"]] = msg
+        msgs.append(msg)
 
     process_messages(msgs)
 
-    for name, msg in msgs.items():
+    for msg in msgs:
         try:
-            # msg = read_tomls(txt) | g
-            # process_messages({msg["message"]["name"]: msg})
             c=create_cpp(msg)
             p=create_python(msg)
             # print(c,p)
@@ -98,4 +113,17 @@ def test_multi_msg():
         except:
             pytest.fail("Error multi message")
 
-    # pprint(var_types)
+    assert "a" in var_types, pprint(var_types)
+    assert "b" in var_types, pprint(var_types)
+
+def test_file():
+    try:
+        msg = read_toml("./tests/alice.toml")
+        process_messages([msg])
+        c=create_cpp(msg)
+        p=create_python(msg)
+        assert True
+    except:
+        pytest.fail("Error file message")
+
+    assert "alice" in var_types, pprint(var_types)

@@ -54,8 +54,8 @@ def var_fix(data):
                 if var in defaults:
                     default = defaults[var]
 
-            # ("x", float, 1, False, 0)
-            # ("x", vec, 1, True, [0,0,0])
+            # (float, "x", 1, False, 0)
+            # (vec, "x", 1, True, [0,0,0])
             v = var_t(type, var, len, default)
             # print(v)
 
@@ -122,23 +122,24 @@ def update_var_types(data):
 
 
 def process_messages(data):
-    for name, msg in data.items():
+    """
+    """
+    if not isinstance(data, list):
+        raise Exception("process_messages expects list of dicts")
 
-        if "message" in msg:
-            msg = var_fix(msg) # fix key name: float-x => float x
-        else:
-            print(f"No message found in {name}")
-            print(msg)
-            raise Exception(f"process_messages error")
+    new_types = {d["message"]["name"]: d for d in data}
+
+    for msg in data:
+        name = msg["message"]["name"]
+        msg = var_fix(msg) # fix key name: float-x => float x
 
         if name in var_types:
             continue
 
-        # vars_good = True
         for v in msg["message"]["vars"]:
             if v.type not in var_types:
-                if v.type in data:
-                    m = data[v.type]
+                if v.type in new_types:
+                    m = new_types[v.type]
                     process_messages(m)
                 else:
                     print("Valid Messages")
@@ -147,6 +148,8 @@ def process_messages(data):
                     raise Exception(f"Invalid/missing message toml for: {v.type}")
         print(f"{Fore.BLUE}{name} added{Fore.RESET}")
         update_var_types(msg)
+
+    # return data
 
     # pprint(var_types)
 

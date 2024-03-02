@@ -1,0 +1,7 @@
+[message]
+vec-a = 1
+name = "alice"
+id = 111
+
+[message.defaults]
+a = [1,2,3]

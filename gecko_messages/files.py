@@ -43,8 +43,16 @@ def read_folder(dir):
     Read a message folder and return a dict. It is expected each
     message is in an individual toml file. Optionally there can
     be a global.toml file (all lower case) that contains info
-    across each message."""
-    data_files = {}
+    across each message.
+
+    looks for:
+    - global.toml # optional
+    - a.toml      # message
+    - b.toml      # message
+    - ...
+
+    Returns a list of dicts"""
+    data_files = []
     p = Path(dir).glob('*.toml')
     files = [x for x in p if x.is_file()]
 
@@ -67,14 +75,16 @@ def read_folder(dir):
             if key in gData["global"]:
                 gc["global"][key] = gData["global"][key]
         data = read_tomls(f) | gc
-        data_files[data["message"]["name"]] = data
+        # data_files[data["message"]["name"]] = data
+        data_files.append(data)
 
     # process messages ---------------------------------
     for f in files:
         try:
             f = f.resolve()
             data = read_toml(f) | gData
-            data_files[data["message"]["name"]] = data
+            # data_files[data["message"]["name"]] = data
+            data_files.append(data)
         except KeyError as e:
             print(f"{Fore.RED}KeyError:{e} in File:{f}{Fore.RESET}")
             print(f"{Fore.CYAN}{data}{Fore.RESET}")

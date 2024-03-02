@@ -46,7 +46,7 @@ def main():
 
     data = gmsgs.read_folder(in_path)
     # pprint(data)
-    process_messages(data)
+    data = process_messages(data)
     # pprint(var_types)
     # return
     gmsgs.print_summary(list(data.values()))
