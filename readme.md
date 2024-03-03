@@ -25,39 +25,50 @@ flowchart LR
 
 Message formats should be short and simple, but if you want, it can also be complex.
 
-Files:
-
-- `imu.toml`  message definition for an imu sensor
-- `global.toml` which holds common or global setting for all messages
-
-```
-read(file) -> string -> tomllib.loads(string) -> dict -> create_c/py -> string -> file
-
-read_folder(dir_path, output_path=./) -> calls below functions
-read_toml(file) -> string
-read_tomls(string) -> dict
-```
-
-- `read_folder()`
-    - read each message into an array as a string
-    - for each message, for each variable in message:
-        - fix variable names for each message: float-x => float x
-        - is variable in var_types? if no, input if possible or save for later
-        - is message in var_types? if no, input if possible or save for later
-        - repeat with random choices of variables/messages to input into var_types
-
-Binary:
-https://linuxcommandlibrary.com/man/protoc
+## Binary
 
 ```
 msgcomp [--out_dir=DIR][--in_dir=DIR][--version][--verbose][--help][--cpp-only][--python-only]
 ```
 
-verbose:
-num msg found: x
-global found: t/f
-Id, Msg_name, size, fmt
-…
+```
+$ gmsg 
+Found 9 message files
+Namespace: quad
+ MsgID NAME
+------------------------
+ -   1 vec
+ -   2 quat
+ -   3 twist
+ -   4 wrench
+ -   5 pose
+ -  20 heartbeat
+ -  40 calibration_t
+ -  40 imu_raw_t
+ -  41 imu_t
+[ C++ ]
+ Saving to /Users/kevin/github/quadcopter/messages/cpp
+ -> vec_t.hpp
+ -> quat_t.hpp
+ -> twist_t.hpp
+ -> wrench_t.hpp
+ -> pose_t.hpp
+ -> calibration_t.hpp
+ -> imu_raw_t.hpp
+ -> imu_t.hpp
+ -> heartbeat.hpp
+[ Python ]
+ Saving to /Users/kevin/github/quadcopter/messages/python
+ -> vec_t.py
+ -> quat_t.py
+ -> twist_t.py
+ -> wrench_t.py
+ -> pose_t.py
+ -> calibration_t.py
+ -> imu_raw_t.py
+ -> imu_t.py
+ -> heartbeat.py
+```
 
 ## Message File Data Types
 
@@ -157,9 +168,7 @@ id = 33  # this can be in global.toml under [global.ids]
 name = "simple"
 ```
 
-## Alternate
-
-Still working on this
+## Example
 
 ```toml
 [message]
