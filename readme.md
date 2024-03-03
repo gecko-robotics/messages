@@ -9,8 +9,8 @@
 
 ```mermaid
 flowchart LR
-    A(read_toml file ) --> |dict| C(list);
-    B(read_tomls str ) --> |dict| C(list);
+    A(read_toml file ) --> |dict| C(to list);
+    B(read_tomls str ) --> |dict| C;
     C --> |list| E(process_messages)
     D(read_folder path) --> |list| E
     E --> |dict| F(create_cpp)
