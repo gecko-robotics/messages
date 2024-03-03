@@ -7,6 +7,28 @@
 
 **Still Under Development**
 
+## Why?
+
+I find myself constantly changing message formats in one language and then 
+another is out of sync. This way, if I change the message format, it is
+easy to recompile for both Python and C++. For the actual serialization
+I use yivo.
+
+Why not use *insert favorit here*?
+
+- protobuf: generates massive header files and I want this to run on small
+  micro controllers
+- msgpack: more serialization than defining messages
+
+Why `toml`?
+
+It seemed good enough and it is used for configuration. There is no reason I
+couldn't switch the front end from `toml` to `json` or something else. All I 
+need is a python dictionary to be feed info `create_c/py`. I just wanted a 
+parser to real some file and return a dictionary of information.
+
+## Architecture
+
 ```mermaid
 ---
 title: Key Functions
@@ -83,7 +105,7 @@ Messages can use standard language types:
 | `float`    | `float`      | `float`  |
 | `double`   | `double`     | `double` |
 
-Or complex types:
+Or complex types that were inspired by ROS:
 
 | ID | Message  | Info                             |
 |----|----------|----------------------------------|
@@ -213,6 +235,14 @@ id = 33
     - [ ] OR add one default for whole message
     - [ ] If default available use it
     - [ ] If custom default in message available, it has priority
+
+Potential new tpes:
+
+| Message    | C            | Python   |
+|------------|--------------|----------|
+| dynamic array | vector | list
+
+[ros 2 types](https://docs.ros.org/en/foxy/Concepts/About-ROS-Interfaces.html#field-types)
 
 # MIT License
 
