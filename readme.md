@@ -89,10 +89,10 @@ mavlink = "bool"
 # to put message ids here, because you can see them all in one place and know you don’t
 # have any conflicts.
 [global.ids]
-imu_t = int
-calibration_t = int
-my_cool_msg = int
-awesome_msg = int
+imu_t = "int"
+calibration_t = "int"
+my_cool_msg = "int"
+awesome_msg = "int"
 ```
 
 ## Message
@@ -111,19 +111,16 @@ Val3 = 3
 # scalar int. C is the only one that will complain if you do this.
 [message]
 # type-var_name = array_dimension
-float-x = 1  # float x = 0 or default
-float-y = 2  # float y[2]{0,0} or default
-float-z = 1  # var names can only be ascii letters, numbers and -
-vec_t-a = 2  # vec_t a[2]{{0,0,0},{0,0,0}}
-             # add `#include “vec_t.hpp”` and `from vec_t import *` when generated
+x = "float"                    # float x = 0 or default
+y = {type = "float", len = 2}  # float y[2]{0,0} or default
+z = "float"                    # var names can only be ascii letters, numbers and -
+a = {type = "vec", len = 2, default = [[0,0,0],[0,0,0]]}  # vec_t a[2]{{0,0,0},{0,0,0}}
+                                                          # add `#include “vec_t.hpp”` and
+                                                          # `from vec_t import *` when generated
 
 comments = "string" # optional, will be attached to the `struct`
 id = "bool"         # can be in global.toml [ids] or here, value must be between 20 - 255
 frozen = "bool"     # only for python dataclass
-
-[message.defaults] # optional, don't need to do this
-x = 12      # set defaults for variables
-y = [1,2]   # don't need to define defaults for all variables
 
 # this is really a message library for serialization, so only put functions if
 # you really need to, otherwise, let some other part of your code base
@@ -137,7 +134,7 @@ The minimum message file is:
 
 ```toml
 [message]
-float-x = 1
+x = "float"
 id = 33  # this can be in global.toml under [global.ids]
 name = "simple"
 ```
@@ -168,14 +165,15 @@ id = 33
     in the `message` that is call one of those two?
     ```toml
     [message]
-    float-x = 1
-    [meta]
+    x = "float"
+    [message.meta]
     id = 33  # this can be in global.toml under [global.ids]
     name = "simple"
     ```
+- [ ] Maybe include `[message.method] {c = "string", py = "string"}`
 - [x] Maybe do `x = "int"` or `x = {type = 'int', len = 3, default = [0,0,0]}`?
 - [ ] Fix `python` 3.8 - 3.10 with `tomlkit`
-    - `tomlkit` doesn't seem to work as good as `tomllib`
+    - `tomlkit` doesn't seem to work ... just stick with `tomllib`?
 - [ ] Fix comments ... do I need them?
 - [x] Add global wrap size default to 70 char wide
 - [x] Add `py` and `c` for builtin messages, want `vec` in message and `vec_t` in `c`
