@@ -8,6 +8,9 @@
 **Still Under Development**
 
 ```mermaid
+---
+title: Key Functions
+---
 flowchart LR
     A(read_toml file ) --> |dict| C(to list);
     B(read_tomls str ) --> |dict| C;
@@ -17,6 +20,7 @@ flowchart LR
     E --> |dict| G(create_python)
     F --> |dict| H(write_file)
     G --> |dict| H
+    I[(var_types)] --> |VarInfo|E
 ```
 
 Message formats should be short and simple, but if you want, it can also be complex.
