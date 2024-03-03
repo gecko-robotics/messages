@@ -5,6 +5,20 @@
 ![PyPI - Format](https://img.shields.io/pypi/format/gecko_messages.svg)
 ![PyPI](https://img.shields.io/pypi/v/gecko_messages.svg)
 
+**Still Under Development**
+
+```mermaid
+flowchart LR
+    A(read_toml file ) --> |dict| C(list);
+    B(read_tomls str ) --> |dict| C(list);
+    C --> |list| E(process_messages)
+    D(read_folder path) --> |list| E
+    E --> |dict| F(create_cpp)
+    E --> |dict| G(create_python)
+    F --> |dict| H(write_file)
+    G --> |dict| H
+```
+
 Message formats should be short and simple, but if you want, it can also be complex.
 
 Files:
