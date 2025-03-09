@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gecko_messages"
-version = "2025.03.08"
+version = "2025.03.09"
 description = "gecko_messages"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
