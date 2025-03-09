@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kevin;
 
-import "header.proto";
+import "standard_msgs.proto";
 
 // The state of each joint (revolute or prismatic) is defined by:
 //  * the position of the joint (rad or m),

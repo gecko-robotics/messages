@@ -9,7 +9,7 @@ package kevin;
 
 // import "vector3.proto";
 // import "quaternion.proto";
-import "header.proto";
+import "standard_msgs.proto";
 // import "covariance.proto";
 
 // Power supply status constants

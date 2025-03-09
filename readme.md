@@ -1,6 +1,6 @@
-# Messages
+# Gecko Messages
 
-
+Various messages from other libraries or APIs.
 
 ## Protobuf
 
@@ -11,6 +11,15 @@
 - [Mavlink](https://mavlink.io/en/messages/common.html)
 - [ROS](https://github.com/ros2/common_interfaces)
 - [foxglove](https://github.com/foxglove/foxglove-sdk/tree/main/schemas/proto/foxglove)
+
+## ToDo
+
+- Reorg into groups to keep updates easier:
+  - `geometry_msgs.proto`: Pose, Transform, Twist, Wrench, etc
+  - `kinematic_msgs.proto`: Inertia, JointState, etc
+  - `navigation_msgs.proto`: LocationNED, etc
+  - `sensor_msgs.proto`: Imu, SatNav, etc
+  - `standard_msgs.proto`: Vector, Quaternion, Header
 
 # MIT License
 

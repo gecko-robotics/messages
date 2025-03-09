@@ -31,6 +31,7 @@ protobuf = "5.29.3"
 pytest = "*"
 
 # [tool.poetry.scripts]
+# generate = "gecko_messages.generate:generate"
 # gmsg = 'gecko_messages.bin.gmsg:main'
 
 [build-system]

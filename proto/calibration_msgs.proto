@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package kevin;
 
-import "vector3.proto";
+import "standard_msgs.proto";
 // import "quaternion.proto";
 // import "header.proto";
 // import "covariance.proto";

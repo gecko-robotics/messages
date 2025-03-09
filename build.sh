@@ -10,7 +10,7 @@ rm -f $DEST/*_pb2.py
 protoc --python_out=$DEST --proto_path=./proto $MSGS
 
 # DEST=$HOME/.local/protobuf/cpp
-DEST=./cpp
-mkdir -p $DEST
-rm -f $DEST/*.pb.*
-protoc --cpp_out=$DEST --proto_path=./proto $MSGS
+# DEST=./cpp
+# mkdir -p $DEST
+# rm -f $DEST/*.pb.*
+# protoc --cpp_out=$DEST --proto_path=./proto $MSGS
