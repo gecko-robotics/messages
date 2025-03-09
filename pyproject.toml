@@ -8,7 +8,7 @@ license = "MIT"
 homepage = "https://pypi.org/project/gecko-messages/"
 repository = 'https://github.com/gecko-robotics/messages'
 # documentation = "http://..."
-keywords = ["gecko", "messages", "robotics", "serial"]
+keywords = ["gecko", "messages", "robotics", "protobuf"]
 classifiers = [
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
@@ -16,9 +16,10 @@ classifiers = [
     'Operating System :: OS Independent',
     # 'Programming Language :: Python :: 3.8',
     # 'Programming Language :: Python :: 3.9',
-    # 'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.10',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Python Modules',
     'Topic :: Software Development :: Libraries :: Application Frameworks'
@@ -26,17 +27,18 @@ classifiers = [
 
 [tool.poetry.dependencies]
 # python = ">=3.8"
-python = ">=3.11"
-colorama = "*"
-jinja2 = "*"
+python = ">=3.10"
+protobuf = "5.29.3"
+# colorama = "*"
+# jinja2 = "*"
 # tomlkit = {version = "*", python = "<3.11"}
 # tomlkit = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "*"
 
-[tool.poetry.scripts]
-gmsg = 'gecko_messages.bin.gmsg:main'
+# [tool.poetry.scripts]
+# gmsg = 'gecko_messages.bin.gmsg:main'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

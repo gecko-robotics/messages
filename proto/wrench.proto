@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package kevin;
+
+import "vector3.proto";
+import "header.proto";
+
+message Wrench {
+  kevin.Vector3 force  = 1;
+  kevin.Vector3 torque = 2;
+}
+
+message WrenchStamped {
+  kevin.Header   header = 1;
+  kevin.Vector3  force  = 2;
+  kevin.Vector3  torque = 3;
+}

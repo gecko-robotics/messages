@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package kevin;
+
+message Covariance3 {
+  double xx = 1;
+  double yy = 2;
+  double zz = 3;
+}
+
+message Covariance6 {
+  double xx = 1;
+  double yy = 2;
+  double zz = 3;
+  double xy = 4;
+  double xz = 5;
+  double yz = 6;
+}

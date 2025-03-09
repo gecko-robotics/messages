@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package kevin;
+
+import "google/protobuf/timestamp.proto";
+
+message Header {
+  google.protobuf.Timestamp timestamp = 1; // unix timestamp
+  string frame_id = 2;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package kevin;
+
+// import "google/protobuf/timestamp.proto";
+// import "vector3.proto";
+
+message Quaternion {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+  double w = 4;
+}

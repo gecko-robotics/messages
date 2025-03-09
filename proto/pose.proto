@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package kevin;
+
+import "vector3.proto";
+import "quaternion.proto";
+// import "header.proto";
+
+message Pose {
+  kevin.Vector3 position = 1;
+  kevin.Quaternion orientation = 2;
+}

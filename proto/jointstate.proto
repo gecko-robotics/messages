@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package kevin;
+
+import "header.proto";
+
+// The state of each joint (revolute or prismatic) is defined by:
+//  * the position of the joint (rad or m),
+//  * the velocity of the joint (rad/s or m/s) and 
+//  * the effort that is applied in the joint (Nm or N).
+message JointState {
+  kevin.Header header = 1;
+  repeated string name = 2;
+  repeated double position = 3;
+  repeated double velocity = 4;
+  repeated double effort = 5;
+}
