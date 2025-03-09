@@ -17,6 +17,7 @@ enum RangeType {
   // If you want a value added to this list, send an email to the ros-users list
   ULTRASOUND = 0;
   INFRARED = 1;
+  LASER = 2;
 }
 
 message Range {

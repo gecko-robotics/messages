@@ -12,6 +12,12 @@ message Imu {
   kevin.Header header = 1;
   kevin.Vector3 linear_acceleration = 2;  // m/s^2
   kevin.Vector3 angular_velocity = 3;  // rads/sec
+}
+
+message HighResolutionImu {
+  kevin.Header header = 1;
+  kevin.Vector3 linear_acceleration = 2;  // m/s^2
+  kevin.Vector3 angular_velocity = 3;  // rads/sec
   kevin.Quaternion orientation = 4;
   kevin.Vector3 magnetic_field = 5;  // Tesla
   double pressure = 6; // hPa

@@ -6,9 +6,11 @@
 
 [protobuf docs](https://protobuf.dev/programming-guides/proto3/) 
 
-## ROS
+## Messages
 
-[common interfaces](https://github.com/ros2/common_interfaces)
+- [Mavlink](https://mavlink.io/en/messages/common.html)
+- [ROS](https://github.com/ros2/common_interfaces)
+- [foxglove](https://github.com/foxglove/foxglove-sdk/tree/main/schemas/proto/foxglove)
 
 # MIT License
 

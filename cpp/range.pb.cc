@@ -101,8 +101,8 @@ const char descriptor_table_protodef_range_2eproto[] ABSL_ATTRIBUTE_SECTION_VARI
     "adiation_type\030\002 \001(\0162\020.kevin.RangeType\022\025\n"
     "\rfield_of_view\030\003 \001(\002\022\021\n\tmin_range\030\004 \001(\002\022"
     "\021\n\tmax_range\030\005 \001(\002\022\r\n\005range\030\006 \001(\002\022\020\n\010var"
-    "iance\030\007 \001(\002*)\n\tRangeType\022\016\n\nULTRASOUND\020\000"
-    "\022\014\n\010INFRARED\020\001b\006proto3"
+    "iance\030\007 \001(\002*4\n\tRangeType\022\016\n\nULTRASOUND\020\000"
+    "\022\014\n\010INFRARED\020\001\022\t\n\005LASER\020\002b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_range_2eproto_deps[1] =
     {
@@ -112,7 +112,7 @@ static ::absl::once_flag descriptor_table_range_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_range_2eproto = {
     false,
     false,
-    262,
+    273,
     descriptor_table_protodef_range_2eproto,
     "range.proto",
     &descriptor_table_range_2eproto_once,
@@ -131,9 +131,9 @@ const ::google::protobuf::EnumDescriptor* RangeType_descriptor() {
   return file_level_enum_descriptors_range_2eproto[0];
 }
 PROTOBUF_CONSTINIT const uint32_t RangeType_internal_data_[] = {
-    131072u, 0u, };
+    196608u, 0u, };
 bool RangeType_IsValid(int value) {
-  return 0 <= value && value <= 1;
+  return 0 <= value && value <= 2;
 }
 // ===================================================================
 

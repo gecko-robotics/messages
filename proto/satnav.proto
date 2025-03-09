@@ -1,0 +1,86 @@
+// Navigation Satellite fix for any Global Navigation Satellite System
+//
+// Specified using the WGS 84 reference ellipsoid
+syntax = "proto3";
+
+package kevin;
+
+// import "vector3.proto";
+// import "quaternion.proto";
+import "header.proto";
+import "covariance.proto";
+
+enum PositionCovariance {
+  // If the covariance of the fix is known, fill it in completely. If the
+  // GPS receiver provides the variance of each measurement, put them
+  // along the diagonal. If only Dilution of Precision is available,
+  // estimate an approximate covariance from that.
+
+  COVARIANCE_TYPE_UNKNOWN = 0;
+  COVARIANCE_TYPE_APPROXIMATED = 1;
+  COVARIANCE_TYPE_DIAGONAL_KNOWN = 2;
+  COVARIANCE_TYPE_KNOWN = 3;
+}
+
+// Navigation Satellite fix status for any Global Navigation Satellite System.
+//
+// Whether to output an augmented fix is determined by both the fix
+// type and the last time differential corrections were received.  A
+// fix is valid when status >= STATUS_FIX.
+
+enum StatusFix {
+  // STATUS_UNKNOWN = -2;  // status is not yet set
+  // STATUS_NO_FIX =  -1;  // unable to fix position
+  STATUS_FIX =      0;  // unaugmented fix
+  STATUS_SBAS_FIX = 1;  // with satellite-based augmentation
+  STATUS_GBAS_FIX = 2;  // with ground-based augmentation
+}
+
+// Bits defining which Global Navigation Satellite System signals were
+// used by the receiver.
+enum ServiceType {
+  SERVICE_UNKNOWN = 0;  // Remember service is a bitfield, so checking (service & SERVICE_UNKNOWN) will not work. Use == instead.
+  SERVICE_GPS =     1;
+  SERVICE_GLONASS = 2;
+  SERVICE_COMPASS = 4;  // includes BeiDou.
+  SERVICE_GALILEO = 8;
+}
+
+message NavSatStatus {
+  StatusFix status = 1; // STATUS_UNKNOWN
+  ServiceType service = 2;
+}
+
+message SatNav {
+  // header.stamp specifies the ROS time for this measurement (the
+  //        corresponding satellite time may be reported using the
+  //        sensor_msgs/TimeReference message).
+  //
+  // header.frame_id is the frame of reference reported by the satellite
+  //        receiver, usually the location of the antenna.  This is a
+  //        Euclidean frame relative to the vehicle, not a reference
+  //        ellipsoid.
+  kevin.Header header = 1;
+
+  // Satellite fix status information.
+  NavSatStatus status = 2;
+
+  // Latitude [degrees]. Positive is north of equator; negative is south.
+  double latitude = 3;
+
+  // Longitude [degrees]. Positive is east of prime meridian; negative is west.
+  double longitude = 4;
+
+  // Altitude [m]. Positive is above the WGS 84 ellipsoid
+  // (quiet NaN if no altitude is available).
+  double altitude = 5;
+
+  // Position covariance [m^2] defined relative to a tangential plane
+  // through the reported position. The components are East, North, and
+  // Up (ENU), in row-major order.
+  //
+  // Beware: this coordinate system exhibits singularities at the poles.
+  kevin.Covariance6 position_covariance = 6;
+
+  PositionCovariance type = 7;
+}

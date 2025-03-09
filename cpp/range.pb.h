@@ -67,6 +67,7 @@ namespace kevin {
 enum RangeType : int {
   ULTRASOUND = 0,
   INFRARED = 1,
+  LASER = 2,
   RangeType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   RangeType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -76,8 +77,8 @@ enum RangeType : int {
 bool RangeType_IsValid(int value);
 extern const uint32_t RangeType_internal_data_[];
 constexpr RangeType RangeType_MIN = static_cast<RangeType>(0);
-constexpr RangeType RangeType_MAX = static_cast<RangeType>(1);
-constexpr int RangeType_ARRAYSIZE = 1 + 1;
+constexpr RangeType RangeType_MAX = static_cast<RangeType>(2);
+constexpr int RangeType_ARRAYSIZE = 2 + 1;
 const ::google::protobuf::EnumDescriptor*
 RangeType_descriptor();
 template <typename T>
@@ -90,7 +91,7 @@ const std::string& RangeType_Name(T value) {
 template <>
 inline const std::string& RangeType_Name(RangeType value) {
   return ::google::protobuf::internal::NameOfDenseEnum<RangeType_descriptor,
-                                                 0, 1>(
+                                                 0, 2>(
       static_cast<int>(value));
 }
 inline bool RangeType_Parse(absl::string_view name, RangeType* value) {

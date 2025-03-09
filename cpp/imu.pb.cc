@@ -58,11 +58,7 @@ inline constexpr Imu::Impl_::Impl_(
       : _cached_size_{0},
         header_{nullptr},
         linear_acceleration_{nullptr},
-        angular_velocity_{nullptr},
-        orientation_{nullptr},
-        magnetic_field_{nullptr},
-        pressure_{0},
-        temperature_{0} {}
+        angular_velocity_{nullptr} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR Imu::Imu(::_pbi::ConstantInitialized)
@@ -83,6 +79,37 @@ struct ImuDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ImuDefaultTypeInternal _Imu_default_instance_;
+
+inline constexpr HighResolutionImu::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        header_{nullptr},
+        linear_acceleration_{nullptr},
+        angular_velocity_{nullptr},
+        orientation_{nullptr},
+        magnetic_field_{nullptr},
+        pressure_{0},
+        temperature_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR HighResolutionImu::HighResolutionImu(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct HighResolutionImuDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR HighResolutionImuDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~HighResolutionImuDefaultTypeInternal() {}
+  union {
+    HighResolutionImu _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 HighResolutionImuDefaultTypeInternal _HighResolutionImu_default_instance_;
 }  // namespace kevin
 static constexpr const ::_pb::EnumDescriptor**
     file_level_enum_descriptors_imu_2eproto = nullptr;
@@ -102,10 +129,24 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.header_),
         PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.linear_acceleration_),
         PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.angular_velocity_),
-        PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.orientation_),
-        PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.magnetic_field_),
-        PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.pressure_),
-        PROTOBUF_FIELD_OFFSET(::kevin::Imu, _impl_.temperature_),
+        0,
+        1,
+        2,
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.header_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.linear_acceleration_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.angular_velocity_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.orientation_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.magnetic_field_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.pressure_),
+        PROTOBUF_FIELD_OFFSET(::kevin::HighResolutionImu, _impl_.temperature_),
         0,
         1,
         2,
@@ -131,27 +172,32 @@ const ::uint32_t
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, 15, -1, sizeof(::kevin::Imu)},
-        {22, 33, -1, sizeof(::kevin::ImuInfo)},
+        {0, 11, -1, sizeof(::kevin::Imu)},
+        {14, 29, -1, sizeof(::kevin::HighResolutionImu)},
+        {36, 47, -1, sizeof(::kevin::ImuInfo)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::kevin::_Imu_default_instance_._instance,
+    &::kevin::_HighResolutionImu_default_instance_._instance,
     &::kevin::_ImuInfo_default_instance_._instance,
 };
 const char descriptor_table_protodef_imu_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\timu.proto\022\005kevin\032\rvector3.proto\032\020quate"
     "rnion.proto\032\014header.proto\032\020covariance.pr"
-    "oto\"\362\001\n\003Imu\022\035\n\006header\030\001 \001(\0132\r.kevin.Head"
-    "er\022+\n\023linear_acceleration\030\002 \001(\0132\016.kevin."
-    "Vector3\022(\n\020angular_velocity\030\003 \001(\0132\016.kevi"
-    "n.Vector3\022&\n\013orientation\030\004 \001(\0132\021.kevin.Q"
-    "uaternion\022&\n\016magnetic_field\030\005 \001(\0132\016.kevi"
-    "n.Vector3\022\020\n\010pressure\030\006 \001(\001\022\023\n\013temperatu"
-    "re\030\007 \001(\001\"{\n\007ImuInfo\022%\n\taccel_cov\030\001 \001(\0132\022"
-    ".kevin.Covariance6\022$\n\010gyro_cov\030\002 \001(\0132\022.k"
-    "evin.Covariance6\022#\n\007mag_cov\030\003 \001(\0132\022.kevi"
-    "n.Covariance6b\006proto3"
+    "oto\"{\n\003Imu\022\035\n\006header\030\001 \001(\0132\r.kevin.Heade"
+    "r\022+\n\023linear_acceleration\030\002 \001(\0132\016.kevin.V"
+    "ector3\022(\n\020angular_velocity\030\003 \001(\0132\016.kevin"
+    ".Vector3\"\200\002\n\021HighResolutionImu\022\035\n\006header"
+    "\030\001 \001(\0132\r.kevin.Header\022+\n\023linear_accelera"
+    "tion\030\002 \001(\0132\016.kevin.Vector3\022(\n\020angular_ve"
+    "locity\030\003 \001(\0132\016.kevin.Vector3\022&\n\013orientat"
+    "ion\030\004 \001(\0132\021.kevin.Quaternion\022&\n\016magnetic"
+    "_field\030\005 \001(\0132\016.kevin.Vector3\022\020\n\010pressure"
+    "\030\006 \001(\001\022\023\n\013temperature\030\007 \001(\001\"{\n\007ImuInfo\022%"
+    "\n\taccel_cov\030\001 \001(\0132\022.kevin.Covariance6\022$\n"
+    "\010gyro_cov\030\002 \001(\0132\022.kevin.Covariance6\022#\n\007m"
+    "ag_cov\030\003 \001(\0132\022.kevin.Covariance6b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_imu_2eproto_deps[4] =
     {
@@ -164,13 +210,13 @@ static ::absl::once_flag descriptor_table_imu_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_imu_2eproto = {
     false,
     false,
-    461,
+    600,
     descriptor_table_protodef_imu_2eproto,
     "imu.proto",
     &descriptor_table_imu_2eproto_once,
     descriptor_table_imu_2eproto_deps,
     4,
-    2,
+    3,
     schemas,
     file_default_instances,
     TableStruct_imu_2eproto::offsets,
@@ -202,16 +248,6 @@ void Imu::clear_angular_velocity() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   if (_impl_.angular_velocity_ != nullptr) _impl_.angular_velocity_->Clear();
   _impl_._has_bits_[0] &= ~0x00000004u;
-}
-void Imu::clear_orientation() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.orientation_ != nullptr) _impl_.orientation_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000008u;
-}
-void Imu::clear_magnetic_field() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.magnetic_field_ != nullptr) _impl_.magnetic_field_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000010u;
 }
 Imu::Imu(::google::protobuf::Arena* arena)
 #if defined(PROTOBUF_CUSTOM_VTABLE)
@@ -251,19 +287,6 @@ Imu::Imu(
   _impl_.angular_velocity_ = (cached_has_bits & 0x00000004u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(
                               arena, *from._impl_.angular_velocity_)
                         : nullptr;
-  _impl_.orientation_ = (cached_has_bits & 0x00000008u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Quaternion>(
-                              arena, *from._impl_.orientation_)
-                        : nullptr;
-  _impl_.magnetic_field_ = (cached_has_bits & 0x00000010u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(
-                              arena, *from._impl_.magnetic_field_)
-                        : nullptr;
-  ::memcpy(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, pressure_),
-           reinterpret_cast<const char *>(&from._impl_) +
-               offsetof(Impl_, pressure_),
-           offsetof(Impl_, temperature_) -
-               offsetof(Impl_, pressure_) +
-               sizeof(Impl_::temperature_));
 
   // @@protoc_insertion_point(copy_constructor:kevin.Imu)
 }
@@ -277,9 +300,9 @@ inline void Imu::SharedCtor(::_pb::Arena* arena) {
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, header_),
            0,
-           offsetof(Impl_, temperature_) -
+           offsetof(Impl_, angular_velocity_) -
                offsetof(Impl_, header_) +
-               sizeof(Impl_::temperature_));
+               sizeof(Impl_::angular_velocity_));
 }
 Imu::~Imu() {
   // @@protoc_insertion_point(destructor:kevin.Imu)
@@ -292,8 +315,6 @@ inline void Imu::SharedDtor(MessageLite& self) {
   delete this_._impl_.header_;
   delete this_._impl_.linear_acceleration_;
   delete this_._impl_.angular_velocity_;
-  delete this_._impl_.orientation_;
-  delete this_._impl_.magnetic_field_;
   this_._impl_.~Impl_();
 }
 
@@ -333,16 +354,16 @@ const ::google::protobuf::internal::ClassData* Imu::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 7, 5, 0, 2> Imu::_table_ = {
+const ::_pbi::TcParseTable<2, 3, 3, 0, 2> Imu::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(Imu, _impl_._has_bits_),
     0, // no _extensions_
-    7, 56,  // max_field_number, fast_idx_mask
+    3, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967168,  // skipmap
+    4294967288,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    7,  // num_field_entries
-    5,  // num_aux_entries
+    3,  // num_field_entries
+    3,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     _class_data_.base(),
     nullptr,  // post_loop_handler
@@ -361,18 +382,6 @@ const ::_pbi::TcParseTable<3, 7, 5, 0, 2> Imu::_table_ = {
     // .kevin.Vector3 angular_velocity = 3;
     {::_pbi::TcParser::FastMtS1,
      {26, 2, 2, PROTOBUF_FIELD_OFFSET(Imu, _impl_.angular_velocity_)}},
-    // .kevin.Quaternion orientation = 4;
-    {::_pbi::TcParser::FastMtS1,
-     {34, 3, 3, PROTOBUF_FIELD_OFFSET(Imu, _impl_.orientation_)}},
-    // .kevin.Vector3 magnetic_field = 5;
-    {::_pbi::TcParser::FastMtS1,
-     {42, 4, 4, PROTOBUF_FIELD_OFFSET(Imu, _impl_.magnetic_field_)}},
-    // double pressure = 6;
-    {::_pbi::TcParser::FastF64S1,
-     {49, 63, 0, PROTOBUF_FIELD_OFFSET(Imu, _impl_.pressure_)}},
-    // double temperature = 7;
-    {::_pbi::TcParser::FastF64S1,
-     {57, 63, 0, PROTOBUF_FIELD_OFFSET(Imu, _impl_.temperature_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -385,17 +394,407 @@ const ::_pbi::TcParseTable<3, 7, 5, 0, 2> Imu::_table_ = {
     // .kevin.Vector3 angular_velocity = 3;
     {PROTOBUF_FIELD_OFFSET(Imu, _impl_.angular_velocity_), _Internal::kHasBitsOffset + 2, 2,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::kevin::Header>()},
+    {::_pbi::TcParser::GetTable<::kevin::Vector3>()},
+    {::_pbi::TcParser::GetTable<::kevin::Vector3>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void Imu::Clear() {
+// @@protoc_insertion_point(message_clear_start:kevin.Imu)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.header_ != nullptr);
+      _impl_.header_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.linear_acceleration_ != nullptr);
+      _impl_.linear_acceleration_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      ABSL_DCHECK(_impl_.angular_velocity_ != nullptr);
+      _impl_.angular_velocity_->Clear();
+    }
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* Imu::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const Imu& this_ = static_cast<const Imu&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* Imu::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const Imu& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:kevin.Imu)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          cached_has_bits = this_._impl_._has_bits_[0];
+          // .kevin.Header header = 1;
+          if (cached_has_bits & 0x00000001u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                1, *this_._impl_.header_, this_._impl_.header_->GetCachedSize(), target,
+                stream);
+          }
+
+          // .kevin.Vector3 linear_acceleration = 2;
+          if (cached_has_bits & 0x00000002u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                2, *this_._impl_.linear_acceleration_, this_._impl_.linear_acceleration_->GetCachedSize(), target,
+                stream);
+          }
+
+          // .kevin.Vector3 angular_velocity = 3;
+          if (cached_has_bits & 0x00000004u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                3, *this_._impl_.angular_velocity_, this_._impl_.angular_velocity_->GetCachedSize(), target,
+                stream);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:kevin.Imu)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t Imu::ByteSizeLong(const MessageLite& base) {
+          const Imu& this_ = static_cast<const Imu&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t Imu::ByteSizeLong() const {
+          const Imu& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:kevin.Imu)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+          cached_has_bits = this_._impl_._has_bits_[0];
+          if (cached_has_bits & 0x00000007u) {
+            // .kevin.Header header = 1;
+            if (cached_has_bits & 0x00000001u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.header_);
+            }
+            // .kevin.Vector3 linear_acceleration = 2;
+            if (cached_has_bits & 0x00000002u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.linear_acceleration_);
+            }
+            // .kevin.Vector3 angular_velocity = 3;
+            if (cached_has_bits & 0x00000004u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.angular_velocity_);
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void Imu::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<Imu*>(&to_msg);
+  auto& from = static_cast<const Imu&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:kevin.Imu)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(from._impl_.header_ != nullptr);
+      if (_this->_impl_.header_ == nullptr) {
+        _this->_impl_.header_ =
+            ::google::protobuf::Message::CopyConstruct<::kevin::Header>(arena, *from._impl_.header_);
+      } else {
+        _this->_impl_.header_->MergeFrom(*from._impl_.header_);
+      }
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(from._impl_.linear_acceleration_ != nullptr);
+      if (_this->_impl_.linear_acceleration_ == nullptr) {
+        _this->_impl_.linear_acceleration_ =
+            ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(arena, *from._impl_.linear_acceleration_);
+      } else {
+        _this->_impl_.linear_acceleration_->MergeFrom(*from._impl_.linear_acceleration_);
+      }
+    }
+    if (cached_has_bits & 0x00000004u) {
+      ABSL_DCHECK(from._impl_.angular_velocity_ != nullptr);
+      if (_this->_impl_.angular_velocity_ == nullptr) {
+        _this->_impl_.angular_velocity_ =
+            ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(arena, *from._impl_.angular_velocity_);
+      } else {
+        _this->_impl_.angular_velocity_->MergeFrom(*from._impl_.angular_velocity_);
+      }
+    }
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Imu::CopyFrom(const Imu& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:kevin.Imu)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void Imu::InternalSwap(Imu* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Imu, _impl_.angular_velocity_)
+      + sizeof(Imu::_impl_.angular_velocity_)
+      - PROTOBUF_FIELD_OFFSET(Imu, _impl_.header_)>(
+          reinterpret_cast<char*>(&_impl_.header_),
+          reinterpret_cast<char*>(&other->_impl_.header_));
+}
+
+::google::protobuf::Metadata Imu::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class HighResolutionImu::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<HighResolutionImu>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_._has_bits_);
+};
+
+void HighResolutionImu::clear_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.header_ != nullptr) _impl_.header_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+void HighResolutionImu::clear_linear_acceleration() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.linear_acceleration_ != nullptr) _impl_.linear_acceleration_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+void HighResolutionImu::clear_angular_velocity() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.angular_velocity_ != nullptr) _impl_.angular_velocity_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+void HighResolutionImu::clear_orientation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.orientation_ != nullptr) _impl_.orientation_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000008u;
+}
+void HighResolutionImu::clear_magnetic_field() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.magnetic_field_ != nullptr) _impl_.magnetic_field_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000010u;
+}
+HighResolutionImu::HighResolutionImu(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:kevin.HighResolutionImu)
+}
+inline PROTOBUF_NDEBUG_INLINE HighResolutionImu::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::kevin::HighResolutionImu& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+HighResolutionImu::HighResolutionImu(
+    ::google::protobuf::Arena* arena,
+    const HighResolutionImu& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  HighResolutionImu* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.header_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Header>(
+                              arena, *from._impl_.header_)
+                        : nullptr;
+  _impl_.linear_acceleration_ = (cached_has_bits & 0x00000002u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(
+                              arena, *from._impl_.linear_acceleration_)
+                        : nullptr;
+  _impl_.angular_velocity_ = (cached_has_bits & 0x00000004u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(
+                              arena, *from._impl_.angular_velocity_)
+                        : nullptr;
+  _impl_.orientation_ = (cached_has_bits & 0x00000008u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Quaternion>(
+                              arena, *from._impl_.orientation_)
+                        : nullptr;
+  _impl_.magnetic_field_ = (cached_has_bits & 0x00000010u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Vector3>(
+                              arena, *from._impl_.magnetic_field_)
+                        : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, pressure_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, pressure_),
+           offsetof(Impl_, temperature_) -
+               offsetof(Impl_, pressure_) +
+               sizeof(Impl_::temperature_));
+
+  // @@protoc_insertion_point(copy_constructor:kevin.HighResolutionImu)
+}
+inline PROTOBUF_NDEBUG_INLINE HighResolutionImu::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void HighResolutionImu::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, header_),
+           0,
+           offsetof(Impl_, temperature_) -
+               offsetof(Impl_, header_) +
+               sizeof(Impl_::temperature_));
+}
+HighResolutionImu::~HighResolutionImu() {
+  // @@protoc_insertion_point(destructor:kevin.HighResolutionImu)
+  SharedDtor(*this);
+}
+inline void HighResolutionImu::SharedDtor(MessageLite& self) {
+  HighResolutionImu& this_ = static_cast<HighResolutionImu&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  delete this_._impl_.header_;
+  delete this_._impl_.linear_acceleration_;
+  delete this_._impl_.angular_velocity_;
+  delete this_._impl_.orientation_;
+  delete this_._impl_.magnetic_field_;
+  this_._impl_.~Impl_();
+}
+
+inline void* HighResolutionImu::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) HighResolutionImu(arena);
+}
+constexpr auto HighResolutionImu::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(HighResolutionImu),
+                                            alignof(HighResolutionImu));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull HighResolutionImu::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_HighResolutionImu_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &HighResolutionImu::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<HighResolutionImu>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &HighResolutionImu::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<HighResolutionImu>(), &HighResolutionImu::ByteSizeLong,
+            &HighResolutionImu::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_._cached_size_),
+        false,
+    },
+    &HighResolutionImu::kDescriptorMethods,
+    &descriptor_table_imu_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* HighResolutionImu::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 7, 5, 0, 2> HighResolutionImu::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_._has_bits_),
+    0, // no _extensions_
+    7, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967168,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    7,  // num_field_entries
+    5,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::kevin::HighResolutionImu>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // .kevin.Header header = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.header_)}},
+    // .kevin.Vector3 linear_acceleration = 2;
+    {::_pbi::TcParser::FastMtS1,
+     {18, 1, 1, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.linear_acceleration_)}},
+    // .kevin.Vector3 angular_velocity = 3;
+    {::_pbi::TcParser::FastMtS1,
+     {26, 2, 2, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.angular_velocity_)}},
     // .kevin.Quaternion orientation = 4;
-    {PROTOBUF_FIELD_OFFSET(Imu, _impl_.orientation_), _Internal::kHasBitsOffset + 3, 3,
+    {::_pbi::TcParser::FastMtS1,
+     {34, 3, 3, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.orientation_)}},
+    // .kevin.Vector3 magnetic_field = 5;
+    {::_pbi::TcParser::FastMtS1,
+     {42, 4, 4, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.magnetic_field_)}},
+    // double pressure = 6;
+    {::_pbi::TcParser::FastF64S1,
+     {49, 63, 0, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.pressure_)}},
+    // double temperature = 7;
+    {::_pbi::TcParser::FastF64S1,
+     {57, 63, 0, PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.temperature_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .kevin.Header header = 1;
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.header_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .kevin.Vector3 linear_acceleration = 2;
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.linear_acceleration_), _Internal::kHasBitsOffset + 1, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .kevin.Vector3 angular_velocity = 3;
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.angular_velocity_), _Internal::kHasBitsOffset + 2, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .kevin.Quaternion orientation = 4;
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.orientation_), _Internal::kHasBitsOffset + 3, 3,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
     // .kevin.Vector3 magnetic_field = 5;
-    {PROTOBUF_FIELD_OFFSET(Imu, _impl_.magnetic_field_), _Internal::kHasBitsOffset + 4, 4,
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.magnetic_field_), _Internal::kHasBitsOffset + 4, 4,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
     // double pressure = 6;
-    {PROTOBUF_FIELD_OFFSET(Imu, _impl_.pressure_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.pressure_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
     // double temperature = 7;
-    {PROTOBUF_FIELD_OFFSET(Imu, _impl_.temperature_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.temperature_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
   }}, {{
     {::_pbi::TcParser::GetTable<::kevin::Header>()},
@@ -407,8 +806,8 @@ const ::_pbi::TcParseTable<3, 7, 5, 0, 2> Imu::_table_ = {
   }},
 };
 
-PROTOBUF_NOINLINE void Imu::Clear() {
-// @@protoc_insertion_point(message_clear_start:kevin.Imu)
+PROTOBUF_NOINLINE void HighResolutionImu::Clear() {
+// @@protoc_insertion_point(message_clear_start:kevin.HighResolutionImu)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -445,17 +844,17 @@ PROTOBUF_NOINLINE void Imu::Clear() {
 }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* Imu::_InternalSerialize(
+        ::uint8_t* HighResolutionImu::_InternalSerialize(
             const MessageLite& base, ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const Imu& this_ = static_cast<const Imu&>(base);
+          const HighResolutionImu& this_ = static_cast<const HighResolutionImu&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* Imu::_InternalSerialize(
+        ::uint8_t* HighResolutionImu::_InternalSerialize(
             ::uint8_t* target,
             ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const Imu& this_ = *this;
+          const HighResolutionImu& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:kevin.Imu)
+          // @@protoc_insertion_point(serialize_to_array_start:kevin.HighResolutionImu)
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
@@ -514,18 +913,18 @@ PROTOBUF_NOINLINE void Imu::Clear() {
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
                     this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
           }
-          // @@protoc_insertion_point(serialize_to_array_end:kevin.Imu)
+          // @@protoc_insertion_point(serialize_to_array_end:kevin.HighResolutionImu)
           return target;
         }
 
 #if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t Imu::ByteSizeLong(const MessageLite& base) {
-          const Imu& this_ = static_cast<const Imu&>(base);
+        ::size_t HighResolutionImu::ByteSizeLong(const MessageLite& base) {
+          const HighResolutionImu& this_ = static_cast<const HighResolutionImu&>(base);
 #else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t Imu::ByteSizeLong() const {
-          const Imu& this_ = *this;
+        ::size_t HighResolutionImu::ByteSizeLong() const {
+          const HighResolutionImu& this_ = *this;
 #endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:kevin.Imu)
+          // @@protoc_insertion_point(message_byte_size_start:kevin.HighResolutionImu)
           ::size_t total_size = 0;
 
           ::uint32_t cached_has_bits = 0;
@@ -575,11 +974,11 @@ PROTOBUF_NOINLINE void Imu::Clear() {
                                                      &this_._impl_._cached_size_);
         }
 
-void Imu::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<Imu*>(&to_msg);
-  auto& from = static_cast<const Imu&>(from_msg);
+void HighResolutionImu::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<HighResolutionImu*>(&to_msg);
+  auto& from = static_cast<const HighResolutionImu&>(from_msg);
   ::google::protobuf::Arena* arena = _this->GetArena();
-  // @@protoc_insertion_point(class_specific_merge_from_start:kevin.Imu)
+  // @@protoc_insertion_point(class_specific_merge_from_start:kevin.HighResolutionImu)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -642,27 +1041,27 @@ void Imu::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::pro
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void Imu::CopyFrom(const Imu& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:kevin.Imu)
+void HighResolutionImu::CopyFrom(const HighResolutionImu& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:kevin.HighResolutionImu)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void Imu::InternalSwap(Imu* PROTOBUF_RESTRICT other) {
+void HighResolutionImu::InternalSwap(HighResolutionImu* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Imu, _impl_.temperature_)
-      + sizeof(Imu::_impl_.temperature_)
-      - PROTOBUF_FIELD_OFFSET(Imu, _impl_.header_)>(
+      PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.temperature_)
+      + sizeof(HighResolutionImu::_impl_.temperature_)
+      - PROTOBUF_FIELD_OFFSET(HighResolutionImu, _impl_.header_)>(
           reinterpret_cast<char*>(&_impl_.header_),
           reinterpret_cast<char*>(&other->_impl_.header_));
 }
 
-::google::protobuf::Metadata Imu::GetMetadata() const {
+::google::protobuf::Metadata HighResolutionImu::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================

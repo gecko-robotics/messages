@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package kevin;
+
+import "vector3.proto";
+// import "quaternion.proto";
+// import "header.proto";
+// import "covariance.proto";
+
+message MagnetometerCalibration {
+  kevin.Vector3 softiron = 1;
+  kevin.Vector3 hardiron = 2;
+}
+
+message ImuCalibration {
+  repeated double A = 1; // 4x3
+}

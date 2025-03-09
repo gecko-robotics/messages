@@ -56,6 +56,12 @@ namespace kevin {
 class Pressure;
 struct PressureDefaultTypeInternal;
 extern PressureDefaultTypeInternal _Pressure_default_instance_;
+class PressureTemperature;
+struct PressureTemperatureDefaultTypeInternal;
+extern PressureTemperatureDefaultTypeInternal _PressureTemperature_default_instance_;
+class Temperature;
+struct TemperatureDefaultTypeInternal;
+extern TemperatureDefaultTypeInternal _Temperature_default_instance_;
 }  // namespace kevin
 namespace google {
 namespace protobuf {
@@ -67,6 +73,434 @@ namespace kevin {
 // ===================================================================
 
 
+// -------------------------------------------------------------------
+
+class Temperature final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:kevin.Temperature) */ {
+ public:
+  inline Temperature() : Temperature(nullptr) {}
+  ~Temperature() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(Temperature* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(Temperature));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR Temperature(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline Temperature(const Temperature& from) : Temperature(nullptr, from) {}
+  inline Temperature(Temperature&& from) noexcept
+      : Temperature(nullptr, std::move(from)) {}
+  inline Temperature& operator=(const Temperature& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Temperature& operator=(Temperature&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Temperature& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Temperature* internal_default_instance() {
+    return reinterpret_cast<const Temperature*>(
+        &_Temperature_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 1;
+  friend void swap(Temperature& a, Temperature& b) { a.Swap(&b); }
+  inline void Swap(Temperature* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Temperature* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Temperature* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<Temperature>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const Temperature& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const Temperature& from) { Temperature::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(Temperature* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "kevin.Temperature"; }
+
+ protected:
+  explicit Temperature(::google::protobuf::Arena* arena);
+  Temperature(::google::protobuf::Arena* arena, const Temperature& from);
+  Temperature(::google::protobuf::Arena* arena, Temperature&& from) noexcept
+      : Temperature(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kHeaderFieldNumber = 1,
+    kTemperatureFieldNumber = 2,
+  };
+  // .kevin.Header header = 1;
+  bool has_header() const;
+  void clear_header() ;
+  const ::kevin::Header& header() const;
+  PROTOBUF_NODISCARD ::kevin::Header* release_header();
+  ::kevin::Header* mutable_header();
+  void set_allocated_header(::kevin::Header* value);
+  void unsafe_arena_set_allocated_header(::kevin::Header* value);
+  ::kevin::Header* unsafe_arena_release_header();
+
+  private:
+  const ::kevin::Header& _internal_header() const;
+  ::kevin::Header* _internal_mutable_header();
+
+  public:
+  // double temperature = 2;
+  void clear_temperature() ;
+  double temperature() const;
+  void set_temperature(double value);
+
+  private:
+  double _internal_temperature() const;
+  void _internal_set_temperature(double value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:kevin.Temperature)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 1,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const Temperature& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::kevin::Header* header_;
+    double temperature_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_pressure_2eproto;
+};
+// -------------------------------------------------------------------
+
+class PressureTemperature final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:kevin.PressureTemperature) */ {
+ public:
+  inline PressureTemperature() : PressureTemperature(nullptr) {}
+  ~PressureTemperature() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(PressureTemperature* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(PressureTemperature));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR PressureTemperature(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline PressureTemperature(const PressureTemperature& from) : PressureTemperature(nullptr, from) {}
+  inline PressureTemperature(PressureTemperature&& from) noexcept
+      : PressureTemperature(nullptr, std::move(from)) {}
+  inline PressureTemperature& operator=(const PressureTemperature& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PressureTemperature& operator=(PressureTemperature&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const PressureTemperature& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PressureTemperature* internal_default_instance() {
+    return reinterpret_cast<const PressureTemperature*>(
+        &_PressureTemperature_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(PressureTemperature& a, PressureTemperature& b) { a.Swap(&b); }
+  inline void Swap(PressureTemperature* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PressureTemperature* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PressureTemperature* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<PressureTemperature>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const PressureTemperature& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const PressureTemperature& from) { PressureTemperature::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(PressureTemperature* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "kevin.PressureTemperature"; }
+
+ protected:
+  explicit PressureTemperature(::google::protobuf::Arena* arena);
+  PressureTemperature(::google::protobuf::Arena* arena, const PressureTemperature& from);
+  PressureTemperature(::google::protobuf::Arena* arena, PressureTemperature&& from) noexcept
+      : PressureTemperature(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kHeaderFieldNumber = 1,
+    kPressureFieldNumber = 2,
+    kTemperatureFieldNumber = 3,
+  };
+  // .kevin.Header header = 1;
+  bool has_header() const;
+  void clear_header() ;
+  const ::kevin::Header& header() const;
+  PROTOBUF_NODISCARD ::kevin::Header* release_header();
+  ::kevin::Header* mutable_header();
+  void set_allocated_header(::kevin::Header* value);
+  void unsafe_arena_set_allocated_header(::kevin::Header* value);
+  ::kevin::Header* unsafe_arena_release_header();
+
+  private:
+  const ::kevin::Header& _internal_header() const;
+  ::kevin::Header* _internal_mutable_header();
+
+  public:
+  // double pressure = 2;
+  void clear_pressure() ;
+  double pressure() const;
+  void set_pressure(double value);
+
+  private:
+  double _internal_pressure() const;
+  void _internal_set_pressure(double value);
+
+  public:
+  // double temperature = 3;
+  void clear_temperature() ;
+  double temperature() const;
+  void set_temperature(double value);
+
+  private:
+  double _internal_temperature() const;
+  void _internal_set_temperature(double value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:kevin.PressureTemperature)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 3, 1,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const PressureTemperature& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::kevin::Header* header_;
+    double pressure_;
+    double temperature_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_pressure_2eproto;
+};
 // -------------------------------------------------------------------
 
 class Pressure final : public ::google::protobuf::Message
@@ -216,8 +650,7 @@ class Pressure final : public ::google::protobuf::Message
   // accessors -------------------------------------------------------
   enum : int {
     kHeaderFieldNumber = 1,
-    kFluidPressureFieldNumber = 2,
-    kVarianceFieldNumber = 3,
+    kPressureFieldNumber = 2,
   };
   // .kevin.Header header = 1;
   bool has_header() const;
@@ -234,24 +667,14 @@ class Pressure final : public ::google::protobuf::Message
   ::kevin::Header* _internal_mutable_header();
 
   public:
-  // double fluid_pressure = 2;
-  void clear_fluid_pressure() ;
-  double fluid_pressure() const;
-  void set_fluid_pressure(double value);
+  // double pressure = 2;
+  void clear_pressure() ;
+  double pressure() const;
+  void set_pressure(double value);
 
   private:
-  double _internal_fluid_pressure() const;
-  void _internal_set_fluid_pressure(double value);
-
-  public:
-  // double variance = 3;
-  void clear_variance() ;
-  double variance() const;
-  void set_variance(double value);
-
-  private:
-  double _internal_variance() const;
-  void _internal_set_variance(double value);
+  double _internal_pressure() const;
+  void _internal_set_pressure(double value);
 
   public:
   // @@protoc_insertion_point(class_scope:kevin.Pressure)
@@ -259,7 +682,7 @@ class Pressure final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 1,
+      1, 2, 1,
       0, 2>
       _table_;
 
@@ -280,8 +703,7 @@ class Pressure final : public ::google::protobuf::Message
     ::google::protobuf::internal::HasBits<1> _has_bits_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     ::kevin::Header* header_;
-    double fluid_pressure_;
-    double variance_;
+    double pressure_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -395,48 +817,282 @@ inline void Pressure::set_allocated_header(::kevin::Header* value) {
   // @@protoc_insertion_point(field_set_allocated:kevin.Pressure.header)
 }
 
-// double fluid_pressure = 2;
-inline void Pressure::clear_fluid_pressure() {
+// double pressure = 2;
+inline void Pressure::clear_pressure() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.fluid_pressure_ = 0;
+  _impl_.pressure_ = 0;
 }
-inline double Pressure::fluid_pressure() const {
-  // @@protoc_insertion_point(field_get:kevin.Pressure.fluid_pressure)
-  return _internal_fluid_pressure();
+inline double Pressure::pressure() const {
+  // @@protoc_insertion_point(field_get:kevin.Pressure.pressure)
+  return _internal_pressure();
 }
-inline void Pressure::set_fluid_pressure(double value) {
-  _internal_set_fluid_pressure(value);
-  // @@protoc_insertion_point(field_set:kevin.Pressure.fluid_pressure)
+inline void Pressure::set_pressure(double value) {
+  _internal_set_pressure(value);
+  // @@protoc_insertion_point(field_set:kevin.Pressure.pressure)
 }
-inline double Pressure::_internal_fluid_pressure() const {
+inline double Pressure::_internal_pressure() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.fluid_pressure_;
+  return _impl_.pressure_;
 }
-inline void Pressure::_internal_set_fluid_pressure(double value) {
+inline void Pressure::_internal_set_pressure(double value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.fluid_pressure_ = value;
+  _impl_.pressure_ = value;
 }
 
-// double variance = 3;
-inline void Pressure::clear_variance() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.variance_ = 0;
+// -------------------------------------------------------------------
+
+// Temperature
+
+// .kevin.Header header = 1;
+inline bool Temperature::has_header() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.header_ != nullptr);
+  return value;
 }
-inline double Pressure::variance() const {
-  // @@protoc_insertion_point(field_get:kevin.Pressure.variance)
-  return _internal_variance();
-}
-inline void Pressure::set_variance(double value) {
-  _internal_set_variance(value);
-  // @@protoc_insertion_point(field_set:kevin.Pressure.variance)
-}
-inline double Pressure::_internal_variance() const {
+inline const ::kevin::Header& Temperature::_internal_header() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.variance_;
+  const ::kevin::Header* p = _impl_.header_;
+  return p != nullptr ? *p : reinterpret_cast<const ::kevin::Header&>(::kevin::_Header_default_instance_);
 }
-inline void Pressure::_internal_set_variance(double value) {
+inline const ::kevin::Header& Temperature::header() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:kevin.Temperature.header)
+  return _internal_header();
+}
+inline void Temperature::unsafe_arena_set_allocated_header(::kevin::Header* value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.variance_ = value;
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.header_);
+  }
+  _impl_.header_ = reinterpret_cast<::kevin::Header*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:kevin.Temperature.header)
+}
+inline ::kevin::Header* Temperature::release_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::kevin::Header* released = _impl_.header_;
+  _impl_.header_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::kevin::Header* Temperature::unsafe_arena_release_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:kevin.Temperature.header)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::kevin::Header* temp = _impl_.header_;
+  _impl_.header_ = nullptr;
+  return temp;
+}
+inline ::kevin::Header* Temperature::_internal_mutable_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.header_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::kevin::Header>(GetArena());
+    _impl_.header_ = reinterpret_cast<::kevin::Header*>(p);
+  }
+  return _impl_.header_;
+}
+inline ::kevin::Header* Temperature::mutable_header() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  ::kevin::Header* _msg = _internal_mutable_header();
+  // @@protoc_insertion_point(field_mutable:kevin.Temperature.header)
+  return _msg;
+}
+inline void Temperature::set_allocated_header(::kevin::Header* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.header_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.header_ = reinterpret_cast<::kevin::Header*>(value);
+  // @@protoc_insertion_point(field_set_allocated:kevin.Temperature.header)
+}
+
+// double temperature = 2;
+inline void Temperature::clear_temperature() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.temperature_ = 0;
+}
+inline double Temperature::temperature() const {
+  // @@protoc_insertion_point(field_get:kevin.Temperature.temperature)
+  return _internal_temperature();
+}
+inline void Temperature::set_temperature(double value) {
+  _internal_set_temperature(value);
+  // @@protoc_insertion_point(field_set:kevin.Temperature.temperature)
+}
+inline double Temperature::_internal_temperature() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.temperature_;
+}
+inline void Temperature::_internal_set_temperature(double value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.temperature_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// PressureTemperature
+
+// .kevin.Header header = 1;
+inline bool PressureTemperature::has_header() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.header_ != nullptr);
+  return value;
+}
+inline const ::kevin::Header& PressureTemperature::_internal_header() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::kevin::Header* p = _impl_.header_;
+  return p != nullptr ? *p : reinterpret_cast<const ::kevin::Header&>(::kevin::_Header_default_instance_);
+}
+inline const ::kevin::Header& PressureTemperature::header() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:kevin.PressureTemperature.header)
+  return _internal_header();
+}
+inline void PressureTemperature::unsafe_arena_set_allocated_header(::kevin::Header* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.header_);
+  }
+  _impl_.header_ = reinterpret_cast<::kevin::Header*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:kevin.PressureTemperature.header)
+}
+inline ::kevin::Header* PressureTemperature::release_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::kevin::Header* released = _impl_.header_;
+  _impl_.header_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::kevin::Header* PressureTemperature::unsafe_arena_release_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:kevin.PressureTemperature.header)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::kevin::Header* temp = _impl_.header_;
+  _impl_.header_ = nullptr;
+  return temp;
+}
+inline ::kevin::Header* PressureTemperature::_internal_mutable_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.header_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::kevin::Header>(GetArena());
+    _impl_.header_ = reinterpret_cast<::kevin::Header*>(p);
+  }
+  return _impl_.header_;
+}
+inline ::kevin::Header* PressureTemperature::mutable_header() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  ::kevin::Header* _msg = _internal_mutable_header();
+  // @@protoc_insertion_point(field_mutable:kevin.PressureTemperature.header)
+  return _msg;
+}
+inline void PressureTemperature::set_allocated_header(::kevin::Header* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.header_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.header_ = reinterpret_cast<::kevin::Header*>(value);
+  // @@protoc_insertion_point(field_set_allocated:kevin.PressureTemperature.header)
+}
+
+// double pressure = 2;
+inline void PressureTemperature::clear_pressure() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.pressure_ = 0;
+}
+inline double PressureTemperature::pressure() const {
+  // @@protoc_insertion_point(field_get:kevin.PressureTemperature.pressure)
+  return _internal_pressure();
+}
+inline void PressureTemperature::set_pressure(double value) {
+  _internal_set_pressure(value);
+  // @@protoc_insertion_point(field_set:kevin.PressureTemperature.pressure)
+}
+inline double PressureTemperature::_internal_pressure() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.pressure_;
+}
+inline void PressureTemperature::_internal_set_pressure(double value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.pressure_ = value;
+}
+
+// double temperature = 3;
+inline void PressureTemperature::clear_temperature() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.temperature_ = 0;
+}
+inline double PressureTemperature::temperature() const {
+  // @@protoc_insertion_point(field_get:kevin.PressureTemperature.temperature)
+  return _internal_temperature();
+}
+inline void PressureTemperature::set_temperature(double value) {
+  _internal_set_temperature(value);
+  // @@protoc_insertion_point(field_set:kevin.PressureTemperature.temperature)
+}
+inline double PressureTemperature::_internal_temperature() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.temperature_;
+}
+inline void PressureTemperature::_internal_set_temperature(double value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.temperature_ = value;
 }
 
 #ifdef __GNUC__

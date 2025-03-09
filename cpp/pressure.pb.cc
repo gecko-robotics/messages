@@ -26,12 +26,64 @@ namespace _pbi = ::google::protobuf::internal;
 namespace _fl = ::google::protobuf::internal::field_layout;
 namespace kevin {
 
+inline constexpr Temperature::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        header_{nullptr},
+        temperature_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR Temperature::Temperature(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct TemperatureDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR TemperatureDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~TemperatureDefaultTypeInternal() {}
+  union {
+    Temperature _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TemperatureDefaultTypeInternal _Temperature_default_instance_;
+
+inline constexpr PressureTemperature::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        header_{nullptr},
+        pressure_{0},
+        temperature_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR PressureTemperature::PressureTemperature(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct PressureTemperatureDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PressureTemperatureDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PressureTemperatureDefaultTypeInternal() {}
+  union {
+    PressureTemperature _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PressureTemperatureDefaultTypeInternal _PressureTemperature_default_instance_;
+
 inline constexpr Pressure::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
         header_{nullptr},
-        fluid_pressure_{0},
-        variance_{0} {}
+        pressure_{0} {}
 
 template <typename>
 PROTOBUF_CONSTEXPR Pressure::Pressure(::_pbi::ConstantInitialized)
@@ -69,8 +121,32 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::kevin::Pressure, _impl_.header_),
-        PROTOBUF_FIELD_OFFSET(::kevin::Pressure, _impl_.fluid_pressure_),
-        PROTOBUF_FIELD_OFFSET(::kevin::Pressure, _impl_.variance_),
+        PROTOBUF_FIELD_OFFSET(::kevin::Pressure, _impl_.pressure_),
+        0,
+        ~0u,
+        PROTOBUF_FIELD_OFFSET(::kevin::Temperature, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::kevin::Temperature, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::kevin::Temperature, _impl_.header_),
+        PROTOBUF_FIELD_OFFSET(::kevin::Temperature, _impl_.temperature_),
+        0,
+        ~0u,
+        PROTOBUF_FIELD_OFFSET(::kevin::PressureTemperature, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::kevin::PressureTemperature, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::kevin::PressureTemperature, _impl_.header_),
+        PROTOBUF_FIELD_OFFSET(::kevin::PressureTemperature, _impl_.pressure_),
+        PROTOBUF_FIELD_OFFSET(::kevin::PressureTemperature, _impl_.temperature_),
         0,
         ~0u,
         ~0u,
@@ -78,17 +154,24 @@ const ::uint32_t
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, 11, -1, sizeof(::kevin::Pressure)},
+        {0, 10, -1, sizeof(::kevin::Pressure)},
+        {12, 22, -1, sizeof(::kevin::Temperature)},
+        {24, 35, -1, sizeof(::kevin::PressureTemperature)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::kevin::_Pressure_default_instance_._instance,
+    &::kevin::_Temperature_default_instance_._instance,
+    &::kevin::_PressureTemperature_default_instance_._instance,
 };
 const char descriptor_table_protodef_pressure_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\016pressure.proto\022\005kevin\032\014header.proto\"S\n"
+    "\n\016pressure.proto\022\005kevin\032\014header.proto\";\n"
     "\010Pressure\022\035\n\006header\030\001 \001(\0132\r.kevin.Header"
-    "\022\026\n\016fluid_pressure\030\002 \001(\001\022\020\n\010variance\030\003 \001"
-    "(\001b\006proto3"
+    "\022\020\n\010pressure\030\002 \001(\001\"A\n\013Temperature\022\035\n\006hea"
+    "der\030\001 \001(\0132\r.kevin.Header\022\023\n\013temperature\030"
+    "\002 \001(\001\"[\n\023PressureTemperature\022\035\n\006header\030\001"
+    " \001(\0132\r.kevin.Header\022\020\n\010pressure\030\002 \001(\001\022\023\n"
+    "\013temperature\030\003 \001(\001b\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_pressure_2eproto_deps[1] =
     {
@@ -98,13 +181,13 @@ static ::absl::once_flag descriptor_table_pressure_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_pressure_2eproto = {
     false,
     false,
-    130,
+    266,
     descriptor_table_protodef_pressure_2eproto,
     "pressure.proto",
     &descriptor_table_pressure_2eproto_once,
     descriptor_table_pressure_2eproto_deps,
     1,
-    1,
+    3,
     schemas,
     file_default_instances,
     TableStruct_pressure_2eproto::offsets,
@@ -159,13 +242,7 @@ Pressure::Pressure(
   _impl_.header_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Header>(
                               arena, *from._impl_.header_)
                         : nullptr;
-  ::memcpy(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, fluid_pressure_),
-           reinterpret_cast<const char *>(&from._impl_) +
-               offsetof(Impl_, fluid_pressure_),
-           offsetof(Impl_, variance_) -
-               offsetof(Impl_, fluid_pressure_) +
-               sizeof(Impl_::variance_));
+  _impl_.pressure_ = from._impl_.pressure_;
 
   // @@protoc_insertion_point(copy_constructor:kevin.Pressure)
 }
@@ -179,9 +256,9 @@ inline void Pressure::SharedCtor(::_pb::Arena* arena) {
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, header_),
            0,
-           offsetof(Impl_, variance_) -
+           offsetof(Impl_, pressure_) -
                offsetof(Impl_, header_) +
-               sizeof(Impl_::variance_));
+               sizeof(Impl_::pressure_));
 }
 Pressure::~Pressure() {
   // @@protoc_insertion_point(destructor:kevin.Pressure)
@@ -231,15 +308,15 @@ const ::google::protobuf::internal::ClassData* Pressure::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 3, 1, 0, 2> Pressure::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> Pressure::_table_ = {
   {
     PROTOBUF_FIELD_OFFSET(Pressure, _impl_._has_bits_),
     0, // no _extensions_
-    3, 24,  // max_field_number, fast_idx_mask
+    2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967288,  // skipmap
+    4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    3,  // num_field_entries
+    2,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     _class_data_.base(),
@@ -249,27 +326,20 @@ const ::_pbi::TcParseTable<2, 3, 1, 0, 2> Pressure::_table_ = {
     ::_pbi::TcParser::GetTable<::kevin::Pressure>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    {::_pbi::TcParser::MiniParse, {}},
+    // double pressure = 2;
+    {::_pbi::TcParser::FastF64S1,
+     {17, 63, 0, PROTOBUF_FIELD_OFFSET(Pressure, _impl_.pressure_)}},
     // .kevin.Header header = 1;
     {::_pbi::TcParser::FastMtS1,
      {10, 0, 0, PROTOBUF_FIELD_OFFSET(Pressure, _impl_.header_)}},
-    // double fluid_pressure = 2;
-    {::_pbi::TcParser::FastF64S1,
-     {17, 63, 0, PROTOBUF_FIELD_OFFSET(Pressure, _impl_.fluid_pressure_)}},
-    // double variance = 3;
-    {::_pbi::TcParser::FastF64S1,
-     {25, 63, 0, PROTOBUF_FIELD_OFFSET(Pressure, _impl_.variance_)}},
   }}, {{
     65535, 65535
   }}, {{
     // .kevin.Header header = 1;
     {PROTOBUF_FIELD_OFFSET(Pressure, _impl_.header_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-    // double fluid_pressure = 2;
-    {PROTOBUF_FIELD_OFFSET(Pressure, _impl_.fluid_pressure_), -1, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
-    // double variance = 3;
-    {PROTOBUF_FIELD_OFFSET(Pressure, _impl_.variance_), -1, 0,
+    // double pressure = 2;
+    {PROTOBUF_FIELD_OFFSET(Pressure, _impl_.pressure_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
   }}, {{
     {::_pbi::TcParser::GetTable<::kevin::Header>()},
@@ -289,9 +359,7 @@ PROTOBUF_NOINLINE void Pressure::Clear() {
     ABSL_DCHECK(_impl_.header_ != nullptr);
     _impl_.header_->Clear();
   }
-  ::memset(&_impl_.fluid_pressure_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.variance_) -
-      reinterpret_cast<char*>(&_impl_.fluid_pressure_)) + sizeof(_impl_.variance_));
+  _impl_.pressure_ = 0;
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
@@ -319,18 +387,11 @@ PROTOBUF_NOINLINE void Pressure::Clear() {
                 stream);
           }
 
-          // double fluid_pressure = 2;
-          if (::absl::bit_cast<::uint64_t>(this_._internal_fluid_pressure()) != 0) {
+          // double pressure = 2;
+          if (::absl::bit_cast<::uint64_t>(this_._internal_pressure()) != 0) {
             target = stream->EnsureSpace(target);
             target = ::_pbi::WireFormatLite::WriteDoubleToArray(
-                2, this_._internal_fluid_pressure(), target);
-          }
-
-          // double variance = 3;
-          if (::absl::bit_cast<::uint64_t>(this_._internal_variance()) != 0) {
-            target = stream->EnsureSpace(target);
-            target = ::_pbi::WireFormatLite::WriteDoubleToArray(
-                3, this_._internal_variance(), target);
+                2, this_._internal_pressure(), target);
           }
 
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
@@ -366,12 +427,8 @@ PROTOBUF_NOINLINE void Pressure::Clear() {
             }
           }
            {
-            // double fluid_pressure = 2;
-            if (::absl::bit_cast<::uint64_t>(this_._internal_fluid_pressure()) != 0) {
-              total_size += 9;
-            }
-            // double variance = 3;
-            if (::absl::bit_cast<::uint64_t>(this_._internal_variance()) != 0) {
+            // double pressure = 2;
+            if (::absl::bit_cast<::uint64_t>(this_._internal_pressure()) != 0) {
               total_size += 9;
             }
           }
@@ -398,11 +455,8 @@ void Pressure::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google
       _this->_impl_.header_->MergeFrom(*from._impl_.header_);
     }
   }
-  if (::absl::bit_cast<::uint64_t>(from._internal_fluid_pressure()) != 0) {
-    _this->_impl_.fluid_pressure_ = from._impl_.fluid_pressure_;
-  }
-  if (::absl::bit_cast<::uint64_t>(from._internal_variance()) != 0) {
-    _this->_impl_.variance_ = from._impl_.variance_;
+  if (::absl::bit_cast<::uint64_t>(from._internal_pressure()) != 0) {
+    _this->_impl_.pressure_ = from._impl_.pressure_;
   }
   _this->_impl_._has_bits_[0] |= cached_has_bits;
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
@@ -421,14 +475,623 @@ void Pressure::InternalSwap(Pressure* PROTOBUF_RESTRICT other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Pressure, _impl_.variance_)
-      + sizeof(Pressure::_impl_.variance_)
+      PROTOBUF_FIELD_OFFSET(Pressure, _impl_.pressure_)
+      + sizeof(Pressure::_impl_.pressure_)
       - PROTOBUF_FIELD_OFFSET(Pressure, _impl_.header_)>(
           reinterpret_cast<char*>(&_impl_.header_),
           reinterpret_cast<char*>(&other->_impl_.header_));
 }
 
 ::google::protobuf::Metadata Pressure::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class Temperature::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<Temperature>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(Temperature, _impl_._has_bits_);
+};
+
+void Temperature::clear_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.header_ != nullptr) _impl_.header_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+Temperature::Temperature(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:kevin.Temperature)
+}
+inline PROTOBUF_NDEBUG_INLINE Temperature::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::kevin::Temperature& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+Temperature::Temperature(
+    ::google::protobuf::Arena* arena,
+    const Temperature& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  Temperature* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.header_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Header>(
+                              arena, *from._impl_.header_)
+                        : nullptr;
+  _impl_.temperature_ = from._impl_.temperature_;
+
+  // @@protoc_insertion_point(copy_constructor:kevin.Temperature)
+}
+inline PROTOBUF_NDEBUG_INLINE Temperature::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void Temperature::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, header_),
+           0,
+           offsetof(Impl_, temperature_) -
+               offsetof(Impl_, header_) +
+               sizeof(Impl_::temperature_));
+}
+Temperature::~Temperature() {
+  // @@protoc_insertion_point(destructor:kevin.Temperature)
+  SharedDtor(*this);
+}
+inline void Temperature::SharedDtor(MessageLite& self) {
+  Temperature& this_ = static_cast<Temperature&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  delete this_._impl_.header_;
+  this_._impl_.~Impl_();
+}
+
+inline void* Temperature::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) Temperature(arena);
+}
+constexpr auto Temperature::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(Temperature),
+                                            alignof(Temperature));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull Temperature::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_Temperature_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &Temperature::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<Temperature>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &Temperature::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<Temperature>(), &Temperature::ByteSizeLong,
+            &Temperature::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(Temperature, _impl_._cached_size_),
+        false,
+    },
+    &Temperature::kDescriptorMethods,
+    &descriptor_table_pressure_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* Temperature::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> Temperature::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(Temperature, _impl_._has_bits_),
+    0, // no _extensions_
+    2, 8,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967292,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    2,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::kevin::Temperature>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // double temperature = 2;
+    {::_pbi::TcParser::FastF64S1,
+     {17, 63, 0, PROTOBUF_FIELD_OFFSET(Temperature, _impl_.temperature_)}},
+    // .kevin.Header header = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(Temperature, _impl_.header_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .kevin.Header header = 1;
+    {PROTOBUF_FIELD_OFFSET(Temperature, _impl_.header_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // double temperature = 2;
+    {PROTOBUF_FIELD_OFFSET(Temperature, _impl_.temperature_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::kevin::Header>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void Temperature::Clear() {
+// @@protoc_insertion_point(message_clear_start:kevin.Temperature)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.header_ != nullptr);
+    _impl_.header_->Clear();
+  }
+  _impl_.temperature_ = 0;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* Temperature::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const Temperature& this_ = static_cast<const Temperature&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* Temperature::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const Temperature& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:kevin.Temperature)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          cached_has_bits = this_._impl_._has_bits_[0];
+          // .kevin.Header header = 1;
+          if (cached_has_bits & 0x00000001u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                1, *this_._impl_.header_, this_._impl_.header_->GetCachedSize(), target,
+                stream);
+          }
+
+          // double temperature = 2;
+          if (::absl::bit_cast<::uint64_t>(this_._internal_temperature()) != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+                2, this_._internal_temperature(), target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:kevin.Temperature)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t Temperature::ByteSizeLong(const MessageLite& base) {
+          const Temperature& this_ = static_cast<const Temperature&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t Temperature::ByteSizeLong() const {
+          const Temperature& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:kevin.Temperature)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // .kevin.Header header = 1;
+            cached_has_bits = this_._impl_._has_bits_[0];
+            if (cached_has_bits & 0x00000001u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.header_);
+            }
+          }
+           {
+            // double temperature = 2;
+            if (::absl::bit_cast<::uint64_t>(this_._internal_temperature()) != 0) {
+              total_size += 9;
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void Temperature::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<Temperature*>(&to_msg);
+  auto& from = static_cast<const Temperature&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:kevin.Temperature)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.header_ != nullptr);
+    if (_this->_impl_.header_ == nullptr) {
+      _this->_impl_.header_ =
+          ::google::protobuf::Message::CopyConstruct<::kevin::Header>(arena, *from._impl_.header_);
+    } else {
+      _this->_impl_.header_->MergeFrom(*from._impl_.header_);
+    }
+  }
+  if (::absl::bit_cast<::uint64_t>(from._internal_temperature()) != 0) {
+    _this->_impl_.temperature_ = from._impl_.temperature_;
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Temperature::CopyFrom(const Temperature& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:kevin.Temperature)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void Temperature::InternalSwap(Temperature* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Temperature, _impl_.temperature_)
+      + sizeof(Temperature::_impl_.temperature_)
+      - PROTOBUF_FIELD_OFFSET(Temperature, _impl_.header_)>(
+          reinterpret_cast<char*>(&_impl_.header_),
+          reinterpret_cast<char*>(&other->_impl_.header_));
+}
+
+::google::protobuf::Metadata Temperature::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class PressureTemperature::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<PressureTemperature>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_._has_bits_);
+};
+
+void PressureTemperature::clear_header() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.header_ != nullptr) _impl_.header_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+PressureTemperature::PressureTemperature(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:kevin.PressureTemperature)
+}
+inline PROTOBUF_NDEBUG_INLINE PressureTemperature::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::kevin::PressureTemperature& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0} {}
+
+PressureTemperature::PressureTemperature(
+    ::google::protobuf::Arena* arena,
+    const PressureTemperature& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  PressureTemperature* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.header_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::kevin::Header>(
+                              arena, *from._impl_.header_)
+                        : nullptr;
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, pressure_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, pressure_),
+           offsetof(Impl_, temperature_) -
+               offsetof(Impl_, pressure_) +
+               sizeof(Impl_::temperature_));
+
+  // @@protoc_insertion_point(copy_constructor:kevin.PressureTemperature)
+}
+inline PROTOBUF_NDEBUG_INLINE PressureTemperature::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void PressureTemperature::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, header_),
+           0,
+           offsetof(Impl_, temperature_) -
+               offsetof(Impl_, header_) +
+               sizeof(Impl_::temperature_));
+}
+PressureTemperature::~PressureTemperature() {
+  // @@protoc_insertion_point(destructor:kevin.PressureTemperature)
+  SharedDtor(*this);
+}
+inline void PressureTemperature::SharedDtor(MessageLite& self) {
+  PressureTemperature& this_ = static_cast<PressureTemperature&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  delete this_._impl_.header_;
+  this_._impl_.~Impl_();
+}
+
+inline void* PressureTemperature::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) PressureTemperature(arena);
+}
+constexpr auto PressureTemperature::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(PressureTemperature),
+                                            alignof(PressureTemperature));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull PressureTemperature::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_PressureTemperature_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &PressureTemperature::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<PressureTemperature>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &PressureTemperature::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<PressureTemperature>(), &PressureTemperature::ByteSizeLong,
+            &PressureTemperature::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_._cached_size_),
+        false,
+    },
+    &PressureTemperature::kDescriptorMethods,
+    &descriptor_table_pressure_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* PressureTemperature::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 3, 1, 0, 2> PressureTemperature::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_._has_bits_),
+    0, // no _extensions_
+    3, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::kevin::PressureTemperature>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // .kevin.Header header = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.header_)}},
+    // double pressure = 2;
+    {::_pbi::TcParser::FastF64S1,
+     {17, 63, 0, PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.pressure_)}},
+    // double temperature = 3;
+    {::_pbi::TcParser::FastF64S1,
+     {25, 63, 0, PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.temperature_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .kevin.Header header = 1;
+    {PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.header_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // double pressure = 2;
+    {PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.pressure_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
+    // double temperature = 3;
+    {PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.temperature_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::kevin::Header>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void PressureTemperature::Clear() {
+// @@protoc_insertion_point(message_clear_start:kevin.PressureTemperature)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.header_ != nullptr);
+    _impl_.header_->Clear();
+  }
+  ::memset(&_impl_.pressure_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.temperature_) -
+      reinterpret_cast<char*>(&_impl_.pressure_)) + sizeof(_impl_.temperature_));
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* PressureTemperature::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const PressureTemperature& this_ = static_cast<const PressureTemperature&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* PressureTemperature::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const PressureTemperature& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:kevin.PressureTemperature)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          cached_has_bits = this_._impl_._has_bits_[0];
+          // .kevin.Header header = 1;
+          if (cached_has_bits & 0x00000001u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                1, *this_._impl_.header_, this_._impl_.header_->GetCachedSize(), target,
+                stream);
+          }
+
+          // double pressure = 2;
+          if (::absl::bit_cast<::uint64_t>(this_._internal_pressure()) != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+                2, this_._internal_pressure(), target);
+          }
+
+          // double temperature = 3;
+          if (::absl::bit_cast<::uint64_t>(this_._internal_temperature()) != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteDoubleToArray(
+                3, this_._internal_temperature(), target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:kevin.PressureTemperature)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t PressureTemperature::ByteSizeLong(const MessageLite& base) {
+          const PressureTemperature& this_ = static_cast<const PressureTemperature&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t PressureTemperature::ByteSizeLong() const {
+          const PressureTemperature& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:kevin.PressureTemperature)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // .kevin.Header header = 1;
+            cached_has_bits = this_._impl_._has_bits_[0];
+            if (cached_has_bits & 0x00000001u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.header_);
+            }
+          }
+           {
+            // double pressure = 2;
+            if (::absl::bit_cast<::uint64_t>(this_._internal_pressure()) != 0) {
+              total_size += 9;
+            }
+            // double temperature = 3;
+            if (::absl::bit_cast<::uint64_t>(this_._internal_temperature()) != 0) {
+              total_size += 9;
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void PressureTemperature::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<PressureTemperature*>(&to_msg);
+  auto& from = static_cast<const PressureTemperature&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:kevin.PressureTemperature)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.header_ != nullptr);
+    if (_this->_impl_.header_ == nullptr) {
+      _this->_impl_.header_ =
+          ::google::protobuf::Message::CopyConstruct<::kevin::Header>(arena, *from._impl_.header_);
+    } else {
+      _this->_impl_.header_->MergeFrom(*from._impl_.header_);
+    }
+  }
+  if (::absl::bit_cast<::uint64_t>(from._internal_pressure()) != 0) {
+    _this->_impl_.pressure_ = from._impl_.pressure_;
+  }
+  if (::absl::bit_cast<::uint64_t>(from._internal_temperature()) != 0) {
+    _this->_impl_.temperature_ = from._impl_.temperature_;
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void PressureTemperature::CopyFrom(const PressureTemperature& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:kevin.PressureTemperature)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void PressureTemperature::InternalSwap(PressureTemperature* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.temperature_)
+      + sizeof(PressureTemperature::_impl_.temperature_)
+      - PROTOBUF_FIELD_OFFSET(PressureTemperature, _impl_.header_)>(
+          reinterpret_cast<char*>(&_impl_.header_),
+          reinterpret_cast<char*>(&other->_impl_.header_));
+}
+
+::google::protobuf::Metadata PressureTemperature::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

@@ -11,6 +11,18 @@ import "header.proto";
 
 message Pressure {
   kevin.Header header = 1;
-  double fluid_pressure = 2;  // Absolute pressure reading in Pascals.
-  double variance = 3;        // 0 is interpreted as variance unknown
+  double pressure = 2;  // Pa
+  // double variance = 3;        // 0 is interpreted as variance unknown
+}
+
+message Temperature {
+  kevin.Header header = 1;
+  double temperature = 2;  // C
+  // double variance = 3;        // 0 is interpreted as variance unknown
+}
+
+message PressureTemperature {
+  kevin.Header header = 1;
+  double pressure = 2;  // Pa
+  double temperature = 3;  // C
 }
