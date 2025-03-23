@@ -19,6 +19,8 @@ __version__ = version("gecko_messages")
 
 
 
+from .tuples import *
+
 from .calibration_msgs_pb2 import *
 from .drone_msgs_pb2 import *
 from .geometry_msgs_pb2 import *
@@ -26,6 +28,7 @@ from .kinematic_msgs_pb2 import *
 from .math_msgs_pb2 import *
 from .sensor_msgs_pb2 import *
 from .standard_msgs_pb2 import *
+from .camera_msgs_pb2 import *
 
 def from_hamilton(self, q):
   self.w = q.w

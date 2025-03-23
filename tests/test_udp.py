@@ -61,20 +61,20 @@ def client(addr):
   run = False
 
 def test_udp():
-  addr = ("0.0.0.0", 9999,)
+  # addr = ("0.0.0.0", 9999,)
 
-  s = threading.Thread(target=server, args=(addr,), name="server")
-  s.start()
-  print('Started {}'.format(s.name))
+  # s = threading.Thread(target=server, args=(addr,), name="server")
+  # s.start()
+  # print('Started {}'.format(s.name))
 
-  time.sleep(0.5)
+  # time.sleep(0.5)
 
-  c = threading.Thread(target=client, args=(addr,), name="client")
-  c.start()
-  print('Started {}'.format(c.name))
+  # c = threading.Thread(target=client, args=(addr,), name="client")
+  # c.start()
+  # print('Started {}'.format(c.name))
 
-  s.join()
-  c.join()
+  # s.join()
+  # c.join()
 
   # for p in [s, c]:
   #   print('{} is alive: {}'.format(p.name, p.is_alive()))

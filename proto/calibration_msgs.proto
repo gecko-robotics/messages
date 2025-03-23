@@ -3,9 +3,6 @@ syntax = "proto3";
 package kevin;
 
 import "standard_msgs.proto";
-// import "quaternion.proto";
-// import "header.proto";
-// import "covariance.proto";
 
 message MagnetometerCalibration {
   kevin.Vector3 softiron = 1;

@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "gecko_messages"
-version = "2025.03.09"
-description = "gecko_messages"
+version = "2025.03.23"
+description = "gecko messages"
 authors = ["walchko <walchko@users.noreply.github.com>"]
 readme = "readme.md"
 license = "MIT"
 homepage = "https://pypi.org/project/gecko-messages/"
 repository = 'https://github.com/gecko-robotics/messages'
 # documentation = "http://..."
-keywords = ["gecko", "messages", "robotics", "protobuf"]
+keywords = ["gecko", "messages", "robotics", "protobuf", "namedtuples"]
 classifiers = [
   'Development Status :: 4 - Beta',
   'Intended Audience :: Developers',
