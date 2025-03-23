@@ -6,10 +6,10 @@ def test_tuples():
   assert d.to_list() == (1,2,3,4,5)
 
   c = camera_params_t(1,2,3,4)
-  m = c.to_list()
-  assert m[0] == (1,0,3)
-  assert m[1] == (0,2,4)
-  assert m[2] == (0,0,1)
+  k = c.to_list()
+  assert k[0] == (1,0,3)
+  assert k[1] == (0,2,4)
+  assert k[2] == (0,0,1)
 
   q = quaternion_t(1,2,3,4)
   m = q.mag()
