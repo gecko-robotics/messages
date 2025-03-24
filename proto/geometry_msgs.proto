@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package kevin;
 
+
 import "standard_msgs.proto";
-// import "header.proto";
 
 message Pose {
   kevin.Vector3 position = 1;
@@ -11,17 +11,31 @@ message Pose {
 }
 
 message Transform {
-  kevin.Vector3 position = 1;    // translation from parent to child
+  kevin.Vector3 translation = 1;    // translation from parent to child
   kevin.Quaternion rotation = 2; // rotation from parent to child
 }
 
-message TransformStamped {
-  kevin.Header header = 1; // header.frame_id = parent_id
-  string child_frame_id = 2;
-  kevin.Vector3 position = 3;    // translation from parent to child
-  kevin.Quaternion rotation = 4; // rotation from parent to child
-}
+// message TransformStamped {
+//   // kevin.Header header = 1; // header.frame_id = parent_id
+//   // string child_frame_id = 2;
+//   kevin.Timestamp timestamp = 1;
+//   string parent_frame_id = 2;
+//   string child_frame_id = 3;
+//   kevin.Vector3 translation = 4;    // translation from parent to child
+//   kevin.Quaternion rotation = 5; // rotation from parent to child
+// }
 
-message Transforms {
-  repeated kevin.TransformStamped transforms = 1;
-}
+// message Transforms {
+//   repeated kevin.TransformStamped transforms = 1;
+// }
+
+
+// message FrameTransform {
+//   // kevin.Header header = 1; // header.frame_id = parent_id
+//   // string child_frame_id = 2;
+//   Timestamp timestamp = 1;
+//   string parent_frame_id = 2;
+//   string child_frame_id = 3;
+//   kevin.Vector3 translation = 4;    // translation from parent to child
+//   kevin.Quaternion rotation = 5; // rotation from parent to child
+// }
