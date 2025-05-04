@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.25.0)
-project(messages VERSION 2024.09.30.0 LANGUAGES CXX)
+project(messages VERSION 2025.05.04.0 LANGUAGES CXX)
 
-# set(CMAKE_C_STANDARD 23)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -34,16 +33,20 @@ endif()
 link_directories(/opt/homebrew/lib)
 include_directories(/opt/homebrew/include)
 
-# message(STATUS "-> ${PROJECT_NAME}: yivo is set: ${USE_YIVO}")
 message(STATUS "-> ${PROJECT_NAME}: scruffy is set: ${BUILD_TESTS}")
 message(STATUS "-> ${PROJECT_NAME}: examples are set: ${BUILD_EXAMPLES}")
 
 set(DEST ${CMAKE_SOURCE_DIR}/src)
+set(PY_DEST ${CMAKE_SOURCE_DIR}/gecko_messages)
 file(GLOB MSGS "${CMAKE_SOURCE_DIR}/proto/*.proto")
+message(STATUS "${MSGS} -> ${DEST}")
 
 execute_process(
     COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/src
+    COMMAND rm -fr ${CMAKE_SOURCE_DIR}/src/*
     COMMAND protoc --cpp_out=${DEST} --proto_path=${CMAKE_SOURCE_DIR}/proto ${MSGS}
+    COMMAND protoc --python_out=${PY_DEST} --proto_path=${CMAKE_SOURCE_DIR}/proto ${MSGS}
+    COMMAND poetry build
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
@@ -53,7 +56,5 @@ file(GLOB SRCS "${CMAKE_SOURCE_DIR}/src/*.cc")
 add_library(${PROJECT_NAME} ${SRCS})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src)
 target_link_libraries(${PROJECT_NAME} PUBLIC protobuf)
-# add_custom_command(TARGET ${PROJECT_NAME} PRE_LINK
-#     COMMAND mkdir -p ${DEST} && protoc --cpp_out=${DEST} --proto_path=${CMAKE_SOURCE_DIR}/proto ${MSGS}
-# )
+
 
