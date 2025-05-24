@@ -36,25 +36,25 @@ include_directories(/opt/homebrew/include)
 message(STATUS "-> ${PROJECT_NAME}: scruffy is set: ${BUILD_TESTS}")
 message(STATUS "-> ${PROJECT_NAME}: examples are set: ${BUILD_EXAMPLES}")
 
-set(DEST ${CMAKE_SOURCE_DIR}/src)
-set(PY_DEST ${CMAKE_SOURCE_DIR}/gecko_messages)
+set(DEST ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(PY_DEST ${CMAKE_CURRENT_SOURCE_DIR}/gecko_messages)
 file(GLOB MSGS "${CMAKE_SOURCE_DIR}/proto/*.proto")
 message(STATUS "${MSGS} -> ${DEST}")
 
 execute_process(
-    COMMAND mkdir -p ${CMAKE_SOURCE_DIR}/src
-    COMMAND rm -fr ${CMAKE_SOURCE_DIR}/src/*
-    COMMAND protoc --cpp_out=${DEST} --proto_path=${CMAKE_SOURCE_DIR}/proto ${MSGS}
-    COMMAND protoc --python_out=${PY_DEST} --proto_path=${CMAKE_SOURCE_DIR}/proto ${MSGS}
+    COMMAND mkdir -p ${CMAKE_CURRENT_SOURCE_DIR}/src
+    # COMMAND rm -fr ${CMAKE_SOURCE_DIR}/src/*
+    COMMAND protoc --cpp_out=${DEST} --proto_path=${CMAKE_CURRENT_SOURCE_DIR}/proto ${MSGS}
+    COMMAND protoc --python_out=${PY_DEST} --proto_path=${CMAKE_CURRENT_SOURCE_DIR}/proto ${MSGS}
     COMMAND poetry build
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-file(GLOB HDRS "${CMAKE_SOURCE_DIR}/src/*.h")
-file(GLOB SRCS "${CMAKE_SOURCE_DIR}/src/*.cc")
+file(GLOB HDRS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
+file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc")
 
 add_library(${PROJECT_NAME} ${SRCS})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src)
+target_include_directories(${PROJECT_NAME} PUBLIC src)
 target_link_libraries(${PROJECT_NAME} PUBLIC protobuf)
 
 

@@ -60,6 +60,15 @@ extern CameraCalibrationDefaultTypeInternal _CameraCalibration_default_instance_
 class CompressedImage;
 struct CompressedImageDefaultTypeInternal;
 extern CompressedImageDefaultTypeInternal _CompressedImage_default_instance_;
+class CompressedVideo;
+struct CompressedVideoDefaultTypeInternal;
+extern CompressedVideoDefaultTypeInternal _CompressedVideo_default_instance_;
+class FrameTransform;
+struct FrameTransformDefaultTypeInternal;
+extern FrameTransformDefaultTypeInternal _FrameTransform_default_instance_;
+class FrameTransforms;
+struct FrameTransformsDefaultTypeInternal;
+extern FrameTransformsDefaultTypeInternal _FrameTransforms_default_instance_;
 class LaserScan;
 struct LaserScanDefaultTypeInternal;
 extern LaserScanDefaultTypeInternal _LaserScan_default_instance_;
@@ -1124,7 +1133,7 @@ class LocationFix final : public ::google::protobuf::Message
     return reinterpret_cast<const LocationFix*>(
         &_LocationFix_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 7;
+  static constexpr int kIndexInFileMessages = 8;
   friend void swap(LocationFix& a, LocationFix& b) { a.Swap(&b); }
   inline void Swap(LocationFix* other) {
     if (other == this) return;
@@ -1361,6 +1370,522 @@ class LocationFix final : public ::google::protobuf::Message
     double longitude_;
     double altitude_;
     int position_covariance_type_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_foxglove_5fmsgs_2eproto;
+};
+// -------------------------------------------------------------------
+
+class FrameTransform final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:foxglove.FrameTransform) */ {
+ public:
+  inline FrameTransform() : FrameTransform(nullptr) {}
+  ~FrameTransform() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(FrameTransform* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(FrameTransform));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR FrameTransform(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline FrameTransform(const FrameTransform& from) : FrameTransform(nullptr, from) {}
+  inline FrameTransform(FrameTransform&& from) noexcept
+      : FrameTransform(nullptr, std::move(from)) {}
+  inline FrameTransform& operator=(const FrameTransform& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FrameTransform& operator=(FrameTransform&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const FrameTransform& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FrameTransform* internal_default_instance() {
+    return reinterpret_cast<const FrameTransform*>(
+        &_FrameTransform_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 9;
+  friend void swap(FrameTransform& a, FrameTransform& b) { a.Swap(&b); }
+  inline void Swap(FrameTransform* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FrameTransform* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FrameTransform* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<FrameTransform>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const FrameTransform& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const FrameTransform& from) { FrameTransform::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(FrameTransform* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "foxglove.FrameTransform"; }
+
+ protected:
+  explicit FrameTransform(::google::protobuf::Arena* arena);
+  FrameTransform(::google::protobuf::Arena* arena, const FrameTransform& from);
+  FrameTransform(::google::protobuf::Arena* arena, FrameTransform&& from) noexcept
+      : FrameTransform(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kParentFrameIdFieldNumber = 2,
+    kChildFrameIdFieldNumber = 3,
+    kTimestampFieldNumber = 1,
+    kTranslationFieldNumber = 4,
+    kRotationFieldNumber = 5,
+  };
+  // string parent_frame_id = 2;
+  void clear_parent_frame_id() ;
+  const std::string& parent_frame_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_parent_frame_id(Arg_&& arg, Args_... args);
+  std::string* mutable_parent_frame_id();
+  PROTOBUF_NODISCARD std::string* release_parent_frame_id();
+  void set_allocated_parent_frame_id(std::string* value);
+
+  private:
+  const std::string& _internal_parent_frame_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_parent_frame_id(
+      const std::string& value);
+  std::string* _internal_mutable_parent_frame_id();
+
+  public:
+  // string child_frame_id = 3;
+  void clear_child_frame_id() ;
+  const std::string& child_frame_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_child_frame_id(Arg_&& arg, Args_... args);
+  std::string* mutable_child_frame_id();
+  PROTOBUF_NODISCARD std::string* release_child_frame_id();
+  void set_allocated_child_frame_id(std::string* value);
+
+  private:
+  const std::string& _internal_child_frame_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_child_frame_id(
+      const std::string& value);
+  std::string* _internal_mutable_child_frame_id();
+
+  public:
+  // .google.protobuf.Timestamp timestamp = 1;
+  bool has_timestamp() const;
+  void clear_timestamp() ;
+  const ::google::protobuf::Timestamp& timestamp() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_timestamp();
+  ::google::protobuf::Timestamp* mutable_timestamp();
+  void set_allocated_timestamp(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_timestamp(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_timestamp();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_timestamp() const;
+  ::google::protobuf::Timestamp* _internal_mutable_timestamp();
+
+  public:
+  // .foxglove.Vector3 translation = 4;
+  bool has_translation() const;
+  void clear_translation() ;
+  const ::foxglove::Vector3& translation() const;
+  PROTOBUF_NODISCARD ::foxglove::Vector3* release_translation();
+  ::foxglove::Vector3* mutable_translation();
+  void set_allocated_translation(::foxglove::Vector3* value);
+  void unsafe_arena_set_allocated_translation(::foxglove::Vector3* value);
+  ::foxglove::Vector3* unsafe_arena_release_translation();
+
+  private:
+  const ::foxglove::Vector3& _internal_translation() const;
+  ::foxglove::Vector3* _internal_mutable_translation();
+
+  public:
+  // .foxglove.Quaternion rotation = 5;
+  bool has_rotation() const;
+  void clear_rotation() ;
+  const ::foxglove::Quaternion& rotation() const;
+  PROTOBUF_NODISCARD ::foxglove::Quaternion* release_rotation();
+  ::foxglove::Quaternion* mutable_rotation();
+  void set_allocated_rotation(::foxglove::Quaternion* value);
+  void unsafe_arena_set_allocated_rotation(::foxglove::Quaternion* value);
+  ::foxglove::Quaternion* unsafe_arena_release_rotation();
+
+  private:
+  const ::foxglove::Quaternion& _internal_rotation() const;
+  ::foxglove::Quaternion* _internal_mutable_rotation();
+
+  public:
+  // @@protoc_insertion_point(class_scope:foxglove.FrameTransform)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      3, 5, 3,
+      61, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const FrameTransform& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr parent_frame_id_;
+    ::google::protobuf::internal::ArenaStringPtr child_frame_id_;
+    ::google::protobuf::Timestamp* timestamp_;
+    ::foxglove::Vector3* translation_;
+    ::foxglove::Quaternion* rotation_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_foxglove_5fmsgs_2eproto;
+};
+// -------------------------------------------------------------------
+
+class CompressedVideo final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:foxglove.CompressedVideo) */ {
+ public:
+  inline CompressedVideo() : CompressedVideo(nullptr) {}
+  ~CompressedVideo() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(CompressedVideo* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(CompressedVideo));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR CompressedVideo(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline CompressedVideo(const CompressedVideo& from) : CompressedVideo(nullptr, from) {}
+  inline CompressedVideo(CompressedVideo&& from) noexcept
+      : CompressedVideo(nullptr, std::move(from)) {}
+  inline CompressedVideo& operator=(const CompressedVideo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CompressedVideo& operator=(CompressedVideo&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const CompressedVideo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CompressedVideo* internal_default_instance() {
+    return reinterpret_cast<const CompressedVideo*>(
+        &_CompressedVideo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 7;
+  friend void swap(CompressedVideo& a, CompressedVideo& b) { a.Swap(&b); }
+  inline void Swap(CompressedVideo* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CompressedVideo* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CompressedVideo* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<CompressedVideo>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const CompressedVideo& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const CompressedVideo& from) { CompressedVideo::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(CompressedVideo* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "foxglove.CompressedVideo"; }
+
+ protected:
+  explicit CompressedVideo(::google::protobuf::Arena* arena);
+  CompressedVideo(::google::protobuf::Arena* arena, const CompressedVideo& from);
+  CompressedVideo(::google::protobuf::Arena* arena, CompressedVideo&& from) noexcept
+      : CompressedVideo(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kFrameIdFieldNumber = 2,
+    kDataFieldNumber = 3,
+    kFormatFieldNumber = 4,
+    kTimestampFieldNumber = 1,
+  };
+  // string frame_id = 2;
+  void clear_frame_id() ;
+  const std::string& frame_id() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_frame_id(Arg_&& arg, Args_... args);
+  std::string* mutable_frame_id();
+  PROTOBUF_NODISCARD std::string* release_frame_id();
+  void set_allocated_frame_id(std::string* value);
+
+  private:
+  const std::string& _internal_frame_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_frame_id(
+      const std::string& value);
+  std::string* _internal_mutable_frame_id();
+
+  public:
+  // bytes data = 3;
+  void clear_data() ;
+  const std::string& data() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_data(Arg_&& arg, Args_... args);
+  std::string* mutable_data();
+  PROTOBUF_NODISCARD std::string* release_data();
+  void set_allocated_data(std::string* value);
+
+  private:
+  const std::string& _internal_data() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_data(
+      const std::string& value);
+  std::string* _internal_mutable_data();
+
+  public:
+  // string format = 4;
+  void clear_format() ;
+  const std::string& format() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_format(Arg_&& arg, Args_... args);
+  std::string* mutable_format();
+  PROTOBUF_NODISCARD std::string* release_format();
+  void set_allocated_format(std::string* value);
+
+  private:
+  const std::string& _internal_format() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_format(
+      const std::string& value);
+  std::string* _internal_mutable_format();
+
+  public:
+  // .google.protobuf.Timestamp timestamp = 1;
+  bool has_timestamp() const;
+  void clear_timestamp() ;
+  const ::google::protobuf::Timestamp& timestamp() const;
+  PROTOBUF_NODISCARD ::google::protobuf::Timestamp* release_timestamp();
+  ::google::protobuf::Timestamp* mutable_timestamp();
+  void set_allocated_timestamp(::google::protobuf::Timestamp* value);
+  void unsafe_arena_set_allocated_timestamp(::google::protobuf::Timestamp* value);
+  ::google::protobuf::Timestamp* unsafe_arena_release_timestamp();
+
+  private:
+  const ::google::protobuf::Timestamp& _internal_timestamp() const;
+  ::google::protobuf::Timestamp* _internal_mutable_timestamp();
+
+  public:
+  // @@protoc_insertion_point(class_scope:foxglove.CompressedVideo)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      2, 4, 1,
+      47, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const CompressedVideo& from_msg);
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr frame_id_;
+    ::google::protobuf::internal::ArenaStringPtr data_;
+    ::google::protobuf::internal::ArenaStringPtr format_;
+    ::google::protobuf::Timestamp* timestamp_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -2242,6 +2767,203 @@ class LaserScan final : public ::google::protobuf::Message
     ::foxglove::Pose* pose_;
     double start_angle_;
     double end_angle_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_foxglove_5fmsgs_2eproto;
+};
+// -------------------------------------------------------------------
+
+class FrameTransforms final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:foxglove.FrameTransforms) */ {
+ public:
+  inline FrameTransforms() : FrameTransforms(nullptr) {}
+  ~FrameTransforms() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(FrameTransforms* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(FrameTransforms));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR FrameTransforms(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline FrameTransforms(const FrameTransforms& from) : FrameTransforms(nullptr, from) {}
+  inline FrameTransforms(FrameTransforms&& from) noexcept
+      : FrameTransforms(nullptr, std::move(from)) {}
+  inline FrameTransforms& operator=(const FrameTransforms& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FrameTransforms& operator=(FrameTransforms&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const FrameTransforms& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const FrameTransforms* internal_default_instance() {
+    return reinterpret_cast<const FrameTransforms*>(
+        &_FrameTransforms_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 10;
+  friend void swap(FrameTransforms& a, FrameTransforms& b) { a.Swap(&b); }
+  inline void Swap(FrameTransforms* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FrameTransforms* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  FrameTransforms* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<FrameTransforms>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const FrameTransforms& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const FrameTransforms& from) { FrameTransforms::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(FrameTransforms* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "foxglove.FrameTransforms"; }
+
+ protected:
+  explicit FrameTransforms(::google::protobuf::Arena* arena);
+  FrameTransforms(::google::protobuf::Arena* arena, const FrameTransforms& from);
+  FrameTransforms(::google::protobuf::Arena* arena, FrameTransforms&& from) noexcept
+      : FrameTransforms(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kTransformsFieldNumber = 1,
+  };
+  // repeated .foxglove.FrameTransform transforms = 1;
+  int transforms_size() const;
+  private:
+  int _internal_transforms_size() const;
+
+  public:
+  void clear_transforms() ;
+  ::foxglove::FrameTransform* mutable_transforms(int index);
+  ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>* mutable_transforms();
+
+  private:
+  const ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>& _internal_transforms() const;
+  ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>* _internal_mutable_transforms();
+  public:
+  const ::foxglove::FrameTransform& transforms(int index) const;
+  ::foxglove::FrameTransform* add_transforms();
+  const ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>& transforms() const;
+  // @@protoc_insertion_point(class_scope:foxglove.FrameTransforms)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 1, 1,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const FrameTransforms& from_msg);
+    ::google::protobuf::RepeatedPtrField< ::foxglove::FrameTransform > transforms_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -3952,6 +4674,245 @@ inline void RawImage::set_allocated_data(std::string* value) {
 
 // -------------------------------------------------------------------
 
+// CompressedVideo
+
+// .google.protobuf.Timestamp timestamp = 1;
+inline bool CompressedVideo::has_timestamp() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.timestamp_ != nullptr);
+  return value;
+}
+inline const ::google::protobuf::Timestamp& CompressedVideo::_internal_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::google::protobuf::Timestamp* p = _impl_.timestamp_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::protobuf::Timestamp&>(::google::protobuf::_Timestamp_default_instance_);
+}
+inline const ::google::protobuf::Timestamp& CompressedVideo::timestamp() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.CompressedVideo.timestamp)
+  return _internal_timestamp();
+}
+inline void CompressedVideo::unsafe_arena_set_allocated_timestamp(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.timestamp_);
+  }
+  _impl_.timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:foxglove.CompressedVideo.timestamp)
+}
+inline ::google::protobuf::Timestamp* CompressedVideo::release_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* released = _impl_.timestamp_;
+  _impl_.timestamp_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::google::protobuf::Timestamp* CompressedVideo::unsafe_arena_release_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.CompressedVideo.timestamp)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* temp = _impl_.timestamp_;
+  _impl_.timestamp_ = nullptr;
+  return temp;
+}
+inline ::google::protobuf::Timestamp* CompressedVideo::_internal_mutable_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.timestamp_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::google::protobuf::Timestamp>(GetArena());
+    _impl_.timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
+  }
+  return _impl_.timestamp_;
+}
+inline ::google::protobuf::Timestamp* CompressedVideo::mutable_timestamp() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  ::google::protobuf::Timestamp* _msg = _internal_mutable_timestamp();
+  // @@protoc_insertion_point(field_mutable:foxglove.CompressedVideo.timestamp)
+  return _msg;
+}
+inline void CompressedVideo::set_allocated_timestamp(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.timestamp_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  // @@protoc_insertion_point(field_set_allocated:foxglove.CompressedVideo.timestamp)
+}
+
+// string frame_id = 2;
+inline void CompressedVideo::clear_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.frame_id_.ClearToEmpty();
+}
+inline const std::string& CompressedVideo::frame_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.CompressedVideo.frame_id)
+  return _internal_frame_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void CompressedVideo::set_frame_id(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.frame_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:foxglove.CompressedVideo.frame_id)
+}
+inline std::string* CompressedVideo::mutable_frame_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_frame_id();
+  // @@protoc_insertion_point(field_mutable:foxglove.CompressedVideo.frame_id)
+  return _s;
+}
+inline const std::string& CompressedVideo::_internal_frame_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.frame_id_.Get();
+}
+inline void CompressedVideo::_internal_set_frame_id(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.frame_id_.Set(value, GetArena());
+}
+inline std::string* CompressedVideo::_internal_mutable_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.frame_id_.Mutable( GetArena());
+}
+inline std::string* CompressedVideo::release_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.CompressedVideo.frame_id)
+  return _impl_.frame_id_.Release();
+}
+inline void CompressedVideo::set_allocated_frame_id(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.frame_id_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.frame_id_.IsDefault()) {
+    _impl_.frame_id_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:foxglove.CompressedVideo.frame_id)
+}
+
+// bytes data = 3;
+inline void CompressedVideo::clear_data() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.data_.ClearToEmpty();
+}
+inline const std::string& CompressedVideo::data() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.CompressedVideo.data)
+  return _internal_data();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void CompressedVideo::set_data(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.data_.SetBytes(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:foxglove.CompressedVideo.data)
+}
+inline std::string* CompressedVideo::mutable_data() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_data();
+  // @@protoc_insertion_point(field_mutable:foxglove.CompressedVideo.data)
+  return _s;
+}
+inline const std::string& CompressedVideo::_internal_data() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.data_.Get();
+}
+inline void CompressedVideo::_internal_set_data(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.data_.Set(value, GetArena());
+}
+inline std::string* CompressedVideo::_internal_mutable_data() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.data_.Mutable( GetArena());
+}
+inline std::string* CompressedVideo::release_data() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.CompressedVideo.data)
+  return _impl_.data_.Release();
+}
+inline void CompressedVideo::set_allocated_data(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.data_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.data_.IsDefault()) {
+    _impl_.data_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:foxglove.CompressedVideo.data)
+}
+
+// string format = 4;
+inline void CompressedVideo::clear_format() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.format_.ClearToEmpty();
+}
+inline const std::string& CompressedVideo::format() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.CompressedVideo.format)
+  return _internal_format();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void CompressedVideo::set_format(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.format_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:foxglove.CompressedVideo.format)
+}
+inline std::string* CompressedVideo::mutable_format() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_format();
+  // @@protoc_insertion_point(field_mutable:foxglove.CompressedVideo.format)
+  return _s;
+}
+inline const std::string& CompressedVideo::_internal_format() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.format_.Get();
+}
+inline void CompressedVideo::_internal_set_format(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.format_.Set(value, GetArena());
+}
+inline std::string* CompressedVideo::_internal_mutable_format() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.format_.Mutable( GetArena());
+}
+inline std::string* CompressedVideo::release_format() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.CompressedVideo.format)
+  return _impl_.format_.Release();
+}
+inline void CompressedVideo::set_allocated_format(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.format_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.format_.IsDefault()) {
+    _impl_.format_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:foxglove.CompressedVideo.format)
+}
+
+// -------------------------------------------------------------------
+
 // LocationFix
 
 // .google.protobuf.Timestamp timestamp = 6;
@@ -4224,6 +5185,442 @@ inline ::foxglove::LocationFix_PositionCovarianceType LocationFix::_internal_pos
 inline void LocationFix::_internal_set_position_covariance_type(::foxglove::LocationFix_PositionCovarianceType value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.position_covariance_type_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// FrameTransform
+
+// .google.protobuf.Timestamp timestamp = 1;
+inline bool FrameTransform::has_timestamp() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.timestamp_ != nullptr);
+  return value;
+}
+inline const ::google::protobuf::Timestamp& FrameTransform::_internal_timestamp() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::google::protobuf::Timestamp* p = _impl_.timestamp_;
+  return p != nullptr ? *p : reinterpret_cast<const ::google::protobuf::Timestamp&>(::google::protobuf::_Timestamp_default_instance_);
+}
+inline const ::google::protobuf::Timestamp& FrameTransform::timestamp() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.FrameTransform.timestamp)
+  return _internal_timestamp();
+}
+inline void FrameTransform::unsafe_arena_set_allocated_timestamp(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.timestamp_);
+  }
+  _impl_.timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:foxglove.FrameTransform.timestamp)
+}
+inline ::google::protobuf::Timestamp* FrameTransform::release_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* released = _impl_.timestamp_;
+  _impl_.timestamp_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::google::protobuf::Timestamp* FrameTransform::unsafe_arena_release_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.FrameTransform.timestamp)
+
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::google::protobuf::Timestamp* temp = _impl_.timestamp_;
+  _impl_.timestamp_ = nullptr;
+  return temp;
+}
+inline ::google::protobuf::Timestamp* FrameTransform::_internal_mutable_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.timestamp_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::google::protobuf::Timestamp>(GetArena());
+    _impl_.timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(p);
+  }
+  return _impl_.timestamp_;
+}
+inline ::google::protobuf::Timestamp* FrameTransform::mutable_timestamp() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  ::google::protobuf::Timestamp* _msg = _internal_mutable_timestamp();
+  // @@protoc_insertion_point(field_mutable:foxglove.FrameTransform.timestamp)
+  return _msg;
+}
+inline void FrameTransform::set_allocated_timestamp(::google::protobuf::Timestamp* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.timestamp_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = reinterpret_cast<::google::protobuf::MessageLite*>(value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+
+  _impl_.timestamp_ = reinterpret_cast<::google::protobuf::Timestamp*>(value);
+  // @@protoc_insertion_point(field_set_allocated:foxglove.FrameTransform.timestamp)
+}
+
+// string parent_frame_id = 2;
+inline void FrameTransform::clear_parent_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.parent_frame_id_.ClearToEmpty();
+}
+inline const std::string& FrameTransform::parent_frame_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.FrameTransform.parent_frame_id)
+  return _internal_parent_frame_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void FrameTransform::set_parent_frame_id(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.parent_frame_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:foxglove.FrameTransform.parent_frame_id)
+}
+inline std::string* FrameTransform::mutable_parent_frame_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_parent_frame_id();
+  // @@protoc_insertion_point(field_mutable:foxglove.FrameTransform.parent_frame_id)
+  return _s;
+}
+inline const std::string& FrameTransform::_internal_parent_frame_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.parent_frame_id_.Get();
+}
+inline void FrameTransform::_internal_set_parent_frame_id(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.parent_frame_id_.Set(value, GetArena());
+}
+inline std::string* FrameTransform::_internal_mutable_parent_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.parent_frame_id_.Mutable( GetArena());
+}
+inline std::string* FrameTransform::release_parent_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.FrameTransform.parent_frame_id)
+  return _impl_.parent_frame_id_.Release();
+}
+inline void FrameTransform::set_allocated_parent_frame_id(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.parent_frame_id_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.parent_frame_id_.IsDefault()) {
+    _impl_.parent_frame_id_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:foxglove.FrameTransform.parent_frame_id)
+}
+
+// string child_frame_id = 3;
+inline void FrameTransform::clear_child_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.child_frame_id_.ClearToEmpty();
+}
+inline const std::string& FrameTransform::child_frame_id() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.FrameTransform.child_frame_id)
+  return _internal_child_frame_id();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void FrameTransform::set_child_frame_id(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.child_frame_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:foxglove.FrameTransform.child_frame_id)
+}
+inline std::string* FrameTransform::mutable_child_frame_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_child_frame_id();
+  // @@protoc_insertion_point(field_mutable:foxglove.FrameTransform.child_frame_id)
+  return _s;
+}
+inline const std::string& FrameTransform::_internal_child_frame_id() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.child_frame_id_.Get();
+}
+inline void FrameTransform::_internal_set_child_frame_id(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.child_frame_id_.Set(value, GetArena());
+}
+inline std::string* FrameTransform::_internal_mutable_child_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.child_frame_id_.Mutable( GetArena());
+}
+inline std::string* FrameTransform::release_child_frame_id() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.FrameTransform.child_frame_id)
+  return _impl_.child_frame_id_.Release();
+}
+inline void FrameTransform::set_allocated_child_frame_id(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.child_frame_id_.SetAllocated(value, GetArena());
+  if (::google::protobuf::internal::DebugHardenForceCopyDefaultString() && _impl_.child_frame_id_.IsDefault()) {
+    _impl_.child_frame_id_.Set("", GetArena());
+  }
+  // @@protoc_insertion_point(field_set_allocated:foxglove.FrameTransform.child_frame_id)
+}
+
+// .foxglove.Vector3 translation = 4;
+inline bool FrameTransform::has_translation() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.translation_ != nullptr);
+  return value;
+}
+inline void FrameTransform::clear_translation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.translation_ != nullptr) _impl_.translation_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline const ::foxglove::Vector3& FrameTransform::_internal_translation() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::foxglove::Vector3* p = _impl_.translation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::foxglove::Vector3&>(::foxglove::_Vector3_default_instance_);
+}
+inline const ::foxglove::Vector3& FrameTransform::translation() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.FrameTransform.translation)
+  return _internal_translation();
+}
+inline void FrameTransform::unsafe_arena_set_allocated_translation(::foxglove::Vector3* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.translation_);
+  }
+  _impl_.translation_ = reinterpret_cast<::foxglove::Vector3*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:foxglove.FrameTransform.translation)
+}
+inline ::foxglove::Vector3* FrameTransform::release_translation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::foxglove::Vector3* released = _impl_.translation_;
+  _impl_.translation_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::foxglove::Vector3* FrameTransform::unsafe_arena_release_translation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.FrameTransform.translation)
+
+  _impl_._has_bits_[0] &= ~0x00000002u;
+  ::foxglove::Vector3* temp = _impl_.translation_;
+  _impl_.translation_ = nullptr;
+  return temp;
+}
+inline ::foxglove::Vector3* FrameTransform::_internal_mutable_translation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.translation_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::foxglove::Vector3>(GetArena());
+    _impl_.translation_ = reinterpret_cast<::foxglove::Vector3*>(p);
+  }
+  return _impl_.translation_;
+}
+inline ::foxglove::Vector3* FrameTransform::mutable_translation() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  ::foxglove::Vector3* _msg = _internal_mutable_translation();
+  // @@protoc_insertion_point(field_mutable:foxglove.FrameTransform.translation)
+  return _msg;
+}
+inline void FrameTransform::set_allocated_translation(::foxglove::Vector3* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete (_impl_.translation_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000002u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000002u;
+  }
+
+  _impl_.translation_ = reinterpret_cast<::foxglove::Vector3*>(value);
+  // @@protoc_insertion_point(field_set_allocated:foxglove.FrameTransform.translation)
+}
+
+// .foxglove.Quaternion rotation = 5;
+inline bool FrameTransform::has_rotation() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.rotation_ != nullptr);
+  return value;
+}
+inline void FrameTransform::clear_rotation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.rotation_ != nullptr) _impl_.rotation_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000004u;
+}
+inline const ::foxglove::Quaternion& FrameTransform::_internal_rotation() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  const ::foxglove::Quaternion* p = _impl_.rotation_;
+  return p != nullptr ? *p : reinterpret_cast<const ::foxglove::Quaternion&>(::foxglove::_Quaternion_default_instance_);
+}
+inline const ::foxglove::Quaternion& FrameTransform::rotation() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.FrameTransform.rotation)
+  return _internal_rotation();
+}
+inline void FrameTransform::unsafe_arena_set_allocated_rotation(::foxglove::Quaternion* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.rotation_);
+  }
+  _impl_.rotation_ = reinterpret_cast<::foxglove::Quaternion*>(value);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:foxglove.FrameTransform.rotation)
+}
+inline ::foxglove::Quaternion* FrameTransform::release_rotation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::foxglove::Quaternion* released = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
+    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
+    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    if (GetArena() == nullptr) {
+      delete old;
+    }
+  } else {
+    if (GetArena() != nullptr) {
+      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
+    }
+  }
+  return released;
+}
+inline ::foxglove::Quaternion* FrameTransform::unsafe_arena_release_rotation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:foxglove.FrameTransform.rotation)
+
+  _impl_._has_bits_[0] &= ~0x00000004u;
+  ::foxglove::Quaternion* temp = _impl_.rotation_;
+  _impl_.rotation_ = nullptr;
+  return temp;
+}
+inline ::foxglove::Quaternion* FrameTransform::_internal_mutable_rotation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.rotation_ == nullptr) {
+    auto* p = ::google::protobuf::Message::DefaultConstruct<::foxglove::Quaternion>(GetArena());
+    _impl_.rotation_ = reinterpret_cast<::foxglove::Quaternion*>(p);
+  }
+  return _impl_.rotation_;
+}
+inline ::foxglove::Quaternion* FrameTransform::mutable_rotation() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  _impl_._has_bits_[0] |= 0x00000004u;
+  ::foxglove::Quaternion* _msg = _internal_mutable_rotation();
+  // @@protoc_insertion_point(field_mutable:foxglove.FrameTransform.rotation)
+  return _msg;
+}
+inline void FrameTransform::set_allocated_rotation(::foxglove::Quaternion* value) {
+  ::google::protobuf::Arena* message_arena = GetArena();
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (message_arena == nullptr) {
+    delete (_impl_.rotation_);
+  }
+
+  if (value != nullptr) {
+    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
+    if (message_arena != submessage_arena) {
+      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000004u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000004u;
+  }
+
+  _impl_.rotation_ = reinterpret_cast<::foxglove::Quaternion*>(value);
+  // @@protoc_insertion_point(field_set_allocated:foxglove.FrameTransform.rotation)
+}
+
+// -------------------------------------------------------------------
+
+// FrameTransforms
+
+// repeated .foxglove.FrameTransform transforms = 1;
+inline int FrameTransforms::_internal_transforms_size() const {
+  return _internal_transforms().size();
+}
+inline int FrameTransforms::transforms_size() const {
+  return _internal_transforms_size();
+}
+inline void FrameTransforms::clear_transforms() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.transforms_.Clear();
+}
+inline ::foxglove::FrameTransform* FrameTransforms::mutable_transforms(int index)
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable:foxglove.FrameTransforms.transforms)
+  return _internal_mutable_transforms()->Mutable(index);
+}
+inline ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>* FrameTransforms::mutable_transforms()
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_mutable_list:foxglove.FrameTransforms.transforms)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _internal_mutable_transforms();
+}
+inline const ::foxglove::FrameTransform& FrameTransforms::transforms(int index) const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:foxglove.FrameTransforms.transforms)
+  return _internal_transforms().Get(index);
+}
+inline ::foxglove::FrameTransform* FrameTransforms::add_transforms() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::foxglove::FrameTransform* _add = _internal_mutable_transforms()->Add();
+  // @@protoc_insertion_point(field_add:foxglove.FrameTransforms.transforms)
+  return _add;
+}
+inline const ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>& FrameTransforms::transforms() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:foxglove.FrameTransforms.transforms)
+  return _internal_transforms();
+}
+inline const ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>&
+FrameTransforms::_internal_transforms() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.transforms_;
+}
+inline ::google::protobuf::RepeatedPtrField<::foxglove::FrameTransform>*
+FrameTransforms::_internal_mutable_transforms() {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return &_impl_.transforms_;
 }
 
 #ifdef __GNUC__

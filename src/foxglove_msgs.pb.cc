@@ -177,6 +177,73 @@ struct LocationFixDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LocationFixDefaultTypeInternal _LocationFix_default_instance_;
 
+inline constexpr FrameTransform::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        parent_frame_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        child_frame_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        timestamp_{nullptr},
+        translation_{nullptr},
+        rotation_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR FrameTransform::FrameTransform(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct FrameTransformDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FrameTransformDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FrameTransformDefaultTypeInternal() {}
+  union {
+    FrameTransform _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FrameTransformDefaultTypeInternal _FrameTransform_default_instance_;
+
+inline constexpr CompressedVideo::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        frame_id_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        data_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        format_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        timestamp_{nullptr} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR CompressedVideo::CompressedVideo(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct CompressedVideoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR CompressedVideoDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~CompressedVideoDefaultTypeInternal() {}
+  union {
+    CompressedVideo _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 CompressedVideoDefaultTypeInternal _CompressedVideo_default_instance_;
+
 inline constexpr CompressedImage::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
@@ -280,6 +347,31 @@ struct LaserScanDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LaserScanDefaultTypeInternal _LaserScan_default_instance_;
+
+inline constexpr FrameTransforms::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : transforms_{},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR FrameTransforms::FrameTransforms(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct FrameTransformsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FrameTransformsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FrameTransformsDefaultTypeInternal() {}
+  union {
+    FrameTransforms _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FrameTransformsDefaultTypeInternal _FrameTransforms_default_instance_;
 }  // namespace foxglove
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_foxglove_5fmsgs_2eproto[1];
 static constexpr const ::_pb::ServiceDescriptor**
@@ -408,6 +500,22 @@ const ::uint32_t
         ~0u,
         ~0u,
         ~0u,
+        PROTOBUF_FIELD_OFFSET(::foxglove::CompressedVideo, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::CompressedVideo, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::foxglove::CompressedVideo, _impl_.timestamp_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::CompressedVideo, _impl_.frame_id_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::CompressedVideo, _impl_.data_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::CompressedVideo, _impl_.format_),
+        0,
+        ~0u,
+        ~0u,
+        ~0u,
         PROTOBUF_FIELD_OFFSET(::foxglove::LocationFix, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::foxglove::LocationFix, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -430,6 +538,33 @@ const ::uint32_t
         ~0u,
         ~0u,
         ~0u,
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _impl_.timestamp_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _impl_.parent_frame_id_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _impl_.child_frame_id_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _impl_.translation_),
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransform, _impl_.rotation_),
+        0,
+        ~0u,
+        ~0u,
+        1,
+        2,
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransforms, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::foxglove::FrameTransforms, _impl_.transforms_),
 };
 
 static const ::_pbi::MigrationSchema
@@ -441,7 +576,10 @@ static const ::_pbi::MigrationSchema
         {57, 74, -1, sizeof(::foxglove::CameraCalibration)},
         {83, 95, -1, sizeof(::foxglove::CompressedImage)},
         {99, 114, -1, sizeof(::foxglove::RawImage)},
-        {121, 136, -1, sizeof(::foxglove::LocationFix)},
+        {121, 133, -1, sizeof(::foxglove::CompressedVideo)},
+        {137, 152, -1, sizeof(::foxglove::LocationFix)},
+        {159, 172, -1, sizeof(::foxglove::FrameTransform)},
+        {177, -1, -1, sizeof(::foxglove::FrameTransforms)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::foxglove::_Quaternion_default_instance_._instance,
@@ -451,7 +589,10 @@ static const ::_pb::Message* const file_default_instances[] = {
     &::foxglove::_CameraCalibration_default_instance_._instance,
     &::foxglove::_CompressedImage_default_instance_._instance,
     &::foxglove::_RawImage_default_instance_._instance,
+    &::foxglove::_CompressedVideo_default_instance_._instance,
     &::foxglove::_LocationFix_default_instance_._instance,
+    &::foxglove::_FrameTransform_default_instance_._instance,
+    &::foxglove::_FrameTransforms_default_instance_._instance,
 };
 const char descriptor_table_protodef_foxglove_5fmsgs_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -477,15 +618,25 @@ const char descriptor_table_protodef_foxglove_5fmsgs_2eproto[] ABSL_ATTRIBUTE_SE
     "imestamp\030\001 \001(\0132\032.google.protobuf.Timesta"
     "mp\022\020\n\010frame_id\030\007 \001(\t\022\r\n\005width\030\002 \001(\007\022\016\n\006h"
     "eight\030\003 \001(\007\022\020\n\010encoding\030\004 \001(\t\022\014\n\004step\030\005 "
-    "\001(\007\022\014\n\004data\030\006 \001(\014\"\312\002\n\013LocationFix\022-\n\ttim"
-    "estamp\030\006 \001(\0132\032.google.protobuf.Timestamp"
-    "\022\020\n\010frame_id\030\007 \001(\t\022\020\n\010latitude\030\001 \001(\001\022\021\n\t"
-    "longitude\030\002 \001(\001\022\020\n\010altitude\030\003 \001(\001\022\033\n\023pos"
-    "ition_covariance\030\004 \003(\001\022N\n\030position_covar"
-    "iance_type\030\005 \001(\0162,.foxglove.LocationFix."
-    "PositionCovarianceType\"V\n\026PositionCovari"
-    "anceType\022\013\n\007UNKNOWN\020\000\022\020\n\014APPROXIMATED\020\001\022"
-    "\022\n\016DIAGONAL_KNOWN\020\002\022\t\n\005KNOWN\020\003b\006proto3"
+    "\001(\007\022\014\n\004data\030\006 \001(\014\"p\n\017CompressedVideo\022-\n\t"
+    "timestamp\030\001 \001(\0132\032.google.protobuf.Timest"
+    "amp\022\020\n\010frame_id\030\002 \001(\t\022\014\n\004data\030\003 \001(\014\022\016\n\006f"
+    "ormat\030\004 \001(\t\"\312\002\n\013LocationFix\022-\n\ttimestamp"
+    "\030\006 \001(\0132\032.google.protobuf.Timestamp\022\020\n\010fr"
+    "ame_id\030\007 \001(\t\022\020\n\010latitude\030\001 \001(\001\022\021\n\tlongit"
+    "ude\030\002 \001(\001\022\020\n\010altitude\030\003 \001(\001\022\033\n\023position_"
+    "covariance\030\004 \003(\001\022N\n\030position_covariance_"
+    "type\030\005 \001(\0162,.foxglove.LocationFix.Positi"
+    "onCovarianceType\"V\n\026PositionCovarianceTy"
+    "pe\022\013\n\007UNKNOWN\020\000\022\020\n\014APPROXIMATED\020\001\022\022\n\016DIA"
+    "GONAL_KNOWN\020\002\022\t\n\005KNOWN\020\003\"\300\001\n\016FrameTransf"
+    "orm\022-\n\ttimestamp\030\001 \001(\0132\032.google.protobuf"
+    ".Timestamp\022\027\n\017parent_frame_id\030\002 \001(\t\022\026\n\016c"
+    "hild_frame_id\030\003 \001(\t\022&\n\013translation\030\004 \001(\013"
+    "2\021.foxglove.Vector3\022&\n\010rotation\030\005 \001(\0132\024."
+    "foxglove.Quaternion\"\?\n\017FrameTransforms\022,"
+    "\n\ntransforms\030\001 \003(\0132\030.foxglove.FrameTrans"
+    "formb\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_foxglove_5fmsgs_2eproto_deps[1] =
     {
@@ -495,13 +646,13 @@ static ::absl::once_flag descriptor_table_foxglove_5fmsgs_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_foxglove_5fmsgs_2eproto = {
     false,
     false,
-    1238,
+    1612,
     descriptor_table_protodef_foxglove_5fmsgs_2eproto,
     "foxglove_msgs.proto",
     &descriptor_table_foxglove_5fmsgs_2eproto_once,
     descriptor_table_foxglove_5fmsgs_2eproto_deps,
     1,
-    8,
+    11,
     schemas,
     file_default_instances,
     TableStruct_foxglove_5fmsgs_2eproto::offsets,
@@ -3122,6 +3273,349 @@ void RawImage::InternalSwap(RawImage* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
+class CompressedVideo::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<CompressedVideo>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_._has_bits_);
+};
+
+void CompressedVideo::clear_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.timestamp_ != nullptr) _impl_.timestamp_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+CompressedVideo::CompressedVideo(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:foxglove.CompressedVideo)
+}
+inline PROTOBUF_NDEBUG_INLINE CompressedVideo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::foxglove::CompressedVideo& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        frame_id_(arena, from.frame_id_),
+        data_(arena, from.data_),
+        format_(arena, from.format_) {}
+
+CompressedVideo::CompressedVideo(
+    ::google::protobuf::Arena* arena,
+    const CompressedVideo& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  CompressedVideo* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.timestamp_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::google::protobuf::Timestamp>(
+                              arena, *from._impl_.timestamp_)
+                        : nullptr;
+
+  // @@protoc_insertion_point(copy_constructor:foxglove.CompressedVideo)
+}
+inline PROTOBUF_NDEBUG_INLINE CompressedVideo::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        frame_id_(arena),
+        data_(arena),
+        format_(arena) {}
+
+inline void CompressedVideo::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.timestamp_ = {};
+}
+CompressedVideo::~CompressedVideo() {
+  // @@protoc_insertion_point(destructor:foxglove.CompressedVideo)
+  SharedDtor(*this);
+}
+inline void CompressedVideo::SharedDtor(MessageLite& self) {
+  CompressedVideo& this_ = static_cast<CompressedVideo&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.frame_id_.Destroy();
+  this_._impl_.data_.Destroy();
+  this_._impl_.format_.Destroy();
+  delete this_._impl_.timestamp_;
+  this_._impl_.~Impl_();
+}
+
+inline void* CompressedVideo::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) CompressedVideo(arena);
+}
+constexpr auto CompressedVideo::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(CompressedVideo),
+                                            alignof(CompressedVideo));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull CompressedVideo::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_CompressedVideo_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &CompressedVideo::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<CompressedVideo>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &CompressedVideo::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<CompressedVideo>(), &CompressedVideo::ByteSizeLong,
+            &CompressedVideo::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_._cached_size_),
+        false,
+    },
+    &CompressedVideo::kDescriptorMethods,
+    &descriptor_table_foxglove_5fmsgs_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* CompressedVideo::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 1, 47, 2> CompressedVideo::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::foxglove::CompressedVideo>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // string format = 4;
+    {::_pbi::TcParser::FastUS1,
+     {34, 63, 0, PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.format_)}},
+    // .google.protobuf.Timestamp timestamp = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.timestamp_)}},
+    // string frame_id = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.frame_id_)}},
+    // bytes data = 3;
+    {::_pbi::TcParser::FastBS1,
+     {26, 63, 0, PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.data_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .google.protobuf.Timestamp timestamp = 1;
+    {PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.timestamp_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // string frame_id = 2;
+    {PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.frame_id_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // bytes data = 3;
+    {PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.data_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBytes | ::_fl::kRepAString)},
+    // string format = 4;
+    {PROTOBUF_FIELD_OFFSET(CompressedVideo, _impl_.format_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::google::protobuf::Timestamp>()},
+  }}, {{
+    "\30\0\10\0\6\0\0\0"
+    "foxglove.CompressedVideo"
+    "frame_id"
+    "format"
+  }},
+};
+
+PROTOBUF_NOINLINE void CompressedVideo::Clear() {
+// @@protoc_insertion_point(message_clear_start:foxglove.CompressedVideo)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.frame_id_.ClearToEmpty();
+  _impl_.data_.ClearToEmpty();
+  _impl_.format_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(_impl_.timestamp_ != nullptr);
+    _impl_.timestamp_->Clear();
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* CompressedVideo::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const CompressedVideo& this_ = static_cast<const CompressedVideo&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* CompressedVideo::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const CompressedVideo& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:foxglove.CompressedVideo)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          cached_has_bits = this_._impl_._has_bits_[0];
+          // .google.protobuf.Timestamp timestamp = 1;
+          if (cached_has_bits & 0x00000001u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                1, *this_._impl_.timestamp_, this_._impl_.timestamp_->GetCachedSize(), target,
+                stream);
+          }
+
+          // string frame_id = 2;
+          if (!this_._internal_frame_id().empty()) {
+            const std::string& _s = this_._internal_frame_id();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "foxglove.CompressedVideo.frame_id");
+            target = stream->WriteStringMaybeAliased(2, _s, target);
+          }
+
+          // bytes data = 3;
+          if (!this_._internal_data().empty()) {
+            const std::string& _s = this_._internal_data();
+            target = stream->WriteBytesMaybeAliased(3, _s, target);
+          }
+
+          // string format = 4;
+          if (!this_._internal_format().empty()) {
+            const std::string& _s = this_._internal_format();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "foxglove.CompressedVideo.format");
+            target = stream->WriteStringMaybeAliased(4, _s, target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:foxglove.CompressedVideo)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t CompressedVideo::ByteSizeLong(const MessageLite& base) {
+          const CompressedVideo& this_ = static_cast<const CompressedVideo&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t CompressedVideo::ByteSizeLong() const {
+          const CompressedVideo& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:foxglove.CompressedVideo)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // string frame_id = 2;
+            if (!this_._internal_frame_id().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_frame_id());
+            }
+            // bytes data = 3;
+            if (!this_._internal_data().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::BytesSize(
+                                              this_._internal_data());
+            }
+            // string format = 4;
+            if (!this_._internal_format().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_format());
+            }
+          }
+           {
+            // .google.protobuf.Timestamp timestamp = 1;
+            cached_has_bits = this_._impl_._has_bits_[0];
+            if (cached_has_bits & 0x00000001u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.timestamp_);
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void CompressedVideo::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<CompressedVideo*>(&to_msg);
+  auto& from = static_cast<const CompressedVideo&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:foxglove.CompressedVideo)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_frame_id().empty()) {
+    _this->_internal_set_frame_id(from._internal_frame_id());
+  }
+  if (!from._internal_data().empty()) {
+    _this->_internal_set_data(from._internal_data());
+  }
+  if (!from._internal_format().empty()) {
+    _this->_internal_set_format(from._internal_format());
+  }
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ABSL_DCHECK(from._impl_.timestamp_ != nullptr);
+    if (_this->_impl_.timestamp_ == nullptr) {
+      _this->_impl_.timestamp_ =
+          ::google::protobuf::Message::CopyConstruct<::google::protobuf::Timestamp>(arena, *from._impl_.timestamp_);
+    } else {
+      _this->_impl_.timestamp_->MergeFrom(*from._impl_.timestamp_);
+    }
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void CompressedVideo::CopyFrom(const CompressedVideo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:foxglove.CompressedVideo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void CompressedVideo::InternalSwap(CompressedVideo* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.frame_id_, &other->_impl_.frame_id_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.data_, &other->_impl_.data_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.format_, &other->_impl_.format_, arena);
+  swap(_impl_.timestamp_, other->_impl_.timestamp_);
+}
+
+::google::protobuf::Metadata CompressedVideo::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
 class LocationFix::_Internal {
  public:
   using HasBits =
@@ -3552,6 +4046,655 @@ void LocationFix::InternalSwap(LocationFix* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata LocationFix::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class FrameTransform::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<FrameTransform>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_._has_bits_);
+};
+
+void FrameTransform::clear_timestamp() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (_impl_.timestamp_ != nullptr) _impl_.timestamp_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+FrameTransform::FrameTransform(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:foxglove.FrameTransform)
+}
+inline PROTOBUF_NDEBUG_INLINE FrameTransform::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::foxglove::FrameTransform& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        parent_frame_id_(arena, from.parent_frame_id_),
+        child_frame_id_(arena, from.child_frame_id_) {}
+
+FrameTransform::FrameTransform(
+    ::google::protobuf::Arena* arena,
+    const FrameTransform& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  FrameTransform* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
+  _impl_.timestamp_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::google::protobuf::Timestamp>(
+                              arena, *from._impl_.timestamp_)
+                        : nullptr;
+  _impl_.translation_ = (cached_has_bits & 0x00000002u) ? ::google::protobuf::Message::CopyConstruct<::foxglove::Vector3>(
+                              arena, *from._impl_.translation_)
+                        : nullptr;
+  _impl_.rotation_ = (cached_has_bits & 0x00000004u) ? ::google::protobuf::Message::CopyConstruct<::foxglove::Quaternion>(
+                              arena, *from._impl_.rotation_)
+                        : nullptr;
+
+  // @@protoc_insertion_point(copy_constructor:foxglove.FrameTransform)
+}
+inline PROTOBUF_NDEBUG_INLINE FrameTransform::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        parent_frame_id_(arena),
+        child_frame_id_(arena) {}
+
+inline void FrameTransform::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, timestamp_),
+           0,
+           offsetof(Impl_, rotation_) -
+               offsetof(Impl_, timestamp_) +
+               sizeof(Impl_::rotation_));
+}
+FrameTransform::~FrameTransform() {
+  // @@protoc_insertion_point(destructor:foxglove.FrameTransform)
+  SharedDtor(*this);
+}
+inline void FrameTransform::SharedDtor(MessageLite& self) {
+  FrameTransform& this_ = static_cast<FrameTransform&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.parent_frame_id_.Destroy();
+  this_._impl_.child_frame_id_.Destroy();
+  delete this_._impl_.timestamp_;
+  delete this_._impl_.translation_;
+  delete this_._impl_.rotation_;
+  this_._impl_.~Impl_();
+}
+
+inline void* FrameTransform::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) FrameTransform(arena);
+}
+constexpr auto FrameTransform::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::CopyInit(sizeof(FrameTransform),
+                                            alignof(FrameTransform));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull FrameTransform::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_FrameTransform_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &FrameTransform::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<FrameTransform>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &FrameTransform::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<FrameTransform>(), &FrameTransform::ByteSizeLong,
+            &FrameTransform::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_._cached_size_),
+        false,
+    },
+    &FrameTransform::kDescriptorMethods,
+    &descriptor_table_foxglove_5fmsgs_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* FrameTransform::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<3, 5, 3, 61, 2> FrameTransform::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_._has_bits_),
+    0, // no _extensions_
+    5, 56,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967264,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    5,  // num_field_entries
+    3,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::foxglove::FrameTransform>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+    // .google.protobuf.Timestamp timestamp = 1;
+    {::_pbi::TcParser::FastMtS1,
+     {10, 0, 0, PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.timestamp_)}},
+    // string parent_frame_id = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.parent_frame_id_)}},
+    // string child_frame_id = 3;
+    {::_pbi::TcParser::FastUS1,
+     {26, 63, 0, PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.child_frame_id_)}},
+    // .foxglove.Vector3 translation = 4;
+    {::_pbi::TcParser::FastMtS1,
+     {34, 1, 1, PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.translation_)}},
+    // .foxglove.Quaternion rotation = 5;
+    {::_pbi::TcParser::FastMtS1,
+     {42, 2, 2, PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.rotation_)}},
+    {::_pbi::TcParser::MiniParse, {}},
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // .google.protobuf.Timestamp timestamp = 1;
+    {PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.timestamp_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // string parent_frame_id = 2;
+    {PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.parent_frame_id_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // string child_frame_id = 3;
+    {PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.child_frame_id_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // .foxglove.Vector3 translation = 4;
+    {PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.translation_), _Internal::kHasBitsOffset + 1, 1,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+    // .foxglove.Quaternion rotation = 5;
+    {PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.rotation_), _Internal::kHasBitsOffset + 2, 2,
+    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::google::protobuf::Timestamp>()},
+    {::_pbi::TcParser::GetTable<::foxglove::Vector3>()},
+    {::_pbi::TcParser::GetTable<::foxglove::Quaternion>()},
+  }}, {{
+    "\27\0\17\16\0\0\0\0"
+    "foxglove.FrameTransform"
+    "parent_frame_id"
+    "child_frame_id"
+  }},
+};
+
+PROTOBUF_NOINLINE void FrameTransform::Clear() {
+// @@protoc_insertion_point(message_clear_start:foxglove.FrameTransform)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.parent_frame_id_.ClearToEmpty();
+  _impl_.child_frame_id_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(_impl_.timestamp_ != nullptr);
+      _impl_.timestamp_->Clear();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(_impl_.translation_ != nullptr);
+      _impl_.translation_->Clear();
+    }
+    if (cached_has_bits & 0x00000004u) {
+      ABSL_DCHECK(_impl_.rotation_ != nullptr);
+      _impl_.rotation_->Clear();
+    }
+  }
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* FrameTransform::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const FrameTransform& this_ = static_cast<const FrameTransform&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* FrameTransform::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const FrameTransform& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:foxglove.FrameTransform)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          cached_has_bits = this_._impl_._has_bits_[0];
+          // .google.protobuf.Timestamp timestamp = 1;
+          if (cached_has_bits & 0x00000001u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                1, *this_._impl_.timestamp_, this_._impl_.timestamp_->GetCachedSize(), target,
+                stream);
+          }
+
+          // string parent_frame_id = 2;
+          if (!this_._internal_parent_frame_id().empty()) {
+            const std::string& _s = this_._internal_parent_frame_id();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "foxglove.FrameTransform.parent_frame_id");
+            target = stream->WriteStringMaybeAliased(2, _s, target);
+          }
+
+          // string child_frame_id = 3;
+          if (!this_._internal_child_frame_id().empty()) {
+            const std::string& _s = this_._internal_child_frame_id();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "foxglove.FrameTransform.child_frame_id");
+            target = stream->WriteStringMaybeAliased(3, _s, target);
+          }
+
+          // .foxglove.Vector3 translation = 4;
+          if (cached_has_bits & 0x00000002u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                4, *this_._impl_.translation_, this_._impl_.translation_->GetCachedSize(), target,
+                stream);
+          }
+
+          // .foxglove.Quaternion rotation = 5;
+          if (cached_has_bits & 0x00000004u) {
+            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                5, *this_._impl_.rotation_, this_._impl_.rotation_->GetCachedSize(), target,
+                stream);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:foxglove.FrameTransform)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t FrameTransform::ByteSizeLong(const MessageLite& base) {
+          const FrameTransform& this_ = static_cast<const FrameTransform&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t FrameTransform::ByteSizeLong() const {
+          const FrameTransform& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:foxglove.FrameTransform)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // string parent_frame_id = 2;
+            if (!this_._internal_parent_frame_id().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_parent_frame_id());
+            }
+            // string child_frame_id = 3;
+            if (!this_._internal_child_frame_id().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_child_frame_id());
+            }
+          }
+          cached_has_bits = this_._impl_._has_bits_[0];
+          if (cached_has_bits & 0x00000007u) {
+            // .google.protobuf.Timestamp timestamp = 1;
+            if (cached_has_bits & 0x00000001u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.timestamp_);
+            }
+            // .foxglove.Vector3 translation = 4;
+            if (cached_has_bits & 0x00000002u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.translation_);
+            }
+            // .foxglove.Quaternion rotation = 5;
+            if (cached_has_bits & 0x00000004u) {
+              total_size += 1 +
+                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.rotation_);
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void FrameTransform::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<FrameTransform*>(&to_msg);
+  auto& from = static_cast<const FrameTransform&>(from_msg);
+  ::google::protobuf::Arena* arena = _this->GetArena();
+  // @@protoc_insertion_point(class_specific_merge_from_start:foxglove.FrameTransform)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_parent_frame_id().empty()) {
+    _this->_internal_set_parent_frame_id(from._internal_parent_frame_id());
+  }
+  if (!from._internal_child_frame_id().empty()) {
+    _this->_internal_set_child_frame_id(from._internal_child_frame_id());
+  }
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      ABSL_DCHECK(from._impl_.timestamp_ != nullptr);
+      if (_this->_impl_.timestamp_ == nullptr) {
+        _this->_impl_.timestamp_ =
+            ::google::protobuf::Message::CopyConstruct<::google::protobuf::Timestamp>(arena, *from._impl_.timestamp_);
+      } else {
+        _this->_impl_.timestamp_->MergeFrom(*from._impl_.timestamp_);
+      }
+    }
+    if (cached_has_bits & 0x00000002u) {
+      ABSL_DCHECK(from._impl_.translation_ != nullptr);
+      if (_this->_impl_.translation_ == nullptr) {
+        _this->_impl_.translation_ =
+            ::google::protobuf::Message::CopyConstruct<::foxglove::Vector3>(arena, *from._impl_.translation_);
+      } else {
+        _this->_impl_.translation_->MergeFrom(*from._impl_.translation_);
+      }
+    }
+    if (cached_has_bits & 0x00000004u) {
+      ABSL_DCHECK(from._impl_.rotation_ != nullptr);
+      if (_this->_impl_.rotation_ == nullptr) {
+        _this->_impl_.rotation_ =
+            ::google::protobuf::Message::CopyConstruct<::foxglove::Quaternion>(arena, *from._impl_.rotation_);
+      } else {
+        _this->_impl_.rotation_->MergeFrom(*from._impl_.rotation_);
+      }
+    }
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void FrameTransform::CopyFrom(const FrameTransform& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:foxglove.FrameTransform)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void FrameTransform::InternalSwap(FrameTransform* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.parent_frame_id_, &other->_impl_.parent_frame_id_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.child_frame_id_, &other->_impl_.child_frame_id_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.rotation_)
+      + sizeof(FrameTransform::_impl_.rotation_)
+      - PROTOBUF_FIELD_OFFSET(FrameTransform, _impl_.timestamp_)>(
+          reinterpret_cast<char*>(&_impl_.timestamp_),
+          reinterpret_cast<char*>(&other->_impl_.timestamp_));
+}
+
+::google::protobuf::Metadata FrameTransform::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class FrameTransforms::_Internal {
+ public:
+};
+
+FrameTransforms::FrameTransforms(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:foxglove.FrameTransforms)
+}
+inline PROTOBUF_NDEBUG_INLINE FrameTransforms::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::foxglove::FrameTransforms& from_msg)
+      : transforms_{visibility, arena, from.transforms_},
+        _cached_size_{0} {}
+
+FrameTransforms::FrameTransforms(
+    ::google::protobuf::Arena* arena,
+    const FrameTransforms& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  FrameTransforms* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+
+  // @@protoc_insertion_point(copy_constructor:foxglove.FrameTransforms)
+}
+inline PROTOBUF_NDEBUG_INLINE FrameTransforms::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : transforms_{visibility, arena},
+        _cached_size_{0} {}
+
+inline void FrameTransforms::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+FrameTransforms::~FrameTransforms() {
+  // @@protoc_insertion_point(destructor:foxglove.FrameTransforms)
+  SharedDtor(*this);
+}
+inline void FrameTransforms::SharedDtor(MessageLite& self) {
+  FrameTransforms& this_ = static_cast<FrameTransforms&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* FrameTransforms::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) FrameTransforms(arena);
+}
+constexpr auto FrameTransforms::InternalNewImpl_() {
+  constexpr auto arena_bits = ::google::protobuf::internal::EncodePlacementArenaOffsets({
+      PROTOBUF_FIELD_OFFSET(FrameTransforms, _impl_.transforms_) +
+          decltype(FrameTransforms::_impl_.transforms_)::
+              InternalGetArenaOffset(
+                  ::google::protobuf::Message::internal_visibility()),
+  });
+  if (arena_bits.has_value()) {
+    return ::google::protobuf::internal::MessageCreator::ZeroInit(
+        sizeof(FrameTransforms), alignof(FrameTransforms), *arena_bits);
+  } else {
+    return ::google::protobuf::internal::MessageCreator(&FrameTransforms::PlacementNew_,
+                                 sizeof(FrameTransforms),
+                                 alignof(FrameTransforms));
+  }
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull FrameTransforms::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_FrameTransforms_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &FrameTransforms::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<FrameTransforms>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &FrameTransforms::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<FrameTransforms>(), &FrameTransforms::ByteSizeLong,
+            &FrameTransforms::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(FrameTransforms, _impl_._cached_size_),
+        false,
+    },
+    &FrameTransforms::kDescriptorMethods,
+    &descriptor_table_foxglove_5fmsgs_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* FrameTransforms::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 1, 0, 2> FrameTransforms::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    1,  // num_aux_entries
+    offsetof(decltype(_table_), aux_entries),
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::foxglove::FrameTransforms>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // repeated .foxglove.FrameTransform transforms = 1;
+    {::_pbi::TcParser::FastMtR1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(FrameTransforms, _impl_.transforms_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // repeated .foxglove.FrameTransform transforms = 1;
+    {PROTOBUF_FIELD_OFFSET(FrameTransforms, _impl_.transforms_), 0, 0,
+    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+  }}, {{
+    {::_pbi::TcParser::GetTable<::foxglove::FrameTransform>()},
+  }}, {{
+  }},
+};
+
+PROTOBUF_NOINLINE void FrameTransforms::Clear() {
+// @@protoc_insertion_point(message_clear_start:foxglove.FrameTransforms)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.transforms_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* FrameTransforms::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const FrameTransforms& this_ = static_cast<const FrameTransforms&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* FrameTransforms::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const FrameTransforms& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:foxglove.FrameTransforms)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // repeated .foxglove.FrameTransform transforms = 1;
+          for (unsigned i = 0, n = static_cast<unsigned>(
+                                   this_._internal_transforms_size());
+               i < n; i++) {
+            const auto& repfield = this_._internal_transforms().Get(i);
+            target =
+                ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
+                    1, repfield, repfield.GetCachedSize(),
+                    target, stream);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:foxglove.FrameTransforms)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t FrameTransforms::ByteSizeLong(const MessageLite& base) {
+          const FrameTransforms& this_ = static_cast<const FrameTransforms&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t FrameTransforms::ByteSizeLong() const {
+          const FrameTransforms& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:foxglove.FrameTransforms)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
+           {
+            // repeated .foxglove.FrameTransform transforms = 1;
+            {
+              total_size += 1UL * this_._internal_transforms_size();
+              for (const auto& msg : this_._internal_transforms()) {
+                total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
+              }
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void FrameTransforms::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<FrameTransforms*>(&to_msg);
+  auto& from = static_cast<const FrameTransforms&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:foxglove.FrameTransforms)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_transforms()->MergeFrom(
+      from._internal_transforms());
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void FrameTransforms::CopyFrom(const FrameTransforms& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:foxglove.FrameTransforms)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void FrameTransforms::InternalSwap(FrameTransforms* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  _impl_.transforms_.InternalSwap(&other->_impl_.transforms_);
+}
+
+::google::protobuf::Metadata FrameTransforms::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)
